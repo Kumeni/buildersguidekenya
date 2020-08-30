@@ -12,5 +12,11 @@ a {
 }
 
 * {
+  padding:0px;
+  margin:0px;
   box-sizing: border-box;
+}
+
+input:focus{
+  outline: none;
 }

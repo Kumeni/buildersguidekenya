@@ -1,0 +1,52 @@
+.section{
+    padding:.5rem;
+    box-sizing:border-box;
+    margin:1rem auto;
+    box-shadow:0px 0px 15px 2px rgb(210, 210, 210);
+    background-color:white;
+}
+
+@media (max-width:768px){
+    .section{
+        width:100%;
+        white-space: nowrap;
+    }
+    .componentScroll{
+        overflow-x:auto;
+    }
+}
+@media (min-width:768px) and (max-width:992px){
+    .section{
+        width:720px;
+        white-space:wrap;
+        max-height: 546px;
+        overflow-y:hidden;
+        border-radius:10px;
+    }
+    .componentScroll{
+        overflow-x: hidden;
+        margin:.5rem 0px;
+    }
+}
+@media (min-width:992px) and (max-width:1200px){
+    .section{
+        width:960px;
+        max-height: 580px;
+        overflow-y:hidden;
+        border-radius:10px;
+    }
+    .componentScroll{
+        margin:.5rem 0px;
+    }
+}
+@media (min-width:1200px){
+    .section{
+        width:1140px;
+        border-radius:10px;
+        max-height: 580px;
+        overflow-y:hidden;
+    }
+    .componentScroll{
+        margin:.5rem 0px;
+    }
+}
