@@ -1,5 +1,5 @@
 .bgkIcon{
-    height:20px;
+    height:110px;
     width:auto;
     align-self:center;
 }
@@ -11,23 +11,33 @@
     align-self:center;
 }
 
+.headerContainer{
+    width:100%;
+    background-color:white;
+}
+
 .header{
     position:relative;
     padding:.5rem 1.5rem;
-    display:flex;
+    margin:0rem auto -3rem auto;
+    z-index:1;
+    display:grid;
+    display:-moz-grid;
+    display:-ms-grid;
+    grid-template-columns:max-content auto max-content;
+    grid-template-rows:max-content;
     align-items: center;
     justify-content: space-between;
-    margin-bottom:-3rem;
-    z-index:1;
+    transition: width .5s;
 }
 
 .div{
     display:flex;
+    display:-webkit-flex;
     flex-direction:row;
+    align-items:center;
 }
-
 .myAccount{
-    align-self:center;
     font-size:16px;
 }
 
@@ -38,53 +48,228 @@
     font-size:1rem;
     font-weight:550;
     color:rgb(0, 0, 0);
-    flex: 1;
-    border:none;
     background-image:url('/icons/icons8-search-50.png');
     background-position:left center;
     background-size: 23px;
     background-repeat: no-repeat;
     border-radius:15px;
+    border:2px solid rgb(59, 35, 19);
+    transition: width .5s;
+}
+
+.searchBar::-webkit-search-cancel-button{
+    display:none;
+}
+
+.myAccountContainer{
+    border:2px solid rgba(59, 35, 19, 0.589);
+    display:flex;
+    display:-webkit-flex;
+    flex-direction:row;
+    align-items:center;
+    padding:3px 3px;
+    transition:border-color .5s;
+}
+
+.myAccount{
+    margin:auto .5rem auto 0px;
+}
+
+.myAccountContainer:focus{
+    cursor:pointer;
+    outline:none;
+    border-color: rgb(59, 35, 19);
+}
+
+.myAccountContainer:hover{
+    cursor:pointer;
+    border-color:rgb(59, 35, 19);
 }
 
 .searchBar:focus{
     outline:none;
 }
 
-.div:nth-of-type(1):focus{
+.bgkLogo:focus{
     outline:none;
 }
+@media (max-width:310px){
+    .myAccountContainer{
+        display:none;
+    }
+    .bgkLogo{
+        display:none;
+    }
+    .header{
+        grid-template-columns: max-content;
+        grid-template-rows: max-content;
+        align-items: center;
+        justify-content:center;
+    }
+    .searchBar{
+        width:190px;
+        padding:.1rem .5rem .11rem 2.1rem;
+        border-radius:20px;
+        background-position-x: .7rem;
+        background-size:1.2rem;
+        margin:auto 1rem;
+    }
+}
+@media (min-width:310px) and (max-width:360px){
+    .myAccountContainer{
+        display:none;
+    }
+    .bgkLogo{
+        display:none;
+    }
+    .header{
+        grid-template-columns: max-content;
+        grid-template-rows: max-content;
+        align-items: center;
+        justify-content:center;
+    }
+    .searchBar{
+        width:260px;
+        padding:.1rem .5rem .11rem 2.1rem;
+        border-radius:20px;
+        background-position-x: .7rem;
+        background-size:1.2rem;
+        margin:auto 1rem;
+    }
+}
+@media (min-width:360px) and (max-width:445px){
+    .myAccountContainer{
+        display:none;
+    }
+    .bgkLogo{
+        display:none;
+    }
+    .header{
+        grid-template-columns: max-content;
+        grid-template-rows: max-content;
+        align-items: center;
+        justify-content:center;
+        margin:0rem auto -3.4rem auto;
+    }
+    .searchBar{
+        width:320px;
+        padding:.3rem .5rem .3rem 2.1rem;
+        border-radius:20px;
+        background-position-x: .7rem;
+        background-size:1.2rem;
+        margin:auto 1rem;
+    }
+}    
 
-.div:nth-of-type(2){
-    display:flex;
-    flex-direction:row;
-    display:-webkit-flex;
-    align-items: center;
-    justify-content: center;
-    flex:1;
-    max-width:550px;
-    margin:0px 1.5rem;
-    border:1px solid rgb(45, 45, 45);
-    transition:border-color .5s;
-    padding:0px .2rem 0px .5rem;
-    background-color:white;
-    border-radius:15px;
+@media (min-width:445px) and (max-width:630px){
+    .bgkLogo{
+        display:none;
+    }
+    .header{
+        grid-template-columns: max-content max-content;
+        grid-template-rows: max-content;
+        align-items: center;
+        justify-content:center;
+        margin:-.1rem auto -3.5rem auto;
+    }
+    .searchBar{
+        width:250px;
+        padding:.3rem .5rem .3rem 2.1rem;
+        border-radius:20px;
+        background-position-x: .7rem;
+        background-size:1.2rem;
+        margin:auto 1rem;
+    }
+    .myAccountContainer{
+        margin:auto 1rem;
+    }
 }
 
+@media (min-width:630px) and (max-width:682px){
+    .header{
+        width:100%;
+    }
+    .bgkIcon{
+        height:90px;
+    }
+    .searchBar{
+        width:250px;
+        padding:.3rem .5rem .3rem 2.1rem;
+        border-radius:20px;
+        background-position-x: .7rem;
+        background-size:1.2rem;
+    }
+    
+}
+
+@media (min-width:682px) and (max-width:768px){
+    .header{
+        width:100%;
+    }
+    .searchBar{
+        width:250px;
+        padding:.3rem .5rem .3rem 2.1rem;
+        border-radius:20px;
+        background-position-x: .7rem;
+        background-size:1.2rem;
+    }
+}
+
+@media (min-width:768px) and (max-width:992px){
+    .header{
+        width:720px;
+    }
+    .searchBar{
+        width:250px;
+        padding:.3rem .5rem .3rem 2.1rem;
+        border-radius:20px;
+        background-position-x: .7rem;
+        background-size:1.2rem;
+    }
+}
+
+@media (min-width:992px) and (max-width:1200px){
+    .header{
+        width:960px;
+    }
+    .searchBar{
+        width:401px;
+        padding:.3rem .5rem .3rem 2.1rem;
+        border-radius:20px;
+        background-position-x: .7rem;
+        background-size:1.2rem;
+    }
+}
+
+@media (min-width:1200px){
+    .header{
+        width:1140px;
+    }
+    .searchBar{
+        width:401px;
+        padding:.3rem .5rem .3rem 2.1rem;
+        border-radius:20px;
+        background-position-x: .7rem;
+        background-size:1.2rem;
+    }
+}
+/* 
 .miniHeaderContainer{
     background-color:rgb(236, 180, 24);
 }
 .miniHeader{
     font-family:Arial;
     font-size:1rem;
-    display:flex;
-    display:-webkit-flex;
-    flex-direction:row;
-    align-items:center;
+    display:grid;
+    display:-moz-grid;
+    display:-ms-grid;
+    grid-template-columns: max-content auto max-content max-content max-content;
+    grid-template-rows:auto;
 }
 
 .categoriesLink{
     flex:1;
+    grid-area:1/1/2/2;
 }
 
 .categoryIcon{
@@ -100,12 +285,19 @@
     padding:.5rem 1rem .5rem 0rem;
 }
 
+.navLink:nth-of-type(2){
+    grid-area:1/3/2/4;
+}
+.navLink:nth-of-type(3){
+    grid-area:1/4/2/5;
+}
 .navLink:nth-of-type(2), .navLink:nth-of-type(3){
     padding:.5rem 1rem .5rem 1rem;
 }
 
 .navLink:nth-of-type(4){
-    padding:.5rem 0rem .5rem 1rem
+    padding:.5rem 0rem .5rem 1rem;
+    grid-area:1/5/2/6;
 }
 .navLink{
     width:max-content;
@@ -118,70 +310,10 @@
     display:-webkit-flex;
     flex-direction:row;
     align-items:center;
-}
+} */
 
-.div:nth-of-type(3){
-    border:1px solid rgb(180, 180, 180);
-    display:flex;
-    flex-direction:row;
-    padding:0px 3px;
-    transition:border-color .5s;
-}
 
-.div:nth-of-type(3):focus{
-    cursor:pointer;
-    outline:none;
-    border-color: rgb(0, 255, 242);
-}
-
-.div:nth-of-type(3):hover{
-    cursor:pointer;
-    border-color: rgb(0, 255, 242);
-}
-@media (min-width:395px) and (max-width:550px){
-    .div:nth-of-type(2){
-        margin:0px 0px 0px 1rem;
-    }
-}
-@media (max-width:556px){
-    .div:last-of-type{
-        display:none;
-    }
-}
-@media (max-width:395px){
-    .div:first-of-type{
-        display:none;
-    }
-    .div:nth-of-type(2){
-        margin:0px;
-    }
-    .div:last-of-type{
-        display:none;
-    }
-}
-
-@media (max-width:310px){
-    .searchBar{
-        width:100px;
-    }
-}
-
-@media (max-width:550px){
-    .searchBar{
-        padding:.4rem .2rem .4rem 1.2rem;
-        background-size: 20px;
-        font-size:.7rem;
-    }
-    .div:nth-of-type(2){
-        margin:0px 0.8rem;
-    }
-}
-@media (max-width:600px){
-    .miniHeaderContainer, .miniHeader{
-        display:none;
-    }
-}
-@media (min-width:600px) and (max-width:1440px){
+@media (min-width:631px) and (max-width:1440px){
     .header{
         margin-bottom:0px;
         background-color:white;

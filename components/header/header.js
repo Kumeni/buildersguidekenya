@@ -1,19 +1,19 @@
-import styles from './header.module.css'
+import style from './header.module.css'
 
 function Header(){
     return <div>
-        <header className={styles.header + ' container'}>
-                <div className={styles.div} tabIndex='1'>
-                    <img className={styles.bgkIcon} src='/images/buildersguidekenyalogo.png' alt='buildersguidekenyalogo'/>
-                </div>
-                <div className={styles.div} tabIndex='2'>
-                    <input className={styles.searchBar} type='search' tabIndex='3' />
-                </div>
-                <div className={styles.div} tabIndex='5'>
-                    <img className={styles.icon} src="/icons/icons8-person-64.png" alt="icons8-search-50.png"/><span className={styles.myAccount}>My Account</span>
-                </div>
-        </header>
-       <div className={styles.miniHeaderContainer + ' container-fluid'}>
+        <div className={style.headerContainer}>
+            <header className={style.header}>
+                    <div className={style.div + ' ' +style.bgkLogo} tabIndex='1'>
+                        <img className={style.bgkIcon} src='/icons/builders guide logo-01.png' alt='buildersguidekenyalogo'/>
+                    </div>
+                    <input className={style.searchBar + ' ' + style.div} type='search' tabIndex='3' />
+                    <div className={style.myAccountContainer} tabIndex='5'>
+                        <img className={style.icon} src="/icons/icons8-person-64.png" alt="icons8-search-50.png"/><span className={style.myAccount}>My Account</span>
+                    </div>
+            </header>
+        </div>
+       {/* <div className={styles.miniHeaderContainer + ' container-fluid'}>
             <div className={styles.miniHeader + ' container'}>
                 <span className={styles.categoriesLink}>
                     <span className={styles.navLink}>
@@ -25,7 +25,7 @@ function Header(){
                 <span className={styles.navLink}>Sell</span>
                 <span className={styles.navLink}>Contact us</span>
             </div>
-        </div>
+        </div> */}
 
         {/* 
             The My account should create a drop down onclick or focus

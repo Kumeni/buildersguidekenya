@@ -7,6 +7,8 @@ import ComponentNavigation from '../components/categoryNavigation/component_navi
 import style from '../components/homepage.module.css'
 import Layout from '../components/layout/layout'
 import TrendingComponent from '../components/trendingComponent/trendingComponent'
+import HomesubCategory from '../components/homeSubcategories/homeSubCategory'
+
 function HomePage(){
   return <div>
       <Layout>
@@ -28,7 +30,9 @@ function HomePage(){
         </div>
         <div className={style.sections}>
           <Section title='Discounted products' productInfo={productInfo} />
-          <Section title='Recommended for you' productInfo={productInfo} />
+        </div>
+        <div className={style.homesubCategory}>
+          <HomesubCategory />
         </div>
       </Layout>
   </div>
