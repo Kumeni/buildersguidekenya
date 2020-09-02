@@ -1,4 +1,4 @@
-import style from './TrendingComponent.module.css'
+import style from './trendingComponent.module.css'
 import SectionTitle from '../categorySections/sectionTitle'
 function TrendingComponent(){
     return<>
