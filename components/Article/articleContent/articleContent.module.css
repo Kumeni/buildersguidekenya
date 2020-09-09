@@ -1,0 +1,9 @@
+.articleContent{
+    
+}
+
+@media (min-width:768px){
+    .articleContent{
+        padding:5%;
+    }
+}

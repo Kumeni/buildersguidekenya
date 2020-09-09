@@ -70,14 +70,5 @@ export default [
         productName:'Tiles',
         supplier:'SupplierL',
         category:'materials and services',
-    },
-    {
-        url:'/images/mock_images/plants and machinary/cranes adn hoists/download.jpg',
-        productName:'crane and hoists',
-        supplier:'SupplierK',
-        category:'plant and machinary',
-    },
-    {
-        url:'/images/mock_images/plants and machinary/download (3).jpg'
     }
 ]

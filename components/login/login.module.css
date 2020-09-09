@@ -131,8 +131,9 @@
 
 .fNameLName{
     display:flex;
+    display:-webkit-flex;
+    flex-direction:row;
     justify-content: space-around;
-
 }
 
 .fNameLName > span{
@@ -148,4 +149,62 @@
 .signUp label{
     margin-top:.7rem;
     margin-bottom:.1rem;
+}
+
+@media (max-width:933px){
+    .signupOptions{
+        display:none;
+    }
+    .loginForm{
+        transform:translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        width:450px;
+        background-color:rgba(255, 255, 255, 0.555);
+    }
+    .loginContainer{
+        width:100%;
+    }
+    .loginForm input{
+        background-color: rgba(255, 255, 255, 0);
+        border:2px solid white;
+        border-radius:5px;
+        transition:.5s background-color;
+    }
+    .loginForm input:focus{
+        background-color:white;
+    }
+    .loginForm label{
+        font-weight:bold;
+    }
+}
+
+@media (max-width:458px){
+    .signupOptions{
+        display:none;
+    }
+    .loginForm{
+        transform:translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        width:100%;
+        min-height:450px;
+        justify-content: start;
+        padding:1rem;
+    }
+    .loginContainer{
+        width:100%;
+    }
+    .fNameLName{
+        display:grid;   
+    }
+    .loginForm input{
+        width:85vw;
+    }
+    .loginForm p{
+        font-weight:bold;
+        text-align:center;
+    }
 }

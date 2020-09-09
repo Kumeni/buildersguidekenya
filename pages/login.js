@@ -42,7 +42,7 @@ function Signup(){
                     <input type='password' id='password' required /><br/>
                     <label for='confirmPassword'>Confirm Password<span className={style.required}>*</span></label><br/>
                     <input type='password' id='confirmPassword' required /><br/>
-
+                    <input type='submit' value='signUp' />
                 </form>
             </div>
         </div>

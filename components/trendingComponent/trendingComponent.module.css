@@ -59,7 +59,7 @@
 }
 @media (min-width:768px) and (max-width:992px){
     .trendingContainer{
-        width:720px;
+        width:95%;
         margin:1rem auto 1rem auto;
         border-radius:10px;
         box-shadow:0px 0px 15px 2px rgb(210, 210, 210);
@@ -82,7 +82,7 @@
 }
 @media (min-width:992px) and (max-width:1200px){
     .trendingContainer{
-        width:960px;
+        width:95%;
         margin:1rem auto 1rem auto;
         border-radius:10px;
         box-shadow:0px 0px 15px 2px rgb(210, 210, 210);

@@ -17,7 +17,7 @@
 }
 @media (min-width:768px) and (max-width:992px){
     .section{
-        width:720px;
+        width:95%;
         white-space:wrap;
         max-height: 546px;
         overflow-y:hidden;
@@ -30,7 +30,7 @@
 }
 @media (min-width:992px) and (max-width:1200px){
     .section{
-        width:960px;
+        width:95%;
         max-height: 580px;
         overflow-y:hidden;
         border-radius:10px;
