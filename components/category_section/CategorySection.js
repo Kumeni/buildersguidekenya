@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './CategorySection.module.css'
 import SectionTitle from '../categorySections/sectionTitle'
-import CategorySectionSlider from '../CategorySectionSlider/CategorySectionSlider'
+import CategorySectionSlider from '../categorySectionSlider/CategorySectionSlider'
 import ProductCard from '../categorySections/section_productCard'
 
 function CategorySection({title, productInfo, subCategories}) {
