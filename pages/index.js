@@ -9,7 +9,7 @@ import Layout from '../components/layout/layout'
 import TrendingComponent from '../components/trendingComponent/trendingComponent'
 import HomesubCategory from '../components/homeSubcategories/homeSubCategory'
 import CategorySection from '../components/category_section/CategorySection';
-import SmallAds from '../components/smallAds/smallAds'
+import SmallAds from '../components/smallAds/SmallAds'
 import HardwareAndShops from '../components/hardware and shops/HardwareAndShops'
 
 
