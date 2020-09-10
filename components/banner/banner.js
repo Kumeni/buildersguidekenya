@@ -4,6 +4,7 @@ import {useRef, useEffect} from 'react'
 export default function Banner(){
 
     const billboardContainer = useRef();
+    
     let currentPos = 0;
     let billboardRep;
 
@@ -20,7 +21,15 @@ export default function Banner(){
     function handlePagination(n){
         billboardPaginationScroll(n);
         currentPos = n;
-    }  
+    }
+
+    function handleBillboardTouchStart(event){
+        console.log(event);
+    }
+
+    function handleBillboardTouchEnd(event){
+        console.log(event);
+    }
     
     useEffect(()=>{    
         billboardRep = setInterval(()=>{
@@ -39,7 +48,7 @@ export default function Banner(){
     },[]);
 
     return <>
-        <div ref={billboardContainer} className={style.billboardContainer +' container-fluid'} id='billboardContainer'>
+        <div ref={billboardContainer} className={style.billboardContainer +' container-fluid'} onTouchStart = {()=>handleBillboardTouchStart} onTouchEnd = {()=>handleBillboardTouchEnd}>
             <div className={style.slide}>
                 <img className={style.banner}src='/banner/Billboard1.png' alt='billboard1' />
             </div>

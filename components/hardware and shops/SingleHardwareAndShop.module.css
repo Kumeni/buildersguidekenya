@@ -1,0 +1,28 @@
+.hardware{
+    display:inline-block;
+    border-radius: 10px;
+    margin:0px .5rem;
+}
+.hardwareImage{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.hardwareImageContainer{
+    width:140px;
+    height:140px;
+}
+.hardwareName{
+    font-size:1.1rem;
+    margin:2px 0px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.hardwareLocation{
+    font-size:1rem;
+}
+
+.hardwareDetails{
+    padding:.5rem .1rem;
+}

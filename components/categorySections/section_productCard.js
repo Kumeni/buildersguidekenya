@@ -9,7 +9,8 @@ function ProductCard({productInfo}){
             </div>
             <div className={style.productInfo}>
                 <p className={style.productName}>{product.productName}</p>
-                <p className={style.productPrice}>{product.supplier}</p>
+                <p className={style.productPrice}>Ksh. 0</p>
+                <p className={style.productSupplier}>{product.supplier}</p>
             </div>
         </div>
         ))         

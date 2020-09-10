@@ -6,13 +6,15 @@
     background-color:white;
 }
 
+.componentScroll{
+    white-space: nowrap;
+    overflow-x:auto;
+    overflow-y:hidden;
+}
 @media (max-width:768px){
     .section{
         width:100%;
         white-space: nowrap;
-    }
-    .componentScroll{
-        overflow-x:auto;
     }
 }
 @media (min-width:768px) and (max-width:992px){
@@ -23,10 +25,6 @@
         overflow-y:hidden;
         border-radius:10px;
     }
-    .componentScroll{
-        overflow-x: hidden;
-        margin:.5rem 0px;
-    }
 }
 @media (min-width:992px) and (max-width:1200px){
     .section{
@@ -35,9 +33,6 @@
         overflow-y:hidden;
         border-radius:10px;
     }
-    .componentScroll{
-        margin:.5rem 0px;
-    }
 }
 @media (min-width:1200px){
     .section{
@@ -45,8 +40,5 @@
         border-radius:10px;
         max-height: 580px;
         overflow-y:hidden;
-    }
-    .componentScroll{
-        margin:.5rem 0px;
     }
 }

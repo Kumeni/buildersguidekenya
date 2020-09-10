@@ -1,18 +1,23 @@
 .sectionHeader{
     padding:.2rem .5rem;
+    margin-bottom:.4rem;
     overflow:auto;
     display:flex;
     display:-webkit-flex;
     flex-direction:row;
     justify-content:space-between;
-    align-items:center;
     border-bottom:1px solid rgb(180, 180, 180);
+}
+.sectionHeader h3{
+    margin:0px;
 }
 .sectionTitle{
     font-size: 1.1rem;
 }
 .sectionLink{
-    padding:.6rem 1rem;
+    display:inline-block;
+    width:20px;
+    height:20px;
     margin-top:.1rem;
     background-image:url('/icons/icons8-right-48.png');
     background-size:contain;
@@ -21,6 +26,6 @@
 }
 @media (min-width:425px){
     .sectionHeader{
-        padding:.2rem 1.5rem;
+        padding:.4rem 1.5rem;
     }
 }
