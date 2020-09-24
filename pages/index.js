@@ -10,7 +10,7 @@ import TrendingComponent from '../components/trendingComponent/trendingComponent
 import CategorySection from '../components/category_section/CategorySection';
 import SmallAds from '../components/smallAds/SmallAds'
 import HardwareAndShops from '../components/hardware and shops/HardwareAndShops'
-import ArticleComponent from '../components/articlesComponent/articleComponent'
+import ArticleComponent from '../components/ArticlesComponent/ArticleComponent'
 import LargeAds from '../components/LargeAds/LargeAds'
 import Footer from '../components/footer/footer'
 
