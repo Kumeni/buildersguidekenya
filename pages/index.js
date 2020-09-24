@@ -75,7 +75,7 @@ function HomePage(){
         <ArticleComponent subCategories={MaterialsAndServicesCategories}/>
         <LargeAds />
         <HardwareAndShops />
-        <Footer />
+        {/* <Footer /> */}
       </Layout>
   </div>
 }
