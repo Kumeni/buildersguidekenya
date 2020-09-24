@@ -60,7 +60,7 @@ function HomePage(){
       <Layout>
         <Head>
           <title>Builders Guide Kenya</title>
-          <meta name="icon" href="../public/images/buildersguidekenyalogo.png"/>
+          <meta type="shortcut icon" href="/public/images/buildersguidekenyalogo.png" />
         </Head>
         <Header />
         <Banner />

@@ -29,7 +29,6 @@ function Footer() {
             <div className={'col-sm-4'}>
                 <h5>Contact us</h5>
                 <ul>
-                    <li><a href="#">help@buildersguidekenya.com</a></li>
                     <li><a href='#'>+254 717 551542</a></li>
                 </ul>
             </div>
