@@ -1,7 +1,7 @@
 function Footer() {
     return (
-        <div className={'row'}>
-            <div className={'col-sm-4'}>
+        <div>
+            <div>
                 <h5>What we offer</h5>
                 <ul>
                     <li><a href='#'>Manufacturers and Supplier</a></li>
@@ -16,7 +16,7 @@ function Footer() {
                     <li><a href='#'>Project reviews</a></li>
                 </ul>
             </div>
-            <div className={'col-sm-4'}>
+            <div>
                 <h5>Important Links</h5>
                 <ul>
                     <li><a href='#'>seller signUp</a></li>
@@ -26,7 +26,7 @@ function Footer() {
                     <li><a href='#'>Featured Articles</a></li>
                 </ul>
             </div>
-            <div className={'col-sm-4'}>
+            <div>
                 <h5>Contact us</h5>
                 <ul>
                     <li><a href='#'>+254 717 551542</a></li>
