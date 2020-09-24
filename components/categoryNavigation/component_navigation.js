@@ -6,7 +6,7 @@ export default function ComponentNavigation(){
         <div className={style.cateNav}>
             <div className={style.category}>
                 <img className={style.cateIcon} src='/categoryIcons/icons8-hammer-and-anvil-100.png' alt='icons8-hammer-and-anvil-100' />
-                <p className={style.cateName}> Materials and Services</p>
+                <p className={style.cateName}> Manufacturers and Suppliers</p>
             </div>
             <div className={style.category}>
                 <img className={style.cateIcon} src='/categoryIcons/icons8-bulldozer-96.png' alt='icons8-bulldozer-96' />
@@ -30,11 +30,11 @@ export default function ComponentNavigation(){
             </div>
             <div className={style.category}>
                 <img className={style.cateIcon} src='/categoryIcons/icons8-shield-64.png' alt='icons8-shield-64' />
-                <p className={style.cateName}>Finance and Insurance</p>
+                <p className={style.cateName}>Building Institutions</p>
             </div>
             <div className={style.category}>
                 <img className={style.cateIcon} src='/categoryIcons/icons8-education-80.png' alt='icons8-education-80' />
-                <p className={style.cateName}>Education and Training</p>
+                <p className={style.cateName}>Tenders</p>
             </div>
         </div>
     </div>

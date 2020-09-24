@@ -1,0 +1,49 @@
+.section{
+    padding:.5rem;
+    margin:1rem auto;
+    background-color:white;
+    box-shadow:0px 0px 15px 2px rgb(210, 210, 210);
+}
+
+.adsContainer{
+    white-space:nowrap;
+    overflow-x:auto;
+    overflow-y:hidden;
+}
+
+.add{
+    border:1px solid rgb(165, 165, 165);
+    border-radius:3px;
+    display:inline-block;
+    margin:.5rem;
+}
+
+.add:nth-of-type(even){
+    background-color:yellowgreen;
+}
+
+@media (max-width:768px){
+    .add{
+        width:240px;
+        height:180px;
+    }
+}
+
+@media (min-width:768px) and (max-width:1200px){
+    .add{
+        width:380px;
+        height:285px;
+    }
+    .section{
+        width:95%;
+    }
+}
+@media(min-width:1200px){
+    .add{
+        width:380px;
+        height:285px;
+    }
+    .section{
+        width:1140px;
+    }
+}

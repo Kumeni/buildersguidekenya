@@ -8,7 +8,7 @@ function HardwareAndShops() {
             <SectionTitle title={'Hardwares and Shops'} />
             <div className={style.hardwaresContainer}>
                 <SingleHardwareAndShop />
-                <SingleHardwareAndShop />
+                 <SingleHardwareAndShop />
                 <SingleHardwareAndShop />
                 <SingleHardwareAndShop />
                 <SingleHardwareAndShop />

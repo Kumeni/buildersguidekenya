@@ -1,0 +1,45 @@
+.bgkLogo{
+    display:block;
+    height:120px;
+    margin:auto;
+}
+
+.loginForm{
+    max-width:300px;
+    margin:0rem auto;
+    padding:1rem;
+}
+
+@media(min-width:426px){
+    .loginForm{
+        margin:4rem auto;
+    }
+}
+
+.loginForm h5{
+    margin-bottom:1rem;
+}
+.signUp{
+    font-size:0.9rem;
+    margin:.5rem;
+}
+.fPassword{
+    display:inline-block;
+    font-size:.9rem;
+    text-align:right;
+}
+
+.required{
+    color:red;
+}
+
+.input{
+    display:inline-block;
+    width:100%;
+    padding:.3rem .3rem;
+    border:1px solid rgb(193, 140, 42);
+}
+
+.input:focus{
+    outline:none;
+}

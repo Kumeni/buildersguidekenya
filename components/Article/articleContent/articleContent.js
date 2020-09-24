@@ -4,7 +4,7 @@ import ArticleTitle from '../articleTitle/articleTitle'
 
 export default function ArticleContent() {
     return (
-        <div className={style.articleContent+ ' container p-3'}>
+        <div className={style.articleContent+ ' container'}>
             <ArticleTitle />
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sagittis aliquam suscipit. Donec vehicula, ante vitae consectetur pharetra, metus sapien cursus nisl, sed laoreet mi tortor sit amet sapien. Donec a eleifend dui, a commodo dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin ut quam arcu. Pellentesque ut ultricies felis. Donec tincidunt at tellus et sollicitudin. Praesent ante elit, imperdiet vel varius a, dapibus vel felis. Sed in felis nec erat dignissim volutpat ut eget eros. Quisque pulvinar, urna vel tempor hendrerit, est purus laoreet ipsum, nec fermentum est felis sed nibh. Integer porttitor, mauris ut rutrum laoreet, purus tortor rhoncus magna, eget sodales est ex vitae ex. Aliquam a tellus in ante maximus tincidunt. Vestibulum convallis ex dolor, eu tincidunt justo facilisis nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam pulvinar ex a sem vestibulum, eu pretium erat ultricies.

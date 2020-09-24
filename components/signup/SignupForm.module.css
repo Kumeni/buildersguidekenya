@@ -1,0 +1,25 @@
+.bgkLogo{
+    display:block;
+    height:100px;
+    margin:auto;
+}
+
+.signUpForm{
+    padding:0.5rem;
+}
+
+.required{
+    color:red;
+}
+
+.input{
+    padding:.5rem .3rem;
+    width:100%;
+    border:1px solid rgb(193, 140, 42);
+    border-radius:3px;
+}
+
+.login{
+    font-size:.9rem;
+    text-align:center;
+}
