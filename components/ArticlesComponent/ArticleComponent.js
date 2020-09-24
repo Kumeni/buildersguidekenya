@@ -1,4 +1,4 @@
-import style from './articleComponent.module.css'
+import style from './ArticleComponent.module.css'
 import SectionTitle from '../categorySections/sectionTitle'
 import CategorySectionSlider from '../categorySectionSlider/CategorySectionSlider'
 
