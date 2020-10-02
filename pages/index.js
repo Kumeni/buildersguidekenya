@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Header from '../components/header/header'
+import Footer from '../components/footerComponent/Footer'
 import Banner from '../components/banner/banner'
 import Section from '../components/categorySections/section'
 import productInfo from '../server_data/hot_deals'
@@ -12,7 +13,6 @@ import SmallAds from '../components/smallAds/SmallAds'
 import HardwareAndShops from '../components/hardware and shops/HardwareAndShops'
 import ArticleComponent from '../components/ArticlesComponent/ArticleComponent'
 import LargeAds from '../components/LargeAds/LargeAds'
-import Footer from '../components/footer/Footer'
 
 
 function HomePage(){
