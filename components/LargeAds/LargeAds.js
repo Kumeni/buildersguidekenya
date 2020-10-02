@@ -5,7 +5,7 @@ function LargeAds() {
     return (
         <div className={style.section}>
             <AdsTitle />
-            <div className={style.adsContainer}>
+            <div className={'componentScroll'}>
                 <div className={style.add}>
 
                 </div>

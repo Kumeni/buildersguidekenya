@@ -10,7 +10,7 @@ function CategorySection({title, productInfo, subCategories}) {
             <SectionTitle title={title} />
             <div className={style.categorySectionContent}>
                 <CategorySectionSlider subCategories={subCategories} />
-                <div className={style.categorySectionProducts}>
+                <div className={style.categorySectionProducts + ' componentScroll'}>
                     <ProductCard productInfo={productInfo} />
                 </div>
             </div>

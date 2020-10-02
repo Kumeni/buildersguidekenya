@@ -9,12 +9,6 @@
     font-size:1rem;
 }
 
-.adsContent{
-    white-space: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-
 @media (max-width:768px){
     .adsContainer{
         width:100%;

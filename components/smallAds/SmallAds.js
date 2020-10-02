@@ -6,7 +6,7 @@ function SmallAds({productInfo}) {
     return (
         <div className={style.adsContainer}>
             <AdsTitle />
-            <div className={style.adsContent}>
+            <div className={'componentScroll'}>
                 <ProductCard productInfo={productInfo}/>
             </div>
         </div>  

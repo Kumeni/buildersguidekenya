@@ -1,11 +1,11 @@
 import style from './trendingComponent.module.css'
 import SectionTitle from '../categorySections/sectionTitle'
 
-function TrendingComponent(){
+function TrendingComponent({title='Featured articles', isNotWide=true}){
     return<>
-        <div className={style.trendingContainer}>
-            <SectionTitle title={'Featured articles'}/>
-            <div className={style.articleContainer}>
+        <div className={isNotWide ? style.trendingContainer_notFull: style.trendingContainer_full}>
+            <SectionTitle title={title}/>
+            <div className={'componentScroll ' + style.articleContainer}>
                 <div className={style.article}>
                     <div className={style.featuredImageContainer}>
                         <img className={style.featuredImage} src='/images/unique house design.jpg' alt='unique house design' />

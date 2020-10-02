@@ -1,0 +1,29 @@
+.componentScroll{
+    white-space: nowrap;
+    overflow-x:auto;
+    overflow-y:hidden;
+}
+
+.componentScroll::-webkit-scrollbar{
+    height:6px;
+}
+.componentScroll::-webkit-scrollbar-track{
+    background:rgb(245, 245, 245);
+    border-radius:7px;
+    margin:1rem;
+}
+.componentScroll::-webkit-scrollbar-thumb:hover{
+    background-color:rgb(120, 120, 120);
+}
+.componentScroll::-webkit-scrollbar-thumb{
+    border-radius:7px;
+    background-color:rgb(150, 150, 150);
+}
+@media (max-width:768px){
+    .componentScroll::-webkit-scrollbar{
+        height:4px;
+    }
+    .componentScroll::-webkit-scrollbar-track{
+        margin:0rem;
+    }
+}

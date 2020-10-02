@@ -12,7 +12,7 @@ import SmallAds from '../components/smallAds/SmallAds'
 import HardwareAndShops from '../components/hardware and shops/HardwareAndShops'
 import ArticleComponent from '../components/ArticlesComponent/ArticleComponent'
 import LargeAds from '../components/LargeAds/LargeAds'
-import Footer from '../components/footer/footer'
+import Footer from '../components/footer/Footer'
 
 
 function HomePage(){
@@ -75,7 +75,7 @@ function HomePage(){
         <ArticleComponent subCategories={MaterialsAndServicesCategories}/>
         <LargeAds />
         <HardwareAndShops />
-        {/* <Footer /> */}
+        <Footer />
       </Layout>
   </div>
 }

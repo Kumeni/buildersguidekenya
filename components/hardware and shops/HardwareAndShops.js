@@ -6,7 +6,7 @@ function HardwareAndShops() {
     return (
         <div className={style.hardwareAndShopsContainer}>
             <SectionTitle title={'Hardwares and Shops'} />
-            <div className={style.hardwaresContainer}>
+            <div className={'componentScroll'}>
                 <SingleHardwareAndShop />
                  <SingleHardwareAndShop />
                 <SingleHardwareAndShop />

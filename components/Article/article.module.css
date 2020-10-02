@@ -1,6 +1,5 @@
-.header{
-    padding:1rem 3.4rem;
-    border:1px solid black;
+.articleContainer{
+    margin:1rem .5rem;
 }
 .authorInformation{
     padding:0 1rem;

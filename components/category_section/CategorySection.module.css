@@ -9,11 +9,6 @@
     border:1px solid rgb(210, 210, 210);
 }
 
-.categorySectionProducts{
-    white-space: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
 @media (max-width:768px){
     .categorySection{
         width:100%;
