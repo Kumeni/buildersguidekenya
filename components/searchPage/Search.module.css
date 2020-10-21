@@ -1,0 +1,76 @@
+.all{
+    margin:auto;
+}
+
+.categorySlider{
+    border-bottom:1px solid rgb(210, 210, 210);
+    margin: .5rem auto .3rem auto;
+}
+
+.components, .tipsAndAdvices, .projectReviews{
+    display:none;
+}
+
+@media (max-width:769px){
+    .all, .categorySlider{
+        width:100%;
+    }
+}
+
+@media (min-width:769px) and (max-width:1200px){
+    .all, .categorySlider{
+        width:95%;
+    }
+}
+
+@media (min-width:1200px){
+    .all, .categorySlider{
+        width:1200px;
+    }
+}
+
+/* bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb*/
+
+.components{
+    margin:0rem auto;
+    display:grid;
+    display:-moz-grid;
+    display:-ms-grid;
+    width:max-content;
+}
+
+@media (max-width:540px){
+    .components{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (min-width:540px) and (max-width:968px){
+    .components{
+        grid-template-columns:1fr 1fr 1fr;
+    }
+}
+@media (min-width:968px){
+    .components{
+        grid-template-columns:1fr 1fr 1fr 1fr;
+    }
+}
+@media(min-width:768px) and (max-width:950px){
+    .categorySlider{
+        margin:.5rem auto .4rem auto;
+    }
+}
+@media (min-width:950px) and (max-width:1024px){
+    .categorySlider{
+        margin:.5rem auto .4rem auto;
+    }
+}
+@media (min-width:1024px) and (max-width:1225px){
+    .categorySlider{
+        margin:.5rem auto .4rem auto;
+    }
+}
+@media (min-width:1225px){
+    .categorySlider{
+        margin:.5rem auto .4rem auto;
+    }
+}

@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import Header from '../components/manufacturersandsuppliers/Header/Header'
 import ProductDetails from '../components/productpage/productDetails/ProductDetails'
 import ProductImage from '../components/productpage/productImageContainer/ProductImage'

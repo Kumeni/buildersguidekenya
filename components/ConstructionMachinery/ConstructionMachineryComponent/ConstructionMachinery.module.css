@@ -1,0 +1,118 @@
+.constructionMachinery{
+    border:1px solid rgb(210, 210, 210);
+    width:max-content;
+    margin:0.5rem;
+    display:inline-block;
+}
+
+.constructionMachinery:hover, .constructionMachinery:focus, .constructionMachinery_FullWidth:hover, .constructionMachinery_FullWidth:focus{
+    border-color:white;
+    box-shadow:0 0 8px 4px rgb(210, 210, 210);
+    cursor:pointer;
+}
+.imageContainer{
+    width:200px;
+    height:150px;
+}
+
+.imageContainer img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.details{
+    padding:.5rem;
+    width:200px;
+}
+
+.details p{
+    margin:.2rem 0rem;
+}
+
+.details span{
+    color:rgb(15, 15, 15);
+}
+
+.details p:first-of-type{
+    font-weight:600;
+}
+
+.details p, .details_FullWidth p{
+    margin:0px;
+    padding:5px 0px;
+    white-space: nowrap;
+    overflow-x:hidden;
+    text-overflow: ellipsis;
+}
+
+@media (min-width:769px){
+    .imageContainer{
+        width:230px;
+        height:200px;
+    }
+    .details{
+        padding:.5rem;
+        width:230px;
+    }
+}
+
+.constructionMachinery_FullWidth{
+    border:1px solid rgb(210, 210, 210);
+    display:block;
+    width:47vw;
+    margin:.2rem .2rem .2rem .2rem;
+    border-radius:7px;
+    break-inside: avoid;
+}
+
+.imageContainer_FullWidth{
+    width:100%;
+    height:auto;
+}
+
+.imageContainer_FullWidth img{
+    width:100%;
+    height:auto;
+    border-radius:7px 7px 0px 0px;
+}
+
+.details_FullWidth{
+    width:100%;
+    padding:0.5rem;
+}
+
+.details_FullWidth p{
+    font-size:0.9rem;
+    margin:2px 1px;
+    padding:1px 1px;
+}
+.details_FullWidth p:first-of-type{
+    font-weight: 600;
+    transition:color 1s;
+}
+.details_FullWidth p:first-of-type:hover{
+    cursor:pointer;
+    color:rgb(0, 0, 200);
+}
+@media (min-width:768px){
+    .details_FullWidth p{
+        font-size:1rem;
+    }
+}
+@media (min-width:1024px){
+    .constructionMachinery_FullWidth{
+        margin:.5rem;
+    }
+}
+
+@media (min-width:540px) and (max-width:968px){
+    .constructionMachinery_FullWidth{
+        width:31vw;
+    }
+}
+@media (min-width:968px){
+    .constructionMachinery_FullWidth{
+        width:23vw;
+    }
+}

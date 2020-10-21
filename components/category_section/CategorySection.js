@@ -4,15 +4,15 @@ import SectionTitle from '../categorySections/sectionTitle'
 import CategorySectionSlider from '../categorySectionSlider/CategorySectionSlider'
 import ProductCard from '../categorySections/section_productCard'
 
-function CategorySection({title, productInfo, subCategories}) {
+function CategorySection(props) {
     return (
         <div className={style.categorySection}>
-            <SectionTitle title={title} />
+            <SectionTitle title={props.title} link={props.link} />
             <div className={style.categorySectionContent}>
-                <CategorySectionSlider subCategories={subCategories} />
-                <div className={style.categorySectionProducts + ' componentScroll'}>
-                    <ProductCard productInfo={productInfo} />
-                </div>
+                <CategorySectionSlider subCategories={props.subCategories} name="manufacturersandsuppliers" />
+                    <div className={style.categorySectionProducts + ' componentScroll'}>
+                        {props.content}
+                    </div>
             </div>
         </div>
     )
