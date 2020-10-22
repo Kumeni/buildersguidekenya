@@ -24,6 +24,7 @@ export default function constructionMachinery() {
     ];
 
     const [menuSelected, setMenuSelected] = useState("All");
+    
     return (
         <div>
             <Head>

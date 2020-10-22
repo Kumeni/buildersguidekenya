@@ -9,8 +9,8 @@ export default function Header({title = 'Manufacturers and Supplier', router=""}
     const mainRouter = useRouter();
     const [inputValue, setInputValue] = useState('');
 
-    const handleSearchClick = (event) => {
-        searchComponent.current.style.zIndex=3;
+    const handleSearchClick = (index) => {
+        searchComponent.current.style.zIndex=index;
     }
 
     useEffect(()=>{
@@ -27,6 +27,8 @@ export default function Header({title = 'Manufacturers and Supplier', router=""}
     function handlePhoneSearchBackButtonClick(){
         if (mainRouter.pathname === '/search'){
             mainRouter.back();
+        } else {
+            handleSearchClick(2);
         }
     }
 
@@ -67,7 +69,7 @@ export default function Header({title = 'Manufacturers and Supplier', router=""}
                 </a>
                 <div className={'d-flex flex-row align-items-center ' + style.search}>
                     <input className={'flex-shrink-0'} type='search' placeholder='i.e search' value={inputValue} onChange={(event)=>{handleInputChange(event)}} onKeyUp={(event)=>submitInputValue(event)}/>
-                    <span onClick={(event)=>handleSearchClick(event)}><i className={'fas fa-search' }></i></span>
+                    <span onClick={(event)=>handleSearchClick(3)}><i className={'fas fa-search' }></i></span>
                 </div>
                 <i className={'fas fa-shopping-cart ' + style.shoppingCart}></i>
             </div>

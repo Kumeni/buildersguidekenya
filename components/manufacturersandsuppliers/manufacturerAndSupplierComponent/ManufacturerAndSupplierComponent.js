@@ -6,7 +6,7 @@ export default function ManufacturerAndSupplierComponent({fullWidth=false}) {
 
     return (
         ManufacturerInfo.map( (manufacturer, index) => (
-            <Link key={index} href="/constructionMachinery/singleConstructionMachinery">
+            <Link key={index} href="/manufacturersandsuppliers/manufacturerandsupplier">
                 <div className={fullWidth? style.container_FullWidth : style.container}>
                     <div className={fullWidth? style.imageContainer_FullWidth: style.imageContainer}>
                         <img src='/images/mock_images/plants and machinary/generators and motors/download.jpg'/>
