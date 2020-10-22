@@ -9,8 +9,8 @@ function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelect
         if (event.target.childNodes.length === 1){
             menu.map(menuItem => {
                 if (menuItem.current.innerHTML === event.target.innerHTML){
-                    menuItem.current.style.color='blue';
-                    menuItem.current.style.borderBottomColor='blue';
+                    menuItem.current.style.color='#0275d8';
+                    menuItem.current.style.borderBottomColor='#0275d8';
                     setMenuSelected(menuItem.current.innerHTML);
                 } else {
                     menuItem.current.style.color='black';

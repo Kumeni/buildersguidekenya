@@ -9,7 +9,7 @@ export default function Article() {
             <div className={style.container}>
                 <div className={style.articleContent}>
                     <div>
-                        <h1>Thi is the reason why tiles break under direct sunligt </h1>
+                        <h4>Thi is the reason why tiles break under direct sunligt </h4>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Curabitur finibus posuere nibh, eget bibendum risus iaculis ut.

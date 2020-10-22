@@ -29,6 +29,10 @@ export default function Header({title = 'Manufacturers and Supplier', router=""}
             mainRouter.back();
         }
     }
+
+    function handleBackButtonClick(){
+        mainRouter.back();
+    }
     function handleInputChange (event){
         setInputValue(event.target.value);
     }
@@ -55,11 +59,11 @@ export default function Header({title = 'Manufacturers and Supplier', router=""}
                 <span><i className={'fas fa-search '+ style.searchButton }></i></span>
             </div>
             <div className={'d-flex flex-row justify-content-between align-items-center ' +style.header}>
-                <a className={style.homePageLink} onClick={(event)=>handlePhoneSearchBackButtonClick()}>
-                <div className={'d-flex flex-row align-items-center flex-shrink-1 ' + style.homeLink}>
-                    <i className={'fas fa-arrow-left ' + style.arrowLeft}></i>
-                    <span>{title}</span>
-                </div>
+                <a className={style.homePageLink} onClick={(event)=>handleBackButtonClick()}>
+                    <div className={'d-flex flex-row align-items-center flex-shrink-1 ' + style.homeLink}>
+                        <i className={'fas fa-arrow-left ' + style.arrowLeft}></i>
+                        <span>{title}</span>
+                    </div>
                 </a>
                 <div className={'d-flex flex-row align-items-center ' + style.search}>
                     <input className={'flex-shrink-0'} type='search' placeholder='i.e search' value={inputValue} onChange={(event)=>{handleInputChange(event)}} onKeyUp={(event)=>submitInputValue(event)}/>

@@ -3,6 +3,7 @@ import ConstructionMachinery from '../components/ConstructionMachinery/Construct
 import Header from '../components/manufacturersandsuppliers/Header/Header'
 import style from '../components/ConstructionMachinery/ConstructionMachinery.module.css'
 import CategorySectionSlider from '../components/categorySectionSlider/CategorySectionSlider'
+import {useState} from 'react'
 
 export default function constructionMachinery() {
 
@@ -22,11 +23,12 @@ export default function constructionMachinery() {
         'Woodworking'
     ];
 
+    const [menuSelected, setMenuSelected] = useState("All");
     return (
         <div>
             <Head>
                 {/* FontAwesome icons */}
-                <script src="https://kit.fontawesome.com/e477c42a9e.js" crossorigin="anonymous"></script>
+                <script src="https://kit.fontawesome.com/e477c42a9e.js" crossOrigin="anonymous"></script>
 
                 {/* FontAwesome icons */}
                 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
@@ -36,7 +38,11 @@ export default function constructionMachinery() {
                 <title>Construction Machinery</title>
             </Head>
             <Header title='Construction Machinery' />
-            <CategorySectionSlider subCategories={subCategories}/>
+            <CategorySectionSlider 
+                subCategories={subCategories}
+                setMenuSelected = {(menu)=>setMenuSelected(menu)}
+                menuSelected={menuSelected} 
+            />
             <div className={style.components}>
                 <ConstructionMachinery fullWidth={true} />
             </div>
