@@ -27,14 +27,14 @@ export default function Banner(){
 
     function billboardScroll(n){
         billboardContainer.current.scrollTo({left:(n*window.innerWidth), top:0, behavior:(n==0?'auto':'smooth')});
-        console.log(n);
+        //console.log(n);
     }
 
 
     function billboardPaginationScroll(n){
         billboardContainer.current.scrollTo({left:(n*window.innerWidth), top:0, behavior:'smooth'});
         billboardNavPosition(n);
-        console.log(n);
+        //console.log(n);
     }
 
     function handlePagination(n){
@@ -50,7 +50,7 @@ export default function Banner(){
         } else if(touchTransform < -10){
             newCurrentPos >=1 ? newCurrentPos-- : newCurrentPos = 0;
             handlePagination(newCurrentPos);
-            console.log(newCurrentPos+'backward');
+            //console.log(newCurrentPos+'backward');
         } else {
             handlePagination(newCurrentPos);
         }

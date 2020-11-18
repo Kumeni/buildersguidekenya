@@ -16,11 +16,12 @@ import ArticleComponent from '../components/ArticlesComponent/ArticleComponent'
 import LargeAds from '../components/LargeAds/LargeAds'
 import ManufacturerAndSupplierComponent from '../components/manufacturersandsuppliers/manufacturerAndSupplierComponent/ManufacturerAndSupplierComponent'
 import ConstructionMachinery from '../components/ConstructionMachinery/ConstructionMachineryComponent/ConstructionMachinery'
+import axios from 'axios'
 
 
-function HomePage(){
+export default function HomePage(props){
   const router = useRouter();
-
+  console.log(props.articles);
   useEffect(()=>{
   router.prefetch({
       url:'/search'
@@ -82,11 +83,11 @@ function HomePage(){
           <meta type="shortcut icon" src="/images/buildersguidekenyalogo.png" />
         </Head>
         <Header />
-        <Banner />
+        {/* <Banner /> */}
         <ComponentNavigation />
         {/* <Section title='Recommended for you' productInfo={productInfo} /> */}
         <SmallAds productInfo={productInfo} title={'Special Offers'}/>
-        <TrendingComponent /> 
+        <TrendingComponent articles={props.articles}/> 
         <SmallAds productInfo={productInfo} title={'related.Sponsored Products'}/>
         <SmallAds productInfo={productInfo} title={'New/Upgraded Products'}/>
         <CategorySection title={'Manufacturers and Suppliers'} content={<ManufacturerAndSupplierComponent />} subCategories={MaterialsAndServicesCategories} link={"/manufacturersandsuppliers"} />
@@ -99,4 +100,15 @@ function HomePage(){
   </div>
 }
 
-export default HomePage;
+export async function getStaticProps(){
+  const baseURL = "http://localhost:1337"
+  const articles = await axios.get(baseURL+"/articles?_limit=7");
+
+  console.log(articles);
+  
+  return {
+    props:{
+      articles:articles.data
+    }
+  }
+}
