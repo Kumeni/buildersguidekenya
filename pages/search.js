@@ -61,46 +61,46 @@ export default function Search() {
     
 
     return (
-        <div className={style.searchPage} onLoad={()=>{handleSearchLoad()}}>
-            <Head>
+            <div className={style.searchPage} onLoad={()=>{handleSearchLoad()}}>
+                <Head>
 
-                {/* FontAwesome icons */}
-                <script src="https://kit.fontawesome.com/e477c42a9e.js" crossOrigin="anonymous"></script>
+                    FontAwesome icons
+                    <script src="https://kit.fontawesome.com/e477c42a9e.js" crossOrigin="anonymous"></script>
 
-                {/* FontAwesome icons */}
-                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
-                integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
-                crossorigin="anonymous" />
+                    FontAwesome icons
+                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
+                    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
+                    crossorigin="anonymous" />
 
-                <title>Builders Guide Kenya</title>
+                    <title>Builders Guide Kenya</title>
 
-            </Head>
+                </Head>
 
-            <Header title="Builders Guide Kenya" router={router} />
-            <div className={style.categorySlider}>
-                <CategorySectionSlider subCategories={subCategories} setMenuSelected={(menu) => setMenuSelected(menu)} menuSelected={menuSelected} />
+                <Header title="Builders Guide Kenya" router={router} />
+                <div className={style.categorySlider}>
+                    {/* <CategorySectionSlider subCategories={subCategories} setMenuSelected={(menu) => setMenuSelected(menu)} menuSelected={menuSelected} /> */}
+                </div>
+                <main className={style.searchBody}>
+                    <div ref={refs[0].reference} className={style.all}>
+                        {/* <SearchSection title="Manufacturers and Suppliers" content={<ManufacturerAndSupplierComponent />} setMenuSelected={(menu) => setMenuSelected(menu)} />
+                        <SearchSection title='Tips and Advices' content={<TilesArticlesListing />} setMenuSelected={(menu) => setMenuSelected(menu)}/>
+                        <SearchSection title='Products' content={<ProductCard productInfo={productInfo} setMenuSelected={(menu) => setMenuSelected(menu)}/>}/>
+                        <SearchSection title='Project Reviews' content={<TilesArticlesListing />} setMenuSelected={(menu) => setMenuSelected(menu)}/> */}
+                    </div>
+                    <div ref={refs[1].reference} className={style.components}>
+                        {/* <ManufacturerAndSupplierComponent fullWidth={true} /> */}
+                    </div>
+                    <div ref={refs[2].reference} className={style.tipsAndAdvices}>
+                        {/* <Article />
+                        <Article />
+                        <Article /> */}
+                    </div>
+                    <div ref={refs[3].reference} className={style.projectReviews}>
+                        {/* <Article />
+                        <Article />
+                        <Article /> */}
+                    </div>
+                </main>
             </div>
-            <main className={style.searchBody}>
-                <div ref={refs[0].reference} className={style.all}>
-                    <SearchSection title="Manufacturers and Suppliers" content={<ManufacturerAndSupplierComponent />} setMenuSelected={(menu) => setMenuSelected(menu)} />
-                    <SearchSection title='Tips and Advices' content={<TilesArticlesListing />} setMenuSelected={(menu) => setMenuSelected(menu)}/>
-                    {/* <SearchSection title='Products' content={<ProductCard productInfo={productInfo} setMenuSelected={(menu) => setMenuSelected(menu)}/>}/> */}
-                    <SearchSection title='Project Reviews' content={<TilesArticlesListing />} setMenuSelected={(menu) => setMenuSelected(menu)}/>
-                </div>
-                <div ref={refs[1].reference} className={style.components}>
-                    <ManufacturerAndSupplierComponent fullWidth={true} />
-                </div>
-                <div ref={refs[2].reference} className={style.tipsAndAdvices}>
-                    <Article />
-                    <Article />
-                    <Article />
-                </div>
-                <div ref={refs[3].reference} className={style.projectReviews}>
-                    <Article />
-                    <Article />
-                    <Article />
-                </div>
-            </main>
-        </div>
     )
 }

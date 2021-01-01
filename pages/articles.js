@@ -2,8 +2,37 @@ import Head from 'next/head'
 import Header from '../components/manufacturersandsuppliers/Header/Header'
 import Link from 'next/link'
 import Article from '../components/ArticlesComponent/Article/Article'
+import {useEffect, useState, useRef} from 'react'
+import axios from 'axios'
+import Footer from '../components/footerComponent/Footer'
+import Loading from '../components/loading/Loading'
 
-export default function Articles() {
+export default function Articles(props) {
+
+    const [articles, setArticles] = useState();
+    
+    const loading = useRef(null);
+
+	async function getArticles(){
+        loading.current.style.display="block";
+		const articles = await axios.get(props.baseURL+"/articles?_limit=7",{
+			transformResponse:[function(data){
+				let newData = JSON.parse(data);
+				newData.map(element=>{
+				element.content=null;
+				})
+				//console.log(newData);
+				return newData;
+			}]
+		})
+        setArticles(articles.data);
+        loading.current.style.display="none";
+	};
+    
+    useEffect(()=>{
+        getArticles();
+    },[props.baseURL])
+
     return (
         <div>
             <Head>
@@ -19,12 +48,21 @@ export default function Articles() {
                 <title>Tips and Advices</title>
             </Head>
             <Header title='Tips and Advices' />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
+            {
+				articles?
+					articles.map((element, index)=>(
+						<Article article={element} baseURL={props.baseURL} />
+					))
+				:undefined
+            }
+            <div ref={loading}>
+                <Loading />
+            </div>
+            {
+                articles?
+                    <Footer />
+                :undefined
+            }
         </div>
     )
 }

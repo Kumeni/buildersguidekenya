@@ -1,0 +1,13 @@
+.loadingContainer{
+    display:flex;
+    display:-webkit-flex;
+    display:-ms-flexbox;
+    justify-content: center;
+}
+
+.loadingContainer img{
+    width:40px;
+    height: 40px;
+    margin:1rem;
+    border-radius:20px;
+}

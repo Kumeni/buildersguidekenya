@@ -17,7 +17,7 @@ function SectionTitle({title, link="/", setMenuSelected}){
 
     return <div className={style.sectionHeader}>
         <Link href={link}>
-        <h3 className={style.sectionTitle} onClick={()=>handleNavigationClick()}>{title}</h3>
+        <h3 className={style.sectionTitle}>{title}</h3>
         </Link>
         <Link href={link} passHref>
             <a className={style.sectionLink} onClick={()=>handleNavigationClick()}></a>

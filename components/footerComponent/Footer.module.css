@@ -1,8 +1,12 @@
 .footerContainer{
     background-color:white;
-    box-shadow:0px 0px 15px 2px rgb(210, 210, 210);
+    box-shadow:0px 0px 15px 2px rgb(245, 245, 245);
 }
-
+@media (min-width:768px){
+    .footerContainer{
+        box-shadow:0px 0px 15px 2px rgb(210, 210, 210);
+    }
+}
 .footer{
     margin:auto; 
     display:grid;

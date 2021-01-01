@@ -1,8 +1,3 @@
-.authorInformation{
-    padding:0 1rem;
-    margin:1rem auto;
-    width:max-content;
-}
 .authorImageContainer{
     border:1px solid black;
     width:90px;
@@ -10,9 +5,8 @@
     border-radius:45px;
     margin:.5rem auto;
 }
-
-@media (min-width:768px){
-    .authorInformation{
-        margin:3rem auto;
-    }
+.moreArticles{
+    margin:1rem auto;
+    padding:0.5rem;
+    max-width:1200px;
 }

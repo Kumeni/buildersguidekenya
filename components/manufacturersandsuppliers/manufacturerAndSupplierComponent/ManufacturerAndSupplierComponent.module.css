@@ -5,10 +5,16 @@
     margin:.5rem .5rem;
     break-inside:avoid;
 }
-
+.companyName{
+    text-transform: capitalize;
+}
+.companyDetails p{
+    width:100%;
+    overflow-x:auto;
+}
 .container:hover, .container:focus, .container_FullWidth:hover, .container_FullWidth:focus{
     border-color:white;
-    box-shadow:0 0 8px 4px rgb(210, 210, 210);
+    box-shadow:0 4px 8px rgb(210, 210, 210);
     cursor:pointer;
 }
 .imageContainer{
@@ -55,17 +61,64 @@
     width:47vw;
     margin:.2rem .2rem .2rem .2rem;
     border-radius:7px;
-    break-inside: avoid;
 }
 
 .imageContainer_FullWidth{
     width:100%;
-    height:auto;
+    height:140px;
+}
+
+@media (min-width:375px) and (max-width:425px){
+    .imageContainer_FullWidth{
+        height:160px;
+    }
+}
+
+@media (min-width:425px) and (max-width:469px){
+    .imageContainer_FullWidth{
+        height:180px;
+    }
+}
+@media (min-width:469px) and (max-width:540px) {
+    .imageContainer_FullWidth{
+        height:190px;
+    }
+}
+@media (min-width:540px) and (max-width:640px) {
+    .imageContainer_FullWidth{
+        height:160px;
+    }
+}
+@media (min-width:640px) and (max-width:722px) {
+    .imageContainer_FullWidth{
+        height:180px;
+    }
+}
+@media (min-width:722px) and (max-width:796px) {
+    .imageContainer_FullWidth{
+        height:190px;
+    }
+}
+@media (min-width:796px) and (max-width:1173px) {
+    .imageContainer_FullWidth{
+        height:200px;
+    }
+}
+@media (min-width:1173px) and (max-width:1237px) {
+    .imageContainer_FullWidth{
+        height:220px;
+    }
+}
+@media (min-width:1237px){
+    .imageContainer_FullWidth{
+        height:240px;
+    }
 }
 
 .imageContainer_FullWidth img{
     width:100%;
-    height:auto;
+    height:100%;
+    object-fit:cover;
     border-radius:7px 7px 0px 0px;
 }
 

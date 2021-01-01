@@ -1,30 +1,39 @@
-import React from 'react'
-import titleData from '../../server_data/Articles'
+import React, {useState, useEffect} from 'react'
 import style from './TilesArticleListing.module.css'
+import {useRouter} from 'next/router'
 import Link from 'next/link'
-import {useState} from 'react'
 
 export default function TilesArticleListing(props) {
 
+    const router = useRouter();
+
+    const [ellipsis, setEllipsis] = useState('');
+
+    useEffect(()=>{
+        if(props.articleTitle){
+            props.articleTitle.length >= 40 ? setEllipsis("...") : setEllipsis("");
+        }
+    })
     return (
-        <div>
-            <Link href={{
-                pathname:'/article',
-                query:{
-                    article:props.title
-                }
-            }}>
-                <a key={props.key}>
-                    <div className={style.article}>
-                        <div className={style.featuredImageContainer}>
-                            <img className={style.featuredImage} src={props.featuredImages.formats.small.url} alt={article.featuredImages.formats.small.hash} />
-                        </div>
-                        <div className={style.articleContent}>
-                            <h6 className={style.articleTitle}>{props.title}</h6>
-                        </div>
+        props.actualTitle?
+                <Link
+                    href={{
+                        pathname:"/article",
+                        query:{
+                            title:props.actualTitle?props.actualTitle:'',
+                        }
+                    }}
+                    scroll={true}
+                >
+                <div className={style.article}>
+                    <div className={style.featuredImageContainer}>
+                        <img className={style.featuredImage} src={props.featuredImage?props.baseURL+props.featuredImage:""} alt={props.imageTitle?props.imageTitle:""} />
                     </div>
-                </a>
-            </Link>
-        </div>
+                    <div className={style.articleContent}>
+                        <h6 onLoad={()=>handleTitleLoad()} className={style.articleTitle}>{props.articleTitle?props.actualTitle.slice(0,40):""}{ellipsis}</h6>
+                    </div>
+                </div>
+                </Link>
+        :""
     )
 }
