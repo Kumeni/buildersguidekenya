@@ -18,7 +18,7 @@ export default function TilesArticleListing(props) {
         props.actualTitle?
                 <Link
                     href={{
-                        pathname:"/article",
+                        pathname:"/tip-and-advice",
                         query:{
                             title:props.actualTitle?props.actualTitle:'',
                         }

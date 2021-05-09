@@ -63,11 +63,13 @@ export default function Search() {
     return (
             <div className={style.searchPage} onLoad={()=>{handleSearchLoad()}}>
                 <Head>
+                    {/* Global site tag (gtag.js) - Google Analytics */}
+                    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8VYK6XCD9G"></script>
 
-                    FontAwesome icons
+                    {/* FontAwesome icons */}
                     <script src="https://kit.fontawesome.com/e477c42a9e.js" crossOrigin="anonymous"></script>
 
-                    FontAwesome icons
+                    {/* FontAwesome icons */}
                     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
                     integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                     crossorigin="anonymous" />

@@ -1,12 +1,12 @@
 .categorySection{
     margin:auto;
-    background-color:white;
+    background-color: rgb(254, 254, 254);
     margin:1rem auto;
     padding:.5rem;
 }
 
 .categorySectionContent{
-    border:1px solid rgb(210, 210, 210);
+    /* border:1px solid rgb(210, 210, 210); */
 }
 
 @media (max-width:768px){

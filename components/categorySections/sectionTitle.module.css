@@ -14,10 +14,16 @@
     white-space:nowrap;
     overflow:hidden;
     text-overflow: ellipsis;
+    color:rgb(60, 60, 60);
 }
 
 .sectionTitle{
     font-size: 1.1rem;
+}
+@media (max-width:425px){
+    .sectionTitle{
+        font-size:17px;
+    }
 }
 .sectionTitle:hover{
     cursor:pointer;

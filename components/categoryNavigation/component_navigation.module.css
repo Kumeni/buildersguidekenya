@@ -17,6 +17,13 @@
     font-size:1.2rem;
     margin-bottom:1rem;
 }
+
+@media (max-width:504px){
+    .categoryNavigationTitle{
+        font-size:1.1rem;
+        margin-bottom:1rem;
+    }
+}
 .cateNav{
     display:flex;
     display:-webkit-flex;
@@ -50,7 +57,7 @@
     align-items:center;
     padding:10px 0px;
     background-color:white;
-    margin:.1rem
+    margin:0rem
 }
 
 .category:hover{

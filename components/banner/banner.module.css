@@ -1,19 +1,4 @@
-.billboardContainer{
-    width:100%;
-    white-space:nowrap;
-    overflow-x:auto;
-    overflow-y:hidden;
-    scroll-behavior:'smooth';
-    margin-bottom:-1.5rem;
-    padding:0px;
-    max-height:400px;
-}
-
-.billboardContainer::-webkit-scrollbar{
-    display:none;
-}
-
-.banner{
+/* .banner{
     width:100%;
     height:100%;
 }
@@ -21,89 +6,147 @@
     position:relative;
     z-index:0;
 }
-
-.slide:nth-of-type(2), .slide:nth-of-type(5){
-    background-color:yellowgreen;
-}
-.slide:nth-of-type(3), .slide:nth-of-type(6){
-    background-color:papayawhip;
-}
-.slide:nth-of-type(4){
-    background-color:lawngreen;
-}
-
 .slide{
     width:100vw;
     display:inline-block;
     margin-right:0px;
     max-height:370px;
-}
-
-.billboardNavButtons{
-    position:relative;
-    z-index:1;
-    width:max-content;
+} */
+.bannerContainer{
+    margin:1rem 1rem;
     display:grid;
-    display:-moz-grid;
     display:-ms-grid;
-    grid-template-columns: repeat(6, max-content);
-    justify-content:center;
+    display:-moz-grid;
+    grid-template-columns:70% 30%;
+    grid-template-rows:auto;
+    z-index:0;
+    position:relative;
 }
-
-.billboardNavButton{
-    display:block;
-    border:1px solid rgb(119, 119, 119);
+.bannerContainer > div:last-of-type{
+    margin-left:0.5rem;
 }
-
-@media (max-width:768px){
-    .billboardContainer{
-        margin-bottom:-1.5rem;
-    }
-    .billboardNavButton{
-        margin:0px 1px;
-    }
-    .billboardNavButtons{
-        margin:0px auto 1rem auto;
-    }
+.bannerContainer > div:last-of-type img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
-
-@media (min-width:768px) and (max-width:992px){
-    .billboardContainer{
-        margin-bottom:-1.9rem;
-    }
-    .billboardNavButton{
-        min-width:45px;
-        min-height:1px;
-        margin:0px 2px;
-    }
-    .billboardNavButtons{
-        margin:0px auto 1.5rem auto;
+.banner, .signup{
+    height:370px;
+    width:100%;
+}
+.slide{
+    object-position: center;
+}
+@media (min-width:1245px) and (max-width:1290px){
+    .banner, .signup{
+        height:350px;
     }
 }
-@media (min-width:992px) and (max-width:1200px){
-    .billboardContainer{
-        margin-bottom:-2.5rem;
-    }
-    .billboardNavButton{
-        min-width:45px;
-        min-height:1px;
-        margin:0px 4px;
-    }
-    .billboardNavButtons{
-        margin:0px auto 2rem auto;
+@media (min-width:1120px) and (max-width:1245px){
+    .banner, .signup{
+        height:320px;
     }
 }
-@media (min-width:1200px){
-    .billboardContainer{
-        margin-bottom:-3.5rem;
+@media(min-width:1000px) and (max-width:1120px){
+    .banner, .signup{
+        height:290px;
     }
-    .billboardNavButton{
-        min-width:50px;
-        min-height:1px;
-        margin:0px 6px;
+}
+@media (max-width:1000px){
+    .bannerContainer{
+        margin:0.1rem 0.1rem;
     }
-    .billboardNavButtons{
-        margin:0px auto 3rem auto;
+}
+@media (min-width:916px) and (max-width:1000px){
+    .banner, .signup{
+        height:270px;
     }
+}
+@media (min-width:840px) and (max-width:916px){
+    .banner, .signup{
+        height:250px;
+    }
+}
+@media (min-width:770px) and (max-width:840px){
+    .bannerContainer > div:last-of-type{
+        display:none;
+    }
+    .bannerContainer{
+        grid-template-columns: 95%;
+        grid-template-rows:auto;
+        justify-content: center;
+    }
+}
+@media (max-width:770px){
+    .bannerContainer > div:last-of-type{
+        display:none;
+    }
+    .bannerContainer{
+        grid-template-columns: 100%;
+        grid-template-rows:auto;
+        justify-content: center;
+    }
+}
+@media (min-width:800px) and (max-width:840px){
+    .banner, .signup{
+        height:300px;
+    }
+}
+@media (min-width:758px) and (max-width:800px){
+    .banner, .signup{
+        height:280px;
+    }
+}
+@media (min-width:684px) and (max-width:758px){
+    .banner, .signup{
+        height:260px;
+    }
+}
+@media (min-width:638px) and (max-width:684px){
+    .banner, .signup{
+        height:240px;
+    }
+}
+@media (max-width:638px){
+    .banner, .signup{
+        height:auto;
+    }
+}
+/* .signup{
+    background-color:rgb(254, 254, 254);
+    position:relative;
+    background-image: url('/images/signupBanner1.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+.signup > div{
+    width:80%;
+    height:80%;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    background-color:rgba(254, 254, 254, 0.4);
+}
+.signup h1{
+    font-size:1.8rem;
+    position:absolute;
+    top: 20px;
+}
+.signup button{
+    padding:0.5rem 1.5rem;
+    border:none;
+    font-size:1.2rem;
+    position:absolute;
+    bottom:40px;
+    right:30px;
+}
+.signup:hover{
+    cursor:pointer;
 }
 

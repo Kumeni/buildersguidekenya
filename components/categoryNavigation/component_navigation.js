@@ -5,22 +5,40 @@ export default function ComponentNavigation(){
     return <div className={style.categories}>
         <h4 className={style.categoryNavigationTitle}>What we offer</h4>
         <div className={style.cateNav}>
+            <Link href='/products-and-services'>
+                    <div className={style.category}>
+                        <img className={style.cateIcon} src='/icons/icons8-product-64.png' alt='icons8-hammer-and-anvil-100' />
+                        <p className={style.cateName}> Products and<br /> Services</p>
+                    </div>
+            </Link>
             <Link href='/manufacturersandsuppliers'>
                     <div className={style.category}>
                         <img className={style.cateIcon} src='/categoryIcons/icons8-hammer-and-anvil-100.png' alt='icons8-hammer-and-anvil-100' />
                         <p className={style.cateName}> Manufacturers<br /> and Suppliers</p>
                     </div>
             </Link>
-            <Link href='/constructionMachinery'>
+            <Link href='/plants-and-machineries'>
                 <div className={style.category}>
                     <img className={style.cateIcon} src='/categoryIcons/icons8-bulldozer-96.png' alt='icons8-bulldozer-96' />
-                    <p className={style.cateName}>Construction Machinery</p>
+                    <p className={style.cateName}>Plants and <br /> Machineries</p>
+                </div>
+            </Link>
+            <Link href='/transporters'>
+                <div className={style.category}>
+                    <img className={style.cateIcon} src='/categoryIcons/icons8-truck-80.png' alt='icons8-truck-80' />
+                    <p className={style.cateName}>Transporters</p>
+                </div>
+            </Link>
+            <Link href='/tips-and-advices'>
+                <div className={style.category}>
+                    <img className={style.cateIcon} src='/categoryIcons/icons8-education-80.png' alt='icons8-truck-80' />
+                    <p className={style.cateName}>Tips and<br/>advices</p>
                 </div>
             </Link>
             <Link href='/hardwaresAndStores'>
                 <div className={style.category}>
                     <img className={style.cateIcon} src='/categoryIcons/icons8-warehouse-200.png' alt='icons8-warehouse-200' />
-                    <p className={style.cateName}>Hardwares and Stores</p>
+                    <p className={style.cateName}>Hardwares <br /> and Stores</p>
                 </div>
             </Link>
             <Link href='/artisansAndProfessionals' >
@@ -35,24 +53,19 @@ export default function ComponentNavigation(){
                     <p className={style.cateName}>Contractors</p>
                 </div>
             </Link>
-            <Link href='/transporters'>
-                <div className={style.category}>
-                    <img className={style.cateIcon} src='/categoryIcons/icons8-truck-80.png' alt='icons8-truck-80' />
-                    <p className={style.cateName}>Transporters</p>
-                </div>
-            </Link>
+            {/*
             <Link href='/Building Instituions'>
                 <div className={style.category}>
                     <img className={style.cateIcon} src='/categoryIcons/icons8-shield-64.png' alt='icons8-shield-64' />
                     <p className={style.cateName}>Building Institutions</p>
                 </div>
             </Link>
-            <Link href='tenders'>
+             <Link href='tenders'>
                 <div className={style.category}>
                     <img className={style.cateIcon} src='/categoryIcons/icons8-education-80.png' alt='icons8-education-80' />
                     <p className={style.cateName}>Tenders</p>
                 </div>
-            </Link>
+            </Link> */}
         </div>
     </div>
 }

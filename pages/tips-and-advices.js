@@ -33,9 +33,20 @@ export default function Articles(props) {
         getArticles();
     },[props.baseURL])
 
+    useEffect(()=>{
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8VYK6XCD9G');
+    }, [props.baseURL])
+    
     return (
         <div>
             <Head>
+                {/* Global site tag (gtag.js) - Google Analytics */}
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-8VYK6XCD9G"></script>
 
                 {/* FontAwesome icons */}
                 <script src="https://kit.fontawesome.com/e477c42a9e.js" crossorigin="anonymous"></script>
@@ -45,7 +56,7 @@ export default function Articles(props) {
                 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                 crossorigin="anonymous" />
 
-                <title>Tips and Advices</title>
+                <title>Builders Guide Kenya | Tips and Advices</title>
             </Head>
             <Header title='Tips and Advices' />
             {

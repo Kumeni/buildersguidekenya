@@ -1,14 +1,16 @@
 .trendingContainer_notFull, .trendingContainer_full{
     margin:auto;
     height:auto;
-    background-color:white;
+    background-color:rgb(254, 254, 254);
     padding:.5rem .5rem .7rem .5rem;
-    
 }
 
 .articleContainer{
     margin:.5rem 0px 0rem 0px;
     padding-bottom:0.5rem;
+}
+.articleContainer span:not(:last-of-type){
+    margin-right:1rem
 }
 
 @media (max-width:768px){

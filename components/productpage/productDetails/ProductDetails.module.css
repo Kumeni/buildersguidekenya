@@ -1,6 +1,11 @@
 .detailsContainer{
     padding:1rem;
 }
+@media (max-width:425px){
+    .detailsContainer{
+        padding: 0.2rem 1rem;
+    }
+}
 
 .detailsContainer h6::last-line{
     white-space: normal;
@@ -12,6 +17,9 @@
 .detailsContainer h5{
     font-size:1.1rem;
 }
+.productInformation h5{
+    font-size:1.1rem;
+}
 
 .detailsContainer strong{
     font-weight:600;
@@ -19,8 +27,32 @@
 
 }
 
-.productInformation > p:first-of-type{
-    margin:.5rem 0rem;
+.supplierInformation{
+    border-top:1px solid rgb(210, 210, 210);
+    border-bottom:1px solid rgb(210, 210, 210);
+    padding:0.7rem 0rem;
+}
+.supplierInformation h5{
+    color:blue;
+}
+.supplierInformation p{
+    overflow-x: auto;
+    white-space: nowrap;
+    padding:0.1rem 0rem;
+}
+.supplierInformation p::-webkit-scrollbar{
+    display:none;
+}
+
+.supplierInformation h5:hover{
+    cursor:pointer;
+    text-decoration:underline;
+}
+.supplierInformation b{
+    font-weight:600;
+}
+/* .productInformation > p:first-of-type{
+    
 }
 
 .productInformation > p:nth-of-type(2){
@@ -32,7 +64,7 @@
 }
 .sizeSelect{
     margin-top:.8rem;
-}
+} */
 
 .size{
     padding:0rem .5rem;
@@ -68,7 +100,19 @@
     margin-bottom:0rem;
 }
 
-.productDescription button{
+.supplierInformation p{
+    margin:0.2rem 0rem;
+}
+
+.companyName{
+    text-transform:capitalize;
+}
+
+.productDescription{
+    margin:1rem 0rem;
+}
+
+/* .productDescription button{
     border:none;
     display:inline-block;
     width:100%;
@@ -82,7 +126,7 @@
 
 .productDescription p{
     margin-bottom:-2.3rem;
-}
+} */
 @media (min-width:1410px){
     .colorSelect{
         width:600px;

@@ -47,18 +47,20 @@ export default function manufacturersandsuppliers(props) {
 	const getAvailableSubCategories = async () =>{
 		const availableSubCategories = await axios.get(props.baseURL+"/sub-categories?suppliersAvailable=true&categories=1");
 		setAvailableSubCategories(availableSubCategories.data);
-		//console.log(availableSubCategories.data);
+		console.log(availableSubCategories.data);
 
 		return availableSubCategories.data;
 	}
 
 	//creating Section Objects
 	useEffect(()=>{
-		getArticles()
-		.then(()=>{
-			getAvailableSubCategories()
-		})
-	},[props.baseURL])
+		if(availableSubCategories === undefined){
+			getArticles()
+			.then(()=>{
+				getAvailableSubCategories()
+			})
+		}
+	},[])
 
 	useEffect(()=>{
 		if(availableSubCategories){
@@ -77,7 +79,7 @@ export default function manufacturersandsuppliers(props) {
 				})
 				//console.log(query);
 			
-				const suppliers = await axios.get(props.baseURL+"/suppliers?"+query, {
+				const suppliers = await axios.get(props.baseURL+"/suppliers?"+query+'&_limit=11', {
 					transformResponse:[function(data){
 						let newData = [];
 						let originalData = JSON.parse(data);
@@ -92,7 +94,6 @@ export default function manufacturersandsuppliers(props) {
 							object.constituency = element.constituency;
 							object.buildingOrEstate = element.buildingOrEstate;
 							object.userId=element.userId;
-							object.companyLogo=element.companyLogo;
 		
 							newData = newData.concat(object);
 						})
@@ -114,6 +115,7 @@ export default function manufacturersandsuppliers(props) {
 			availableSubCategories.map((element, index)=>{
 				getSectionObjects(availableSubCategories, index);
 			})
+
 			setSections(holder.slice());
 			loading.current.style.display='none';
 		}
@@ -122,7 +124,6 @@ export default function manufacturersandsuppliers(props) {
 	useEffect(()=>{
 		if(sectionsCopy !== undefined){
 			let holder = sections;
-			;
 
 			//Sorting the menu according to the number of available suppliers
 			/*for(let i=0; i<holder.length-1; i++){
@@ -132,17 +133,29 @@ export default function manufacturersandsuppliers(props) {
 					holder1[i+1] = holder1;
 				}
 			}*/
+
 			setSections(holder.concat(sectionsCopy));
 		}
 		
 	}, [sectionsCopy])
 
 	useEffect(()=>{
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8VYK6XCD9G');
+    }, [props.baseURL])
+
+	useEffect(()=>{
 			console.log(sections);
 	}, [sections])
     return (
-        <div>
+        <div className={style.body}>
             <Head>
+				{/* Global site tag (gtag.js) - Google Analytics */}
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-8VYK6XCD9G"></script>
 
                 {/* FontAwesome icons */}
                 <script src="https://kit.fontawesome.com/e477c42a9e.js" crossOrigin="anonymous"></script>
@@ -152,7 +165,12 @@ export default function manufacturersandsuppliers(props) {
                 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                 crossOrigin="anonymous" />
 
-                <title>Manufacturers and Suppliers</title>
+				<meta name="keywords" description="construction suppliers manufacturers" />
+
+				<meta name="content" description="Find manufacturers and suppliers providing construction
+				materials at a location of your preference in Kenya." />
+
+                <title>Builders Guide Kenya | Manufacturers and Suppliers</title>
 
             </Head>
             <Header />

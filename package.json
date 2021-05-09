@@ -3,18 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node nextapp.js",
+    "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production nextapp.js"
+    "start": "next start"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
+    "@material-ui/core": "^4.11.4",
     "axios": "^0.20.0",
     "next": "9.5.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-sidebar": "^3.0.2",
     "showdown": "^1.9.1",
-    "swiper": "^6.3.2"
+    "swiper": "^6.5.9"
   }
 }

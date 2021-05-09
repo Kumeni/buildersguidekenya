@@ -28,6 +28,12 @@ function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelect
                     id:0,
                     subCategory:0
                 }].concat(subCategories));
+            } else if(subCategories[0].name){
+                setAvailableMenu([{
+                    name:"All",
+                    id:0,
+                    subCategory:0
+                }].concat(subCategories));
             }
         }
     }, [subCategories])
@@ -38,35 +44,36 @@ function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelect
             for(i; i<menu.current.children.length; i++){
                 if (menu.current.children[i].innerHTML === event.target.innerHTML){
                     menu.current.children[i].style.color='blue';
-                    menu.current.children[i].style.borderBottomColor='black';
+                   // menu.current.children[i].style.borderBottomColor='black';
                     setActiveMenu(menu.current.children[i].innerHTML);
                     setMenuSelected(availableMenu[i]);
                 } else {
                     menu.current.children[i].style.color='black';
-                    menu.current.children[i].borderBottomColor='transparent';
+                    //menu.current.children[i].borderBottomColor='transparent';
                 }
             }
         }
     }
 
+    //This code is responsible for setting the color of the menus
     useEffect(()=>{
         if(activeMenu){
             let i=0;
             for(i; i<menu.current.children.length;i++){
                 if (menu.current.children[i].innerHTML === activeMenu){
                     menu.current.children[i].style.color='blue';
-                    menu.current.children[i].style.borderBottomColor='blue';
+                    //menu.current.children[i].style.borderBottomColor='blue';
                 } else {
                     menu.current.children[i].style.color='black';
-                    menu.current.children[i].style.borderBottomColor='transparent';
+                    //menu.current.children[i].style.borderBottomColor='transparent';
                 }
             }
         }
     }, [activeMenu])
 
-    useEffect(()=>{
-        console.log(availableMenu);
-    })
+    // useEffect(()=>{
+    //     console.log(availableMenu);
+    // })
 
     return (
         <>
@@ -79,7 +86,7 @@ function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelect
             >
                 {
                     availableMenu.map((element, index)=>(
-                        <li key={index} value={element} ref={menu[index]} >{element.categories?element.subCategory:element.speCatName}</li>
+                        <li key={index} value={element} ref={menu[index]} >{element.categories?element.subCategory:element.speCatName?element.speCatName:element.name}</li>
                     ))
                 }
             </ul>

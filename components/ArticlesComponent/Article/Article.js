@@ -14,7 +14,7 @@ export default function Article(props) {
     return (
         <Link 
             href={{
-                pathname:"/article",
+                pathname:"/tip-and-advice",
                 query:{
                     title:props.article?props.article.title:undefined
                 }

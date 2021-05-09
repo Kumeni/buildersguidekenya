@@ -136,7 +136,6 @@ export default function index(props) {
     }, [router.query.companyName])
 
     useEffect(()=>{
-        console.log('ssup');
         if(completeCompany !== undefined){
             getRelatedSuppliers();
         }
@@ -149,9 +148,22 @@ export default function index(props) {
         }
     }, [companyBrochure])
 
+    useEffect(()=>{
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8VYK6XCD9G');
+    }, [props.baseURL])
+    
     return (
         <div>
             <Head>
+
+                {/* Global site tag (gtag.js) - Google Analytics */}
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-8VYK6XCD9G"></script>
+                
                 {/* FontAwesome icons */}
                 <script src="https://kit.fontawesome.com/e477c42a9e.js" crossOrigin="anonymous"></script>
 
@@ -162,7 +174,12 @@ export default function index(props) {
 
                 <meta rel="shortcut icon" src="/images/buildersguidekenyalogo.png" type='image/png'/>
 
-                <title>Manufacturer and Supplier</title>
+                <meta name="keywords" description={`${completeCompany?completeCompany[0].companyName:''}`} />
+
+                <meta name="content" description={completeCompany?completeCompany[0].companyDescription:''} />
+
+                <title> {completeCompany?completeCompany[0].companyName:''} | Builders Guide Kenya </title>
+
             </Head>
             <Header title="Manufacturer and Supplier"/>
             <main className={style.body}>
@@ -196,18 +213,25 @@ export default function index(props) {
                                     :''
                                 }
                                 {
+                                    completeCompany?
+                                        completeCompany[0].locationLink?
+                                        <p><span><i className={'fas fa-link'}></i></span><a href={completeCompany[0].locationLink}>Google maps link</a></p>
+                                        :undefined
+                                    :''
+                                }
+                                {
                                     companyCellphones?
                                         <p><span><i className={'fas fa-phone'}></i></span> 
                                             {companyCellphones[0]?" +"+companyCellphones[0].cellphoneNo:undefined}
                                             {companyCellphones[1]?" || +"+companyCellphones[1].cellphoneNo:undefined} 
-                                            {companyTelephones?" || +"+companyTelephones[0].telephoneNo:undefined}
-                                            {companyTelephones?" || +"+companyTelephones[1].telephoneNo:undefined}
+                                            {companyTelephones?companyTelephones[0]?" || +"+companyTelephones[0].telephoneNo:undefined:undefined}
+                                            {companyTelephones?companyTelephones[1]?" || +"+companyTelephones[1].telephoneNo:undefined:undefined}
                                         </p>
                                     :''
                                 }
                                 {
                                     companyEmails?
-                                        <p><span><i className={'far fa-envelope'}></i></span> 
+                                        <p><span><i className={'fas fa-envelope'}></i></span> 
                                         {companyEmails[0]?" "+companyEmails[0].supplierEmail:undefined} 
                                         {companyEmails[1]?" || "+companyEmails[1].supplierEmail:undefined}
                                         </p>
@@ -231,7 +255,6 @@ export default function index(props) {
                     </div>
                     :''
                 }
-                
                 {
                     completeCompany?
                         <div className={style.companyDescriptionCopy}>
@@ -304,26 +327,26 @@ export default function index(props) {
                 
                 {
                     articles?
-                    <div className={style.moreLikeThis}>
-                        <SectionTitle title="related.Tips and Advices" />
-                            <div className={'componentScroll'}>
-                            {
-                                articles.map((element, index)=>(
-                                    <span key={index}>
-                                        <TilesArticleListing 
-                                            articleId={articles?element.id:""} 
-                                            featuredImage={element.featuredImages.url} 
-                                            articleTitle={element.title} 
-                                            actualTitle={articles?articles[index].title:undefined} 
-                                            imageTitle={element.featuredImages.name}  
-                                            propKey={element.title+element.id}
-                                            baseURL={props.baseURL}
-                                        />
-                                    </span>
-                                ))
-                            }
-                            </div>
-                    </div>
+                        <div className={style.moreLikeThis}>
+                            <SectionTitle title="related.Tips and Advices" />
+                                <div className={'componentScroll'}>
+                                    {
+                                        articles.map((element, index)=>(
+                                            <span key={index}>
+                                                <TilesArticleListing
+                                                    articleId={articles?element.id:""}
+                                                    featuredImage={element.featuredImages.url}
+                                                    articleTitle={element.title}
+                                                    actualTitle={articles?articles[index].title:undefined}
+                                                    imageTitle={element.featuredImages.name}
+                                                    propKey={element.title+element.id}
+                                                    baseURL={props.baseURL}
+                                                />
+                                            </span>
+                                        ))
+                                    }
+                                </div>
+                        </div>
                     :''
                 }
 

@@ -3,21 +3,23 @@
     overflow-x:auto;
     overflow-y:hidden;
 }
-
+.componentScroll:focus{
+    background:rgb(245, 245, 245);
+}
 .componentScroll::-webkit-scrollbar{
-    height:6px;
+    height:5px;
 }
 .componentScroll::-webkit-scrollbar-track{
-    background:rgb(245, 245, 245);
+    background-color:rgb(230, 230, 230);
     border-radius:7px;
     margin:1rem;
 }
-.componentScroll::-webkit-scrollbar-thumb:hover{
-    background-color:rgb(120, 120, 120);
-}
 .componentScroll::-webkit-scrollbar-thumb{
     border-radius:7px;
-    background-color:rgb(150, 150, 150);
+    background-color:rgb(200, 200, 200);
+}
+.componentScroll::-webkit-scrollbar-thumb:hover{
+    background-color:rgb(180, 180, 180);
 }
 @media (max-width:768px){
     .componentScroll::-webkit-scrollbar{

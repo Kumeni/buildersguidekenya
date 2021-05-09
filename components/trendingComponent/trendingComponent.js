@@ -9,7 +9,7 @@ function TrendingComponent({title='Featured articles', isNotWide=true, articles,
     
     return<>
         <div className={isNotWide ? style.trendingContainer_notFull: style.trendingContainer_full}>
-            <SectionTitle title={title} link={'/articles'} />
+            <SectionTitle title={title} link={'/tips-and-advices'} />
             <div className={'componentScroll ' + style.articleContainer}>
                 {
                     articles?

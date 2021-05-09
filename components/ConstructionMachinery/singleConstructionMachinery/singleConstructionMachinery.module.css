@@ -18,17 +18,25 @@
     margin:0px 1rem;
 }
 .companyDescriptionCopy{
-    padding:1rem .1rem;
-    margin:0px 1rem;
+    padding:0rem .1rem;
+    margin:1rem 1rem 1.5rem 1rem;
     display:block;
+}
+.companyDescriptionCopy:last-of-type{
+    border-top:1px solid rgb(210, 210, 210);
+    padding-top:0.8rem;
 }
 .companyImages{
     width:100%;
+    height:320px;
 }
 .companyImages img{
     width:100%;
+    height:100%;
+    object-fit: cover;
+    -o-object-fit: cover;
 }
-.companyDetails p:first-of-type{
+.companyDetails > p:first-of-type{
     font-weight:600;
 }
 .companyDetails p{
@@ -36,8 +44,15 @@
     overflow-x:auto;
     overflow-y:hidden;
 }
+.dealer{
+    border-top:1px solid rgb(210, 210, 210);
+    padding-top:0.5rem;
+}
 .companyDetails p::-webkit-scrollbar{
     display:none;
+}
+.companyDetails b{
+    font-weight:600;
 }
 @media (min-width:656px){
     .body{
@@ -117,5 +132,10 @@
 @media (min-width:820px){
     .company{
         grid-template-columns:max-content auto;
+    }
+}
+@media (max-width:744px){
+    .companyImages{
+        height:290px;
     }
 }

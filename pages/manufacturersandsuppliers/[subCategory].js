@@ -177,9 +177,22 @@ export default function subCategory(props) {
         console.log(companyInfo[previousActiveSuppliers])
     }, [previousActiveSuppliers])
 
+    useEffect(()=>{
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8VYK6XCD9G');
+    }, [props.baseURL])
+
     return (
         <div>
             <Head>
+
+                {/* Global site tag (gtag.js) - Google Analytics */}
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-8VYK6XCD9G"></script>
+                
                 {/* FontAwesome icons */}
                 <script src="https://kit.fontawesome.com/e477c42a9e.js" crossOrigin="anonymous"></script>
 
@@ -188,7 +201,12 @@ export default function subCategory(props) {
                 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                 crossOrigin="anonymous" />
 
-                <title>Aggregates and Quarrying</title>
+                <meta name="keywords" description={router.query.subCategory?router.query.subCategory:'construction materials'} />
+
+                <meta name="content" description={`Find manufacturers and suppliers providing ${router.query.subCategory?router.query.subCategory:''} 
+                your construction project in kenya.`} />
+
+                <title>Manufacturers and Suppliers ~ {router.query.subCategory?router.query.subCategory:''} | Builders Guide Kenya</title>
             </Head>
             {
                 router.query.subCategory?

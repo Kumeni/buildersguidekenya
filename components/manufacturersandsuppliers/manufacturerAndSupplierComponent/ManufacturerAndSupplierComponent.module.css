@@ -1,9 +1,11 @@
 .container{
-    border:1px solid rgb(210, 210, 210);
+    /* border:1px solid rgb(210, 210, 210); */
     display:inline-block;
     width:max-content;
     margin:.5rem .5rem;
     break-inside:avoid;
+    background-color: white;
+    box-shadow:1px 1px 4px rgb(220, 220, 220);
 }
 .companyName{
     text-transform: capitalize;
@@ -13,13 +15,14 @@
     overflow-x:auto;
 }
 .container:hover, .container:focus, .container_FullWidth:hover, .container_FullWidth:focus{
-    border-color:white;
-    box-shadow:0 4px 8px rgb(210, 210, 210);
+    /* border-color:white;
+    box-shadow:0 4px 8px rgb(210, 210, 210); */
     cursor:pointer;
 }
 .imageContainer{
     width:200px;
     height:160px;
+    border-bottom:1px solid rgb(210, 210, 210);
 }
 
 .imageContainer img{
@@ -37,9 +40,14 @@
     font-weight:600;
 }
 
+@media (max-width:425px){
+    .companyDetails p{
+        font-size:15px;
+    }
+}
 .companyDetails p, .companyDetails_FullWidth p{
     margin:0px;
-    padding:5px 0px;
+    padding:3px 0px;
     white-space: nowrap;
     overflow-x:hidden;
     text-overflow: ellipsis;
@@ -66,6 +74,7 @@
 .imageContainer_FullWidth{
     width:100%;
     height:140px;
+    border-bottom: rgb(210, 210, 210);
 }
 
 @media (min-width:375px) and (max-width:425px){

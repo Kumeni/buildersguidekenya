@@ -76,9 +76,22 @@ export default function Article(props) {
         }):{}
     }, [articleContent])
 
+    useEffect(()=>{
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8VYK6XCD9G');
+    }, [props.baseURL])
+
     return (
         <div className={style.articleContainer}>
             <Head>
+
+                {/* Global site tag (gtag.js) - Google Analytics */}
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-8VYK6XCD9G"></script>
+
                 {/* FontAwesome icons */}
                 <script src="https://kit.fontawesome.com/e477c42a9e.js" crossOrigin="anonymous"></script>
 
@@ -89,7 +102,7 @@ export default function Article(props) {
 
                 <meta name="description" content={''} />
 
-                <title>Tips and Advices</title>
+                <title>Builders Guide Kenya | Tips and Advices</title>
             </Head>
             <Header title={'Tip and Advice'} />
             {
@@ -105,7 +118,7 @@ export default function Article(props) {
             {
                 listedArticles?(
                     <div className={style.moreArticles}>
-                        <SectionTitle title="More tips and advices" link={'/articles'} />
+                        <SectionTitle title="More tips and advices" link={'/tips-and-advices'} />
                         <div className="componentScroll">
                         {
                             listedArticles.map((element,index)=>(

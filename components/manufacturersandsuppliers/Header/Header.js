@@ -2,7 +2,7 @@ import {useRouter} from 'next/router'
 import style from './Header.module.css'
 import {useState, useRef, useEffect} from 'react'
 
-export default function Header({title = 'Manufacturers and Supplier', router=""}) {
+export default function Header({title = 'Manufacturers and Suppliers', router=""}) {
 
     const searchComponent = useRef();
     const minInput = useRef(null);
