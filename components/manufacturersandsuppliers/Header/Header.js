@@ -22,7 +22,7 @@ export default function Header({title = 'Manufacturers and Suppliers', router=""
                 setInputValue(router.query.q);
             }
         }
-    },[])
+    },[router.query])
 
     function handlePhoneSearchBackButtonClick(){
         if (mainRouter.pathname === '/search'){
@@ -56,11 +56,11 @@ export default function Header({title = 'Manufacturers and Suppliers', router=""
     return (
         <div className={style.headerContainer}>
             <div ref={searchComponent} className={style.phoneSearch}>
-                <span onClick={(event)=>handlePhoneSearchBackButtonClick()}><i className={'fas fa-arrow-left '+ style.arrowLeft}></i></span>
+                <span onClick={()=>handlePhoneSearchBackButtonClick()}><i className={'fas fa-arrow-left '+ style.arrowLeft}></i></span>
                 <input  ref={minInput} value={inputValue} placeholder='i.e search' type='search' onChange={(event) => handleInputChange(event)} onKeyUp={(event)=>submitInputValue(event)} />
-                <span><i className={'fas fa-search '+ style.searchButton }></i></span>
+                <span onClick={()=>submitInputValue({keyCode:13})}><i className={'fas fa-search '+ style.searchButton }></i></span>
             </div>
-            <div className={'d-flex flex-row justify-content-between align-items-center ' +style.header}>
+            <div className={'d-flex flex-row justify-content-between align-items-center ' + style.header}>
                 <a className={style.homePageLink} onClick={(event)=>handleBackButtonClick()}>
                     <div className={'d-flex flex-row align-items-center flex-shrink-1 ' + style.homeLink}>
                         <i className={'fas fa-arrow-left ' + style.arrowLeft}></i>
@@ -69,7 +69,7 @@ export default function Header({title = 'Manufacturers and Suppliers', router=""
                 </a>
                 <div className={'d-flex flex-row align-items-center ' + style.search}>
                     <input className={'flex-shrink-0'} type='search' placeholder='i.e search' value={inputValue} onChange={(event)=>{handleInputChange(event)}} onKeyUp={(event)=>submitInputValue(event)}/>
-                    <span onClick={(event)=>handleSearchClick(3)}><i className={'fas fa-search' }></i></span>
+                    <span onClick={()=>handleSearchClick(3)}><i className={'fas fa-search' }></i></span>
                 </div>
                 <i className={'fas fa-shopping-cart ' + style.shoppingCart}></i>
             </div>

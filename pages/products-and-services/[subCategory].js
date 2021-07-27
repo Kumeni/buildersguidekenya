@@ -212,34 +212,35 @@ export default function subCategory(props) {
                     <Header title={router.query.subCategory} />
                 :''
             }
-            
-            {
-                availableMenus?
-                <div className={style.categorySlider}>
-                    <CategorySectionSlider 
-                        subCategories={availableMenus} 
-                        setMenuSelected = {(menu)=>setMenuSelected(menu)}
-                        menuSelected={menuSelected}
-                    />
+            <main className={"body"}>
+                {
+                    availableMenus?
+                    <div className={"categoryNavigation "+style.categorySlider}>
+                        <CategorySectionSlider 
+                            subCategories={availableMenus} 
+                            setMenuSelected = {(menu)=>setMenuSelected(menu)}
+                            menuSelected={menuSelected}
+                        />
+                    </div>
+                    :''
+                }
+                <div ref={loading}>
+                    <Loading />
                 </div>
-                :''
-            }
-            <div ref={loading}>
-				<Loading />
-			</div>
-                
-            <div className={style.components}>
-            {
-                productInfo[previousActiveSuppliers]?
-                <ManufacturerAndSupplierComponent 
-                        fullWidth={true}
-                        productInfo={productInfo}
-                        activeSuppliers={productInfo[activeSuppliers]?activeSuppliers:previousActiveSuppliers}
-                        baseURL={props.baseURL}
-                />
-                :''
-            }
-            </div>
+                    
+                <div className={style.components}>
+                {
+                    productInfo[previousActiveSuppliers]?
+                    <ManufacturerAndSupplierComponent 
+                            fullWidth={true}
+                            productInfo={productInfo}
+                            activeSuppliers={productInfo[activeSuppliers]?activeSuppliers:previousActiveSuppliers}
+                            baseURL={props.baseURL}
+                    />
+                    :''
+                }
+                </div>
+            </main>
         </div>
     )
 }

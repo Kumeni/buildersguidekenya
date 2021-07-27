@@ -35,6 +35,13 @@ function CategorySection(props) {
 
     const [newLink, setNewLink] = useState("#All");
 
+    //This checks the kind of data in the section
+    // 1 - Products
+    // 2 - Manufacturers-and-suppliers
+    // 3 - plants-and-machineries
+    // 4 - vehicles-for-transportaton
+    const [dataType, setDataType] = useState();
+
     const router = useRouter();
 
     //This function checks whether the menu already exists
@@ -90,6 +97,7 @@ function CategorySection(props) {
     //Add the functionality for menu selection
     useEffect(()=>{
         if(menuSelected){
+            console.log(menuSelected);
             moreLink(menuSelected);
             if(props.companyInfo){
                 if(checkAvailablility(companyInfo, menuSelected.id) !== -1){
@@ -225,7 +233,7 @@ function CategorySection(props) {
                     //console.log(checkAvailablility(companyInfo, menuSelected.id));
                     setActiveSuppliers(checkAvailablility(vehiclesInfo, menuSelected.id));
                 } else {
-                    console.log(menuSelected);
+                    //console.log(menuSelected);
                     if(menuSelected.categories !== undefined){
                         //This method is for getting products in a subCategory
                         getCategorizedData("/plant-and-machinery-specializations","subCategory", menuSelected.id)
@@ -261,7 +269,7 @@ function CategorySection(props) {
                         })
                     } else if(menuSelected.name!=undefined){
                         //This method is for getting products in a subCategory
-                        console.log("Fetching the vehicles");
+                        //console.log("Fetching the vehicles");
                         getCategorizedData("/transport-vehicles","vehicleType", menuSelected.id)
                         .then(res=>{
                             //console.log(res);
@@ -281,24 +289,36 @@ function CategorySection(props) {
     }, [menuSelected])
 
     if(props.companyInfo){
+        if(dataType===undefined){
+            setDataType(2);
+        }
         useEffect(()=>{
             if(companyInfo[activeSuppliers]){
                 setPreviousActiveSuppliers(activeSuppliers);
             }
         }, [companyInfo, activeSuppliers])    
     } else if(props.productInfo){
+        if(dataType==undefined){
+            setDataType(1);
+        }
         useEffect(()=>{
             if(productInfo[activeSuppliers]){
                 setPreviousActiveSuppliers(activeSuppliers);
             }
         }, [productInfo, activeSuppliers])
     } else if(props.constructionMachineryInfo){
+        if(dataType===undefined){
+            setDataType(3);
+        }
         useEffect(()=>{
             if(constructionMachineryInfo[activeSuppliers]){
                 setPreviousActiveSuppliers(activeSuppliers);
             }
         }, [constructionMachineryInfo, activeSuppliers])
     } else if(props.vehiclesInfo){
+        if(dataType===undefined){
+            setDataType(4);
+        }
         useEffect(()=>{
             if(vehiclesInfo[activeSuppliers]){
                 setPreviousActiveSuppliers(activeSuppliers);
@@ -308,7 +328,12 @@ function CategorySection(props) {
 
     return (
         <div className={style.categorySection}>
-            <SectionTitle title={props.title} link={props.link + newLink} />
+            <SectionTitle 
+                title={props.title} 
+                link={props.link} 
+                menuSelected={menuSelected}
+                dataType={dataType}
+            />
             <div className={style.categorySectionContent}>
                 {
                     props.subCategories?

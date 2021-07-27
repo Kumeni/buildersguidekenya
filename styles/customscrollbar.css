@@ -29,3 +29,28 @@
         margin:0rem;
     }
 }
+/* This is the code for category navigation ie CategorySectionSlider Component */
+.categoryNavigation{
+    padding-top:0.5rem;
+    padding-bottom:0.3rem;
+}
+
+/* This is the code for header sized body */
+.body{
+    margin:0rem auto;
+}
+@media (max-width:769px){
+    .body{
+        width:100%;
+    }
+}
+@media (min-width:769px) and (max-width:1200px){
+    .body{
+        width:95%;
+    }
+}
+@media (min-width:1200px){
+    .body{
+        width:1200px;
+    }
+}

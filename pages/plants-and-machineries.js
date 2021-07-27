@@ -189,34 +189,38 @@ export default function constructionMachinery(props) {
             </Head>
             
             <Header title='Plants and Machineries' />
-            {
-                data!=undefined?
-                    <CategorySectionSlider 
-                        subCategories={data.availableConstructionMachinerySubCategories}
-                        setMenuSelected = {(menu)=>setMenuSelected(menu)}
-                        menuSelected={menuSelected} 
-                    />
-                :undefined
-            }
-            
-            <div className={style.components}>
-                {/* <ConstructionMachinery fullWidth={true} /> */}
-                {
-                    constructionMachineryInfo?
-                        constructionMachineryInfo.length>0?
-                            <ManufacturerAndSupplierComponent
-                                constructionMachineryInfo={constructionMachineryInfo}
-                                activeSuppliers={constructionMachineryInfo[activeSuppliers]?activeSuppliers:previousActiveSuppliers}
-                                baseURL={props.baseURL}
-                                fullWidth={true}
+            <main className={"body"}>
+                <div className={"categoryNavigation"}>
+                    {
+                        data!=undefined?
+                            <CategorySectionSlider 
+                                subCategories={data.availableConstructionMachinerySubCategories}
+                                setMenuSelected = {(menu)=>setMenuSelected(menu)}
+                                menuSelected={menuSelected} 
                             />
                         :undefined
-                    :undefined
-                }
-            </div>
-            <div ref={loading}>
-				<Loading />
-			</div>
+                    }
+                </div>
+                
+                <div className={style.components}>
+                    {/* <ConstructionMachinery fullWidth={true} /> */}
+                    {
+                        constructionMachineryInfo?
+                            constructionMachineryInfo.length>0?
+                                <ManufacturerAndSupplierComponent
+                                    constructionMachineryInfo={constructionMachineryInfo}
+                                    activeSuppliers={constructionMachineryInfo[activeSuppliers]?activeSuppliers:previousActiveSuppliers}
+                                    baseURL={props.baseURL}
+                                    fullWidth={true}
+                                />
+                            :undefined
+                        :undefined
+                    }
+                </div>
+                <div ref={loading}>
+                    <Loading />
+                </div>
+            </main>
         </div>
     )
 }

@@ -23,7 +23,7 @@ export default function ComponentNavigation(){
                     <p className={style.cateName}>Plants and <br /> Machineries</p>
                 </div>
             </Link>
-            <Link href='/transporters'>
+            <Link href='/transport-vehicles'>
                 <div className={style.category}>
                     <img className={style.cateIcon} src='/categoryIcons/icons8-truck-80.png' alt='icons8-truck-80' />
                     <p className={style.cateName}>Transporters</p>

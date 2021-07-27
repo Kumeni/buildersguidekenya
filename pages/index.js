@@ -53,6 +53,45 @@ export default function HomePage(props){
 			index===0?query=query+"userId="+element.userId:query=query+"&userId="+element.userId;
 		})*/
     
+		const products = await axios.get(props.baseURL+"/products?blocked=false&deleted=false&_limit=10", {
+			transformResponse:[function(data){
+				let newData = [];
+				let originalData = JSON.parse(data);
+
+				originalData.map(element=>{
+					let object = {};
+
+					object.id = element.id;
+					object.productName = element.productName;
+					object.county = element.county;
+					object.constituency = element.constituency;
+					object.buildingOrEstate = element.estate;
+					object.productDescription = element.productDescription;
+
+					newData = newData.concat(object);
+				})
+
+				return newData;
+			}]
+		});
+
+		//Start of functions that deal with the downloading of products
+
+		//getting products by specialization
+		
+		const availableProductSubCategories = await axios.get(props.baseURL+"/sub-categories?productsAvailable=true&categories=1");
+
+		//create a data 2 object
+		
+		let data2 = {
+			//specialization:specialization.data,
+			products:products.data,
+			availableProductSubCategories:availableProductSubCategories.data
+		}
+		
+		setData2(data2);
+
+
 		const suppliers = await axios.get(props.baseURL+"/suppliers?_limit=10&Approved=true&confirmed=true", {
 			transformResponse:[function(data){
 				let newData = [];
@@ -93,44 +132,7 @@ export default function HomePage(props){
 		
 		setData(data);
 			
-		//Start of functions that deal with the downloading of products
-
-		//getting products by specialization
 		
-		const products = await axios.get(props.baseURL+"/products?blocked=false&deleted=false&_limit=10", {
-			transformResponse:[function(data){
-				let newData = [];
-				let originalData = JSON.parse(data);
-
-				originalData.map(element=>{
-					let object = {};
-
-					object.id = element.id;
-					object.productName = element.productName;
-					object.county = element.county;
-					object.constituency = element.constituency;
-					object.buildingOrEstate = element.estate;
-					object.productDescription = element.productDescription;
-
-					newData = newData.concat(object);
-				})
-
-				return newData;
-			}]
-		});
-
-		const availableProductSubCategories = await axios.get(props.baseURL+"/sub-categories?productsAvailable=true&categories=1");
-
-		//create a data 2 object
-		
-		let data2 = {
-			//specialization:specialization.data,
-			products:products.data,
-			availableProductSubCategories:availableProductSubCategories.data
-		}
-		
-		setData2(data2);
-
 		//Fetching information for construction machinery
 		const constructionMachinery = await axios.get(props.baseURL+"/plant-and-machineries?blocked=false&deleted=false&_limit=10", {
 			transformResponse:[function(data){
@@ -170,7 +172,7 @@ export default function HomePage(props){
 		const availableVehicleTypes = await axios.get(props.baseURL+"/transporter-vehicle-types?vehiclesAvailable=true");
 
 		const transportVehicles = await axios.get(props.baseURL+"/transport-vehicles?deleted=false&approved=true&blocked=false&_limit=10");
-		
+
 		let data4 = {
 			availableVehicleTypes:availableVehicleTypes.data,
 			transportVehicles:transportVehicles.data
@@ -193,12 +195,12 @@ export default function HomePage(props){
 		}
 	}, [router.pathname, props.pagesData])
 
-	useEffect(()=>{
+	/*useEffect(()=>{
 		//console.log(data2);
 		if(data2){
 			console.log(completeCompanyInfo(data2.products, data.counties, data.constituencies));
 		}
-	}, [data2])
+	}, [data2])*/
 
 	useEffect(()=>{
         window.dataLayer = window.dataLayer || [];

@@ -113,7 +113,7 @@
 }
 @media (min-width:768px) and (max-width:992px){
     .categories{
-        width:90%;
+        width:95%;
         box-shadow:0px 0px 15px 2px rgb(210, 210, 210);
         /* border-radius: 10px 10px; */
     }

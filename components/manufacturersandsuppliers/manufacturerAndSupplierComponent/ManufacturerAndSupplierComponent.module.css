@@ -154,19 +154,18 @@
         font-size:1rem;
     }
 }
-@media (min-width:1024px){
-    .container_FullWidth{
-        margin:.5rem;
-    }
-}
-
 @media (min-width:540px) and (max-width:968px){
     .container_FullWidth{
         width:31vw;
     }
 }
-@media (min-width:968px){
+@media (min-width:968px) and (max-width:1268px){
     .container_FullWidth{
         width:23vw;
+    }
+}
+@media (min-width:1268px){
+    .container_FullWidth{
+        width:292px;
     }
 }

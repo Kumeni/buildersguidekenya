@@ -156,34 +156,38 @@ export default function constructionMachinery(props) {
             </Head>
             
             <Header title='Transport vehicles' />
-            {
-                data!=undefined?
-                    <CategorySectionSlider 
-                        subCategories={data.availableVehicleTypes}
-                        setMenuSelected = {(menu)=>setMenuSelected(menu)}
-                        menuSelected={menuSelected} 
-                    />
-                :undefined
-            }
-            
-            <div className={style.components}>
-                {/* <ConstructionMachinery fullWidth={true} /> */}
-                {
-                    vehiclesInfo?
-                        vehiclesInfo.length>0?
-                            <ManufacturerAndSupplierComponent
-                                vehiclesInfo={vehiclesInfo}
-                                activeSuppliers={vehiclesInfo[activeSuppliers]?activeSuppliers:previousActiveSuppliers}
-                                baseURL={props.baseURL}
-                                fullWidth={true}
+            <main className={"body"}>
+                <div className={"categoryNavigation"}>
+                    {
+                        data!=undefined?
+                            <CategorySectionSlider 
+                                subCategories={data.availableVehicleTypes}
+                                setMenuSelected = {(menu)=>setMenuSelected(menu)}
+                                menuSelected={menuSelected} 
                             />
                         :undefined
-                    :undefined
-                }
-            </div>
-            <div ref={loading}>
-				<Loading />
-			</div>
+                    }
+                </div>
+                
+                <div className={style.components}>
+                    {/* <ConstructionMachinery fullWidth={true} /> */}
+                    {
+                        vehiclesInfo?
+                            vehiclesInfo.length>0?
+                                <ManufacturerAndSupplierComponent
+                                    vehiclesInfo={vehiclesInfo}
+                                    activeSuppliers={vehiclesInfo[activeSuppliers]?activeSuppliers:previousActiveSuppliers}
+                                    baseURL={props.baseURL}
+                                    fullWidth={true}
+                                />
+                            :undefined
+                        :undefined
+                    }
+                </div>
+                <div ref={loading}>
+                    <Loading />
+                </div>
+            </main>
         </div>
     )
 }

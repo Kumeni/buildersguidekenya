@@ -3,15 +3,16 @@
     background-color: white;
     box-shadow:0px 2px 4px rgb(200, 200, 200);
 }
-
 .headerContainer{
     position:sticky;
     top:0px;
     z-index:2;
+    
 }
 
 .phoneSearch{
     display:none;
+    height:100%;
 }
 
 .header{
@@ -33,7 +34,7 @@
 }
 
 .arrowLeft{
-    font-size:1.4rem;
+    font-size:1.1rem;
     margin:0rem .2rem 0rem .3rem;
     
 }
@@ -66,7 +67,7 @@
 .search{
     border:2px solid rgb(104, 62, 34);
     padding:.3rem;
-    border-radius:20px;
+    border-radius:25px;
 }
 
 .search div::before, .search div::after{
@@ -103,16 +104,16 @@
     outline-style: none;
 }
 
-.search i{
+/* .searchButton{
     font-size:1.2rem;
     padding:.2rem .4rem .2rem .2rem;
     color:rgb(15, 15, 15);
-}
+} */
 
-.shoppingCart, .searchButton{
+.search i, .shoppingCart, .searchButton{
     font-size:1.1rem;
     padding:.7rem;
-    margin-right:.5rem;
+    /* margin-right:.5rem; */
 }
 
 @media (max-width:321px){
@@ -136,7 +137,7 @@
         width:160px;
     }
 }
-@media (min-width:321px) and (max-width:375px){
+@media (min-width:357px) and (max-width:375px){
     .header, .phoneSearch{
         padding:.4rem .5rem;
     }
@@ -149,6 +150,42 @@
     .homeLink span{
         display:inline-block;
         width:220px;   
+    }
+    .search{
+        border:none;
+    }
+}
+@media (min-width:340px) and (max-width:357px){
+    .header, .phoneSearch{
+        padding:.4rem .5rem;
+    }
+    .search input{
+        display:none;
+    }
+    .homeLink span, .homeLink i{
+        font-size:1.2rem;
+    }
+    .homeLink span{
+        display:inline-block;
+        width:200px;   
+    }
+    .search{
+        border:none;
+    }
+}
+@media (min-width:321px) and (max-width:340px){
+    .header, .phoneSearch{
+        padding:.4rem .5rem;
+    }
+    .search input{
+        display:none;
+    }
+    .homeLink span, .homeLink i{
+        font-size:1.2rem;
+    }
+    .homeLink span{
+        display:inline-block;
+        width:180px;   
     }
     .search{
         border:none;
@@ -171,7 +208,7 @@
         border:none;
     }
     .search i, .shoppingCart, .searchButton{
-        font-size:1.2rem;
+        font-size:1.1rem;
     }
     .header a:first-of-type{
         margin-right:auto;
@@ -179,7 +216,7 @@
 }
 @media (min-width:426px) and (max-width:768px){
     .header, .phoneSearch{
-        padding:.7rem;
+        padding:.4rem .7rem;
     }
     .search{
         border:none;
@@ -188,14 +225,14 @@
     .search input{
         display:none;
     }
-    .search i{
+    /* .search i{
         font-size:1.5rem;
-    }
+    } */
     .header a:first-of-type{
         margin-right:auto;
     }
-    .shoppingCart, .searchButton{
-        font-size:1.5rem;
+    .search i, .shoppingCart, .searchButton{
+        font-size:1.4rem;
     }
 }
 @media (max-width:769px){
@@ -206,14 +243,14 @@
 
 @media (min-width:769px) and (max-width:992px){
     .arrowLeft{
-        font-size:2rem;
+        font-size:1.4rem;
     }
     .header{
         width:95%;
         padding:.6rem;
     }
     .shoppingCart{
-        font-size:1.5rem;
+        font-size:1.4rem;
     }
 }
 
@@ -223,7 +260,7 @@
         padding:.6rem;
     }
     .shoppingCart{
-        font-size:1.5rem;
+        font-size:1.4rem;
     }
 }
 
@@ -233,10 +270,9 @@
         padding:.7rem;
     }
     .shoppingCart{
-        font-size:1.5rem;
+        font-size:1.4rem;
     }
 }
-
 @media (max-width:768px){
     .phoneSearch{
         display:flex;

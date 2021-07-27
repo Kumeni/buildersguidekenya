@@ -184,7 +184,7 @@ export default function manufacturersandsuppliers(props) {
 						<div key={element.subCategory.id} id={element.subCategory.subCategory.replace(/\s/g, '')}>
 							<CategorySection 
 								title={element.subCategory.subCategory}
-								link={'/materials/'+element.subCategory.subCategory}
+								link={'/products-and-services/'+element.subCategory.subCategory}
 								productInfo={element.suppliers}
 								counties={counties}
 								constituencies = {constituencies}

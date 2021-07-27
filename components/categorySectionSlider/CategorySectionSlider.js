@@ -1,10 +1,12 @@
 import style from './CategorySectionSlider.module.css'
 import {useRef, useState, useEffect} from 'react'
+import {useRouter} from 'next/router'
 
 function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelected}) {
 
     const [availableMenu, setAvailableMenu] = useState([]);
     const [activeMenu, setActiveMenu] = useState();
+    const router = useRouter();
 
     const menu = useRef();
 
@@ -29,6 +31,12 @@ function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelect
                     subCategory:0
                 }].concat(subCategories));
             } else if(subCategories[0].name){
+                setAvailableMenu([{
+                    name:"All",
+                    id:0,
+                    subCategory:0
+                }].concat(subCategories));
+            } else if(subCategories[0].category){
                 setAvailableMenu([{
                     name:"All",
                     id:0,
@@ -71,9 +79,18 @@ function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelect
         }
     }, [activeMenu])
 
-    // useEffect(()=>{
-    //     console.log(availableMenu);
-    // })
+    useEffect(()=>{
+        if(router.query.category!==undefined&&menu.current!=null){
+            //trigger a click event on link element that innerHTML=router.query.category
+            let i=0;
+            for(i; i<menu.current.children.length; i++){
+                if(menu.current.children[i].innerHTML === router.query.category){
+                    menu.current.children[i].click();
+                    break;
+                }
+            }
+        }
+    }, [router.query.category, menu.current])
 
     return (
         <>
@@ -86,7 +103,7 @@ function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelect
             >
                 {
                     availableMenu.map((element, index)=>(
-                        <li key={index} value={element} ref={menu[index]} >{element.categories?element.subCategory:element.speCatName?element.speCatName:element.name}</li>
+                        <li key={index} value={element} ref={menu[index]} >{element.categories?element.subCategory:element.speCatName?element.speCatName:element.name?element.name:element.category}</li>
                     ))
                 }
             </ul>

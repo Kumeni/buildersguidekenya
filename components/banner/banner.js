@@ -34,7 +34,7 @@ export default function Banner(){
                         "waitForTransition":true
                     }}
                     onSwiper={()=>console.log('swiper')}
-                    onSlideChange={()=>console.log('slide change')}
+                    onSlideChange={()=>undefined}
                 >
                     <SwiperSlide>
                         <div className={style.slide}>
