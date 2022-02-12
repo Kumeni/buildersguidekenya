@@ -1,5 +1,5 @@
 .bgkIcon{
-    height:110px;
+    height:60px;
     width:auto;
     align-self:center;
 }
@@ -85,7 +85,7 @@
 }
 
 .myAccountContainer{
-    border:2px solid rgba(59, 35, 19, 0.589);
+    /* border:2px solid rgba(59, 35, 19, 0.589); */
     display:flex;
     display:-webkit-flex;
     flex-direction:row;

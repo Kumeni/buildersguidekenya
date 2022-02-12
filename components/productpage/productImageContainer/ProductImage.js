@@ -30,12 +30,6 @@ export default function ProductImage(props) {
                         :undefined
                     :undefined
                 }
-                
-                {/* <SwiperSlide><img className={style.productImage} src='/images/Construction-resized.jpg' alt='Constuction image' /></SwiperSlide>
-                <SwiperSlide><img className={style.productImage} src='/images/unique house design.jpg' alt='unique house design' /></SwiperSlide>
-                <SwiperSlide><img className={style.productImage} src='/images/Construction-resized.jpg' alt='Constuction image' /></SwiperSlide>
-                <SwiperSlide><img className={style.productImage} src='/images/unique house design.jpg' alt='unique house design' /></SwiperSlide>
-                <SwiperSlide><img className={style.productImage} src='/images/Construction-resized.jpg' alt='Constuction image' /></SwiperSlide> */}
             </Swiper>
         </div>
     )

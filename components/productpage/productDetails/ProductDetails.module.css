@@ -11,6 +11,18 @@
     white-space: normal;
 }
 
+.productInformation p{
+    margin-bottom:2px;
+}
+.productInformation p:nth-of-type(2){
+    margin-top:4px;
+    font-size:1.05rem;
+}
+.initialPrice {
+    font-size:0.9rem;
+    text-decoration: line-through;
+    color:rgb(83, 83, 83);
+}
 .rating{
     color:rgb(255, 255, 0);
 }
@@ -31,6 +43,11 @@
     border-top:1px solid rgb(210, 210, 210);
     border-bottom:1px solid rgb(210, 210, 210);
     padding:0.7rem 0rem;
+}
+@media (min-width:426px){
+    .supplierInformation{
+        border-bottom:none;
+    }
 }
 .supplierInformation h5{
     color:blue;
@@ -61,11 +78,7 @@
 
 .productInformation > p:nth-of-type(3){
     margin:.2rem 0rem;
-}
-.sizeSelect{
-    margin-top:.8rem;
-} */
-
+}*/
 .size{
     padding:0rem .5rem;
     border:1px solid rgb(210, 210, 210);
@@ -91,15 +104,6 @@
     background-color: silver;
 }
 
-.colorSelect{
-    transition:width .3s;
-    margin-bottom:1.3rem;
-}
-
-.colorSelect h5{
-    margin-bottom:0rem;
-}
-
 .supplierInformation p{
     margin:0.2rem 0rem;
 }
@@ -111,177 +115,27 @@
 .productDescription{
     margin:1rem 0rem;
 }
+.variations{
+    max-width:100%;
+}
 
-/* .productDescription button{
-    border:none;
+.variations div{
+    max-width:98vw;
+    padding:0.3rem 0.8rem;
+    border-radius:3px;
+    margin-right:0.6rem;
+    margin-top:0.4rem;
     display:inline-block;
-    width:100%;
-    padding:.5rem .2rem .2rem .2rem;
-    background:linear-gradient(to bottom, rgba(0, 0, 0, 0) 2%, rgba(255, 255, 255, 1));
 }
-
-.productDescription button:focus{
-    outline:none;
+.variations div:hover{
+    border-color:rgba(233, 116, 21, 0.5);
 }
-
-.productDescription p{
-    margin-bottom:-2.3rem;
-} */
-@media (min-width:1410px){
-    .colorSelect{
-        width:600px;
-    }
+.variations div:hover{
+    cursor:pointer;
 }
-@media (min-width:1376px) and (max-width:1410px){
-    .colorSelect{
-        width:560px;
-    }
+.active{
+    border:1px solid rgb(233, 116, 21);
 }
-
-@media (min-width:1335px) and (max-width:1376px){
-    .colorSelect{
-        width:520px;
-    }
-}
-/*1290 */
-@media (min-width:1290px) and (max-width:1335px){
-    .colorSelect{
-        width:480px;
-    }
-}
-
-@media (min-width:1273px) and (max-width:1290px){
-    .colorSelect{
-        width:720px;
-    }
-}
-
-@media(min-width:1230px) and (max-width:1273px){
-    .colorSelect{
-        width:680px;
-    }
-}
-
-@media (min-width:1192px) and (max-width:1230px){
-    .colorSelect{
-        width:640px;
-    }
-}
-
-@media (max-width:1192px){
-    .colorSelect{
-        width:680px;
-    }
-}
-
-@media (min-width:1096) and (max-width:1131px){
-    .colorSelect{
-        width:640px;
-    }
-}
-@media(min-width:1048px) and (max-width:1096px){
-    .colorSelect{
-        width:600px;
-    }
-}
-
-@media (min-width:1024px) and (max-width:1048px){
-    .colorSelect{
-        width:560px;
-    }
-}
-
-@media (min-width:998px) and (max-width:1024px){
-    .colorSelect{
-        width:500px;
-    }
-}
-
-@media (min-width:992px) and (max-width:998px){
-    .colorSelect{
-        width:460px;
-    }
-}
-
-@media (min-width:914px) and (max-width:992px){
-    .colorSelect{
-        width:860px;
-    }
-}
-
-@media (min-width:872px) and (max-width:914px){
-    .colorSelect{
-        width:820px;
-    }
-}
-
-@media (min-width:830px) and (max-width:872px){
-    .colorSelect{
-        width:780px;
-    }
-}
-
-@media (min-width:790px) and (max-width:830px){
-    .colorSelect{
-        width:740px;
-    }
-}
-
-@media (min-width:744px) and (max-width:790px){
-    .colorSelect{
-        width:700px;
-    }
-}
-
-@media (min-width:710px) and (max-width:744px){
-    .colorSelect{
-        width:660px;
-    }
-}
-
-@media (min-width:668px) and (max-width:710px){
-    .colorSelect{
-        width:610px;
-    }
-}
-@media (min-width:628px) and (max-width:668px){
-    .colorSelect{
-        width:570px;
-    }
-}
-
-@media (min-width:590px) and (max-width:628px){
-    .colorSelect{
-        width:530px;
-    }
-}
-
-@media (min-width:550px) and (max-width:590px){
-    .colorSelect{
-        width:490px;
-    }
-}
-
-@media (min-width:504px) and (max-width:550px){
-    .colorSelect{
-        width:450px;
-    }
-}
-
-@media (min-width:470px) and (max-width:504px){
-    .colorSelect{
-        width:410px;
-    }
-}
-
-@media (min-width:444px) and (max-width:470px){
-    .colorSelect{
-        width:370px;
-    }
-}
-
-@media (max-width:444px){
-    .colorSelect{
-        width:100%;
-    }
+.notActive{
+    border:1px solid rgb(210, 210, 210);
 }

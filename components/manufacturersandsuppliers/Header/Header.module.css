@@ -1,7 +1,22 @@
 .header, .phoneSearch{
     margin:auto; 
-    background-color: white;
-    box-shadow:0px 2px 4px rgb(200, 200, 200);
+    background-color:rgba(255, 255, 255, 0.9);
+    box-shadow:0px 1px 2px rgb(200, 200, 200);
+}
+
+.header{
+    /* background-color:rgba(255, 217, 0, 0.9); */
+}
+@media (max-width:768px){
+    .header, .phoneSearch{
+        background-color:white;
+    }
+}
+.header input{
+    background-color:transparent;
+}
+.search:focus{
+    background-color:white;
 }
 .headerContainer{
     position:sticky;
@@ -19,8 +34,28 @@
     position: relative;
     z-index: 2;
 }
-
-
+.title{
+    display:grid;
+    display:-ms-grid;
+    display:-moz-grid;
+    grid-template-columns:max-content max-content;
+    grid-template-rows:auto;
+    align-content:center;
+    margin-left:1rem;
+}
+.title h1{
+    font-size:1.7rem;
+    font-weight:400;
+}
+@media (max-width:572px){
+    .title h1{
+        display:none;
+    }
+}
+.title img{
+    width:35px;
+    height:35px;
+}
 @media (max-width:768px){
     
     .phoneSearch{
@@ -45,12 +80,40 @@
 }
 
 .homeLink span{
-    font-weight: 600;
+    font-weight: 400;
     font-size:1.4rem;
     margin-left:.5rem;
     overflow-x:hidden;
     white-space:nowrap;
     text-overflow: ellipsis;
+}
+
+@media (max-width:522px){
+    .homeLink span{
+        display:none;
+    }
+}
+
+.homeLink div:first-of-type{
+    display:inline-block;
+    border-radius:50%;
+    border:1px solid transparent;
+}
+
+.homeLink div:first-of-type:hover{
+    border-color:rgb(120, 120, 120);
+}
+
+/*.homeLink img{
+    width:32px;
+    height:32px;
+    margin:0.2rem;
+}*/
+
+.backIcon{
+    width:22px;
+    height:30px;
+    margin:0.5rem;
 }
 
 .homePageLink{
@@ -65,8 +128,8 @@
 
 
 .search{
-    border:2px solid rgb(104, 62, 34);
-    padding:.3rem;
+    border:1px solid rgb(104, 62, 34);
+    padding:0.25rem .4rem;
     border-radius:25px;
 }
 
@@ -75,7 +138,7 @@
 }
 
 .search:focus-within, .search:focus{
-    border:2px solid rgb(59, 35, 19);
+    border:1px solid rgb(59, 35, 19);
 }
 
 .search input, .phoneSearch input{
@@ -84,7 +147,7 @@
     width:300px;
     border:none;
     margin-left:.4rem;
-    font-weight:600;
+    font-weight:400;
 }
 
 .phoneSearch input{
@@ -116,6 +179,21 @@
     /* margin-right:.5rem; */
 }
 
+.searchIcon{
+    height:35px;
+    width:35px;
+    border-left:1px solid transparent;
+}
+
+.backIcon{
+    height:20px;
+    height:20px;
+}
+.searchIcon:hover{
+    cursor:pointer;
+    border-left-color:rgb(210, 210, 210);
+}
+
 @media (max-width:321px){
     .header, .phoneSearch{
         padding:.4rem .5rem;
@@ -132,10 +210,10 @@
     .homeLink span, .homeLink i{
         font-size:1.1rem;
     }
-    .homeLink span{
+    /* .homeLink span{
         display:inline-block;
         width:160px;
-    }
+    } */
 }
 @media (min-width:357px) and (max-width:375px){
     .header, .phoneSearch{
@@ -147,10 +225,10 @@
     .homeLink span, .homeLink i{
         font-size:1.2rem;
     }
-    .homeLink span{
+    /* .homeLink span{
         display:inline-block;
         width:220px;   
-    }
+    } */
     .search{
         border:none;
     }
@@ -165,10 +243,10 @@
     .homeLink span, .homeLink i{
         font-size:1.2rem;
     }
-    .homeLink span{
+    /* .homeLink span{
         display:inline-block;
         width:200px;   
-    }
+    } */
     .search{
         border:none;
     }
@@ -183,10 +261,10 @@
     .homeLink span, .homeLink i{
         font-size:1.2rem;
     }
-    .homeLink span{
+    /* .homeLink span{
         display:inline-block;
         width:180px;   
-    }
+    } */
     .search{
         border:none;
     }
@@ -246,7 +324,7 @@
         font-size:1.4rem;
     }
     .header{
-        width:95%;
+        /* width:95%; */
         padding:.6rem;
     }
     .shoppingCart{
@@ -256,7 +334,7 @@
 
 @media (min-width:992px) and (max-width:1200px){
     .header{
-        width:95%;
+        /* width:95%; */
         padding:.6rem;
     }
     .shoppingCart{
@@ -266,7 +344,8 @@
 
 @media (min-width:1200px){
     .header{
-        width:1200px;
+        /* width:1200px; */
+        max-width:1500px;
         padding:.7rem;
     }
     .shoppingCart{

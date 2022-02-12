@@ -20,21 +20,152 @@ export default function subCategory(props) {
     const [productInfo, setProductInfo] = useState([]);
     const [counties,setCounties] = useState();
 	const [constituencies, setConstituencies] = useState();
+    const [pathname, setPathname] = useState();
+    const [storedSelectedMenu, setStoredSelectedMenu] = useState();
+    const [lastScrollPos, setLastScrollPos] = useState();
 
     const router = useRouter();
-    //console.log(router.query);
-
     const loading = useRef(null);
+
+    function categoryExists(){
+        let position = -1;
+        props.pagesData.productsAndServices.categories.map((element, index)=>{
+            if(element.name == router.query.subCategory){
+                position = index;
+            }
+        })
+        return position;
+    }
+
+    //This block creates a pathname page specific
+    useEffect(()=>{
+        if(pathname == undefined && router.query.subCategory){
+            setPathname(router.pathname+'/'+router.query.subCategory);
+            sessionStorage.setItem('pathname', router.pathname+'/'+router.query.subCategory);
+        }
+    }, [router])
+
+    //This block stores page data in memory
+    useEffect(()=>{
+        let holder = props.pagesData;
+        if(holder.productsAndServices.categories == undefined && router.query.subCategory){
+            let object = {};
+            object.name = router.query.subCategory;
+
+            holder.productsAndServices.categories = [];
+            holder.productsAndServices.categories.push(object);
+
+            props.setPagesData(holder);
+        }
+
+        //console.log(props.pagesData);
+    }, [props.pagesData, router])
+
+    //This block is supposed to be responsible for remembering initial selectedMenu
+    useEffect(()=>{
+        if(storedSelectedMenu == undefined && productInfo.length > 0 && pathname != undefined){
+            if(props.pagesData.productsAndServices.categories && storedSelectedMenu == undefined)
+                if(router.query.category!=undefined)
+                    setStoredSelectedMenu(router.query.categrory);
+                else if(props.pagesData.productsAndServices.categories[categoryExists()].storedSelectedMenu)
+                    setStoredSelectedMenu(props.pagesData.productsAndServices.categories[categoryExists()].storedSelectedMenu);
+                else if (sessionStorage.getItem(pathname+'InitialMenu'))
+                    setStoredSelectedMenu(sessionStorage.getItem(pathname+'InitialMenu'));
+                
+        }
+    }, [pathname, productInfo])
+
+    //This block is responsible for remembering the initial scroll position
+	useEffect(()=>{
+        window.addEventListener("scroll", ()=>{
+            console.log(sessionStorage.getItem('pathname')+'InitialScrollPos');
+            if(window.scrollY > 0)
+                sessionStorage.setItem(sessionStorage.getItem('pathname')+'InitialScrollPos', window.scrollY);
+        })
+	}, [])
+
+    useEffect(()=>{
+        if(pathname && lastScrollPos == undefined){
+            console.log(sessionStorage.getItem(pathname+'InitialScrollPos'));
+            setLastScrollPos(sessionStorage.getItem(pathname+'InitialScrollPos'));
+        }
+    }, [pathname])
+
+    //This block scrolls the page to the last scroll location
+    useEffect(()=>{
+        if(lastScrollPos && pathname){
+            if(sessionStorage.getItem(pathname+'InitialMenu') == null && menuSelected == undefined){
+                if(productInfo && productInfo.length > 0 ){
+                    window.scroll({
+                        top:lastScrollPos,
+                        left:0,
+                        behavior:'smooth'
+                    });
+                    setLastScrollPos();
+                }
+            } else if (menuSelected && menuSelected.speCatName == sessionStorage.getItem(pathname+'InitialMenu')){
+                //check productInfo for the menu first then scroll
+                if(productInfo && productInfo.length > 0){
+                    console.log("Wow");
+                    let scroll = false;
+                    productInfo.map((element, index)=>{
+                        if(element.menu == menuSelected.id)
+                            scroll = true;
+                    })
+
+                    if(scroll){
+                        window.scroll({
+                            top:lastScrollPos,
+                            left:0,
+                            behavior:'smooth'
+                        })
+                        setLastScrollPos();
+                    }
+                }
+            }
+        }
+    }, [lastScrollPos, menuSelected, productInfo, pathname])
+
+    //This block stores selected menu in memory and in browsers storage
+    useEffect(()=>{
+        if(menuSelected){
+            /*if(menuSelected.speCatName != router.query.category){
+                router.replace('/products-and-services/'+router.query.subCategory);
+            }*/
+            //console.log(menuSelected);
+            //console.log(props.pagesData.productsAndServices.categories);
+            
+            let holder = props.pagesData, categoryIndex = categoryExists();
+            holder.productsAndServices.updateTime = Date.now();
+            
+            if(categoryIndex == -1){
+                let object = {};
+                object.name = router.query.subCategory;
+                object.storedSelectedMenu = menuSelected.speCatName;
+                
+                holder.productsAndServices.categories.push(object);
+
+                props.setPagesData(holder);
+            } else {
+                holder.productsAndServices.categories[categoryIndex].storedselectedMenu = menuSelected.speCatName;
+            }
+
+            props.setPagesData(holder);
+
+            sessionStorage.setItem( pathname+'InitialMenu' , menuSelected.speCatName);
+            //console.log(sessionStorage.getItem(pathname+'InitialMenu'));
+        }
+    }, [menuSelected])
 
     async function getSpecificCategories(){
         if(router.query.subCategory){
             loading.current.style.display = 'block';
             const subCategory = await axios.get(props.baseURL+"/sub-categories?subCategory="+router.query.subCategory);
-            console.log(subCategory.data);
+            //console.log(subCategory.data);
             setSubCategory(subCategory.data[0]);
 
             const availableSpecificCategories = await axios.get(props.baseURL+"/specific-categories?productsAvailable=true&subCategory="+subCategory.data[0].id);
-            console.log(availableSpecificCategories.data);
+            //console.log(availableSpecificCategories.data);
             setAvailableMenus(availableSpecificCategories.data);
 
             const counties = await axios.get(props.baseURL+"/counties?_limit=-1");
@@ -43,8 +174,9 @@ export default function subCategory(props) {
             const constituencies = await axios.get(props.baseURL+"/constituencies?_limit=-1");
             setConstituencies(constituencies.data);
 
+            console.log(subCategory.data[0].id);
             const productSpecializations = await axios.get(props.baseURL+"/product-specializations?productSubCategory="+subCategory.data[0].id+"&_limit=30");
-            //console.log(specializations.data);
+            console.log(productSpecializations.data);
 
             let query = '';
     
@@ -54,29 +186,33 @@ export default function subCategory(props) {
             //console.log(query);
         
             //Getting the first 30 suppliers in this category
-            const products = await axios.get(props.baseURL+"/products?"+query+'&_limit=11', {
-                transformResponse:[function(data){
-                    let newData = [];
-                    let originalData = JSON.parse(data);
-    
-                    originalData.map(element=>{
-                        let object = {};
+            let products;
+            if(query=="")
+                products = {data:[]};
+            else 
+                products = await axios.get(props.baseURL+"/products?"+query+'&_limit=11', {
+                    transformResponse:[function(data){
+                        let newData = [];
+                        let originalData = JSON.parse(data);
         
-                        object.id = element.id;
-                        object.productName = element.productName;
-                        object.county = element.county;
-                        object.constituency = element.constituency;
-                        object.buildingOrEstate = element.estate;
-                        object.productDescription = element.productDescription;
+                        originalData.map(element=>{
+                            let object = {};
+            
+                            object.id = element.id;
+                            object.productName = element.productName;
+                            object.county = element.county;
+                            object.constituency = element.constituency;
+                            object.buildingOrEstate = element.estate;
+                            object.productDescription = element.productDescription;
+            
+                            newData = newData.concat(object);
+                        })
         
-                        newData = newData.concat(object);
-                    })
-    
-                    return newData;
-                }]
-            });
+                        return newData;
+                    }]
+                });
 
-            console.log(products.data);
+            //console.log(products.data);
             setProductInfo(productInfo.concat({
                 menu:0,
                 suppliers:completeCompanyInfo(products.data, counties.data, constituencies.data)
@@ -111,7 +247,6 @@ export default function subCategory(props) {
 
     useEffect(()=>{
         if(menuSelected){
-            console.log(menuSelected.speCatName);
             //moreLink(menuSelected);
             //console.log(checkAvailablility(companyInfo, menuSelected.id));
             if(checkAvailablility(productInfo, menuSelected.id) !== -1){
@@ -121,7 +256,6 @@ export default function subCategory(props) {
             } else {
                 //console.log(menuSelected);
                 if(menuSelected.categories !== undefined){
-                    
                     specializedProducts("productSubCategory", menuSelected.id)
                     .then(res=>{
                         getProducts(res, props.baseURL)
@@ -136,16 +270,15 @@ export default function subCategory(props) {
                         console.log(err.response);
                     })
                 }else if (menuSelected.speCatName !== undefined){
-                    //console.log('running');
                     specializedProducts("productSpecificCategory", menuSelected.id)
                     .then(res=>{
-                        //console.log(res);
+                        console.log(res);
                         getProducts(res, props.baseURL)
                         .then(res=>{
                             let object = {};
                             object.menu = menuSelected.id;
                             object.suppliers = completeCompanyInfo(res, counties, constituencies);
-                            setProductInfo(productInfo.concat(object));
+                            setProductInfo(productInfo.concat(object).slice());
                         })
                     })
                 }
@@ -165,18 +298,6 @@ export default function subCategory(props) {
     }, [productInfo])
 
     useEffect(()=>{
-        console.log("***activeSuppliers***");
-        console.log(activeSuppliers);
-        console.log(productInfo[activeSuppliers]);
-    },[activeSuppliers])
-
-    useEffect(()=>{
-        console.log("***previousActiveSuppliers***");
-        console.log(previousActiveSuppliers);
-        console.log(productInfo[previousActiveSuppliers])
-    }, [previousActiveSuppliers])
-
-    useEffect(()=>{
         window.dataLayer = window.dataLayer || [];
 
         function gtag(){dataLayer.push(arguments);}
@@ -185,6 +306,26 @@ export default function subCategory(props) {
         gtag('config', 'G-8VYK6XCD9G');
     }, [props.baseURL])
 
+    function listAvailableMenus(){
+        if(availableMenus){
+            let theMenus = "";
+            availableMenus.map((element, index)=>{
+                if(index == 0)
+                    theMenus+=element.speCatName;
+                else if(index == availableMenus.length-1)
+                    theMenus+="and "+element.speCatName;
+                else 
+                    theMenus+=", "+element.speCatName;
+            })
+            return "such as "+theMenus;
+        }
+        return "";
+    }
+
+    useEffect(()=>{
+        if(availableMenus)
+            console.log(availableMenus)
+    }, [availableMenus])
     return (
         <div>
             <Head>
@@ -200,12 +341,11 @@ export default function subCategory(props) {
                 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                 crossOrigin="anonymous" />
 
-                <meta name='keywords' description={router.query.subCategory?router.query.subCategory:'materials'} />
+                <meta name='keywords' description={router.query.subCategory?router.query.subCategory.replace(/and/, '').replace(/\s/, ', ')+" kenya, materials, products, services":""} />
 
-                <meta name="content" description={`Find ${router.query.subCategory?router.query.subCategory:''} materials for 
-                your construction project at the location of your preference in Kenya`} />
+                <meta name="content" description= {router.query.subCategory? "Find "+ router.query.subCategory+" materials, products and related services for your construction project"+ listAvailableMenus() +" anywhere in Kenya":""} />
 
-                <title>Construction Materials ~ {router.query.subCategory?router.query.subCategory:''} | Builders Guide Kenya</title>
+                <title>{router.query.subCategory?router.query.subCategory+" products and services in Kenya and East African Community | Builders Guide Kenya":''}</title>
             </Head>
             {
                 router.query.subCategory?
@@ -220,6 +360,7 @@ export default function subCategory(props) {
                             subCategories={availableMenus} 
                             setMenuSelected = {(menu)=>setMenuSelected(menu)}
                             menuSelected={menuSelected}
+                            storedSelectedMenu={storedSelectedMenu}
                         />
                     </div>
                     :''

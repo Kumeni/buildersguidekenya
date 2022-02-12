@@ -1,0 +1,27 @@
+.loginForm{
+    padding:2rem 5rem;
+    width:max-content;
+    margin:0.5rem 0rem;
+    /* box-shadow:1px 1px 2px 1px rgb(180, 180, 180); */
+    border:1px solid rgb(210, 210, 210);
+    background-color:white;
+}
+
+@media (min-width:425px) and (max-width:550px){
+    .loginForm{
+        padding:2rem;
+    }
+}
+
+@media (max-width:425px){
+    .loginForm{
+        padding:2rem 1rem;
+        margin:auto auto;
+    }
+}
+
+/* @media(min-width:426px){
+    .loginForm{
+        margin:4rem auto;
+    }
+} */

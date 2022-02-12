@@ -1,0 +1,17 @@
+.logoContainer{
+    width:max-content;
+}
+.bgkLogo{
+    display:block;
+    height:160px;
+    margin:auto;
+}
+@media (max-width:375px){
+    .logoContainer{
+        width:85vw;
+    }
+    .bgkLogo{
+        width: 100%;
+        height:auto;
+    }
+}

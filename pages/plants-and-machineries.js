@@ -19,37 +19,129 @@ export default function constructionMachinery(props) {
     const [previousActiveSuppliers, setPreviousActiveSuppliers] = useState(0);
     const [activeSuppliers, setActiveSuppliers] = useState(0);
     const [constructionMachineryInfo, setConstructionMachineryInfo] = useState([]);
-
+    const [storedSelectedMenu, setStoredSelectedMenu] = useState("All");
+    const [lastScrollPos, setLastScrollPos] = useState();
+    
     const router = useRouter();
     const loading = useRef(null);
 
+    useEffect(()=>{
+        if(router && lastScrollPos == undefined)
+            if(sessionStorage.getItem(router.pathname+'InitialScrollPos'))
+                setLastScrollPos(Number(sessionStorage.getItem(router.pathname+'InitialScrollPos')));
+    }, [router])
+
+	//This block is supposed to be responsible for remembering initial selectedMenu
+    useEffect(()=>{
+        if(router.query.category!=undefined)
+			setStoredSelectedMenu(router.query.categrory);
+		else if(props.pagesData.plantsAndMachineries.storedSelectedMenu)
+			setStoredSelectedMenu(props.pagesData.plantsAndMachineries.storedSelectedMenu);
+		else if (sessionStorage.getItem(router.pathname+'InitialMenu'))
+			setStoredSelectedMenu(sessionStorage.getItem(router.pathname+'InitialMenu'));
+		//console.log(sessionStorage.getItem(router.pathname+'InitialMenu'));
+    }, [props.pagesData, router.pathname])
+
+    
+	//This block stores selected menu in memory and in browsers storage
+    useEffect(()=>{
+        if(menuSelected){
+            if(menuSelected.subCategory != router.query.category){
+                router.replace('/plants-and-machineries');
+            }
+            let holder = props.pagesData;
+            holder.plantsAndMachineries.storedSelectedMenu = menuSelected.subCategory;
+            props.setPagesData(holder);
+            sessionStorage.setItem( router.pathname+'InitialMenu' , menuSelected.subCategory);
+        }
+    }, [menuSelected])
+
+	//This block is responsible for restoring initial scroll position
+	useEffect(()=>{
+		if(menuSelected!= undefined)
+			if(lastScrollPos && menuSelected.subCategory == sessionStorage.getItem(router.pathname+'InitialMenu') && constructionMachineryInfo.length > 0){
+                window.scroll({
+                    top:lastScrollPos,
+                    left:0,
+                    behavior:'smooth'
+                });
+                setLastScrollPos();
+            }
+	}, [menuSelected, constructionMachineryInfo, lastScrollPos])
+
+	useEffect(()=>{
+		window.addEventListener('scroll', ()=>{
+			sessionStorage.setItem(router.pathname+'InitialScrollPos', window.scrollY)
+		});
+	}, [])
+    
+	useEffect(()=>{
+		console.log(storedSelectedMenu);
+	}, [storedSelectedMenu]);
+
     //This function is responsible for fetching initial page data
     const getData = async()=>{
-        const availableConstructionMachinerySubCategories = await axios.get(props.baseURL+"/sub-categories?productsAvailable=true&categories=3");
-        const constructionMachinery = await axios.get(props.baseURL+"/plant-and-machineries?blocked=false&deleted=false&_limit=10", {
-			transformResponse:[function(data){
-				let newData = [];
-				let originalData = JSON.parse(data);
-
-				originalData.map(element=>{
-					let object = {};
-
-					object.id = element.id;
-					object.name = element.name;
-					object.county = element.county;
-					object.constituency = element.constituency;
-					object.buildingOrEstate = element.buildingOrEstate;
-					object.additionalDescription = element.additionalDescription;
-
-					newData = newData.concat(object);
-				})
-
-				return newData;
-			}]
-		});
-        const counties = await axios.get(props.baseURL+"/counties?_limit=-1");
+        let counties = await axios.get(props.baseURL+"/counties?_limit=-1");
   
-    	const constituencies = await axios.get(props.baseURL+"/constituencies?_limit=-1");
+    	let constituencies = await axios.get(props.baseURL+"/constituencies?_limit=-1");
+
+        if(props.pagesData.home.data != undefined){
+            counties = {
+                data:props.pagesData.home.data.counties
+            };
+            constituencies = {
+                data:props.pagesData.home.data.constituencies
+            };
+        } else {
+            counties = await axios.get(props.baseURL+"/counties?_limit=-1");
+            constituencies = await axios.get(props.baseURL+"/constituencies?_limit=-1");
+
+            let holder = props.pagesData;
+            holder.home.data = {};
+            holder.home.data.counties = counties.data;
+            holder.home.data.constituencies = constituencies.data;
+            props.setPagesData(holder);
+        }
+
+        let availableConstructionMachinerySubCategories;
+        let constructionMachinery;
+        
+        if(props.pagesData.plantsAndMachineries.availableConstructionMachinerySubCategories!=undefined){
+            availableConstructionMachinerySubCategories = {
+                data:props.pagesData.plantsAndMachineries.availableConstructionMachinerySubCategories
+            }
+            constructionMachinery = {
+                data:props.pagesData.plantsAndMachineries.constructionMachinery
+            }
+        } else {
+            availableConstructionMachinerySubCategories = await axios.get(props.baseURL+"/sub-categories?productsAvailable=true&categories=3");
+            constructionMachinery = await axios.get(props.baseURL+"/plant-and-machineries?blocked=false&deleted=false&_limit=10", {
+                transformResponse:[function(data){
+                    let newData = [];
+                    let originalData = JSON.parse(data);
+    
+                    originalData.map(element=>{
+                        let object = {};
+    
+                        object.id = element.id;
+                        object.name = element.name;
+                        object.county = element.county;
+                        object.constituency = element.constituency;
+                        object.buildingOrEstate = element.buildingOrEstate;
+                        object.additionalDescription = element.additionalDescription;
+    
+                        newData = newData.concat(object);
+                    })
+    
+                    return newData;
+                }]
+            });
+
+            let holder = props.pagesData;
+            holder.plantsAndMachineries.availableConstructionMachinerySubCategories = availableConstructionMachinerySubCategories.data;
+            holder.plantsAndMachineries.constructionMachinery = constructionMachinery.data;
+            props.setPagesData(holder);
+        }
 
 		let data = {
 			constructionMachinery:constructionMachinery.data,
@@ -59,16 +151,28 @@ export default function constructionMachinery(props) {
 		}
 		
 		setData(data);
+
+        if(props.pagesData.plantsAndMachineries.constructionMachineryInfo == undefined){
+            let holder = props.pagesData;
+            holder.plantsAndMachineries.constructionMachineryInfo = [].concat({
+                menu:0,
+                suppliers:completeCompanyInfo(data.constructionMachinery, data.counties, data.constituencies)
+            });
+            props.setPagesData(holder);
+        }
+
         setConstructionMachineryInfo(constructionMachineryInfo.concat({
             menu:0,
             suppliers:completeCompanyInfo(data.constructionMachinery, data.counties, data.constituencies)
         }));
         loading.current.style.display="none";
     }
+
     useEffect(()=>{
         getData();
     }, [props.baseURL]);
 
+	//This block is supposed to display initial menu untill the new one is ready
     useEffect(()=>{
         if(constructionMachineryInfo[activeSuppliers]){
             setPreviousActiveSuppliers(activeSuppliers);
@@ -170,7 +274,31 @@ export default function constructionMachinery(props) {
     }, [props.baseURL])
 
     //const [menuSelected, setMenuSelected] = useState("All");
-    
+    function metaDescription(){
+        let description = "Find plants and machineries for hire or sale in Kenya", subCategories=" ";
+        if(data)
+            if(data.availableConstructionMachinerySubCategories){
+                data.availableConstructionMachinerySubCategories.map((element, index)=>{
+                    if(index == data.availableConstructionMachinerySubCategories-1){
+                        subCategories += element.subCategory;
+                    } else {
+                        subCategories +=", "+element.subCategory
+                    }
+                })
+                description = "Find plants and machineries such as "+subCategories+" for hire or sale in Kenya";
+            }
+            
+        return description;
+    }
+    function keywords(){
+        let keywords="plants, machineries, machinery, kenya";
+        if(data)
+            if(data.availableConstructionMachinerySubCategories)
+                data.availableConstructionMachinerySubCategories.map((element, index)=>{
+                    keywords += ", "+element.subCategory;
+                })
+        return keywords;
+    }
     return (
         <div>
             <Head>
@@ -185,7 +313,11 @@ export default function constructionMachinery(props) {
                 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                 crossOrigin="anonymous" />
 
-                <title>Plants and Machineries</title>
+                <meta name="description"  content={metaDescription()} />
+
+                <meta name="keywords" content={keywords()} />
+
+                <title>Plants and Machineries for hire or sale in Kenya | Builders Guide Kenya</title>
             </Head>
             
             <Header title='Plants and Machineries' />
@@ -197,6 +329,7 @@ export default function constructionMachinery(props) {
                                 subCategories={data.availableConstructionMachinerySubCategories}
                                 setMenuSelected = {(menu)=>setMenuSelected(menu)}
                                 menuSelected={menuSelected} 
+                                storedSelectedMenu={storedSelectedMenu}
                             />
                         :undefined
                     }

@@ -60,8 +60,8 @@ export default function Banner(){
                     </h1>
                     <button className={'bg-primary text-white'}>SIGNUP</button>
                 </div> */}
-                <a href="https://suppliers.buildersguidekenya.com/signup">
-                    <img src="/images/signupBanner.png" alt="buildersguidekenya signup link" />
+                <a href="https://admin.buildersguidekenya.com/signup">
+                    <img src="/images/signupBanner.png" alt="signup on buildersguidekenya as a supplier"/>
                 </a>
             </div>
         </div>

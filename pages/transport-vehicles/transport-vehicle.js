@@ -132,6 +132,26 @@ export default function index(props) {
         gtag('config', 'G-8VYK6XCD9G');
     }, [props.baseURL])
 
+    function title(){
+        let title = "";
+        if(vehicleDetails){
+            title += "Looking for "+vehicleDetails[0].description+" for hire in Kenya -> "+vehicleDetails[0].county+" -> "+vehicleDetails[0].constituency
+        }
+        return title;
+    }
+    function metaDescription(){
+        let description = "";
+        if(vehicleDetails){
+            description += vehicleDetails[0].description+" for hire in Kenya -> "+vehicleDetails[0].county+" -> "+vehicleDetails[0].constituency
+        }
+        return description;
+    }
+    function keywords(){
+        let keywords = "transport, hire, ";
+        if(vehicleDetails){
+            keywords += vehicleDetails[0].description;
+        }
+    }
     return (
         <div>
             <Head>
@@ -150,9 +170,11 @@ export default function index(props) {
                 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                 crossOrigin="anonymous" />
 
-                <meta rel="icon" src="/images/buildersguidekenyalogo.png" type='image/png'/>
+                <meta name="keywords" content={keywords()} />
 
-                <title>Transport Vehicle</title>
+                <meta name="description" content={metaDescription()} />
+
+                <title>{title()}</title>
             </Head>
             <Header title="Transport vehicle"/>
             <main className={style.body}>
@@ -178,7 +200,7 @@ export default function index(props) {
                                         <div key={element.id} className={style.companyImages}>
                                             <img 
                                                 src={element?element.image.formats.medium?props.baseURL+element.image.formats.medium.url:props.baseURL+element.image.url:'/icons/bgkNoImage.jpg'}
-                                                alt={vehicleDetails?vehicleDetails.description:undefined}
+                                                alt={vehicleDetails?vehicleDetails[0].description:undefined}
                                             />
                                         </div>
                                     </SwiperSlide>

@@ -156,7 +156,30 @@ export default function index(props) {
 
         gtag('config', 'G-8VYK6XCD9G');
     }, [props.baseURL])
+
+    function keywords(){
+        let keywords = "";
+        if(completeCompany){
+            keywords += completeCompany[0].companyName+" , "+completeCompany[0].county+" , "+completeCompany[0].constituency;
+        }
+        return keywords;
+    }
     
+    function metaDescription(){
+        let description = "";
+        if(completeCompany){
+            completeCompany[0].companyDescription
+        }
+        return description;
+    }
+    function title(){
+        let title = "";
+        if(completeCompany){
+            title += completeCompany[0].companyName+" in "+completeCompany[0].county+ " -> "+completeCompany[0].constituency +" -> "+ completeCompany[0].estate
+            title += " | Builders Guide Kenya";
+        }
+        return title;
+    }
     return (
         <div>
             <Head>
@@ -174,11 +197,11 @@ export default function index(props) {
 
                 <meta rel="shortcut icon" src="/images/buildersguidekenyalogo.png" type='image/png'/>
 
-                <meta name="keywords" description={`${completeCompany?completeCompany[0].companyName:''}`} />
+                <meta name="keywords" description={keywords()} />
 
-                <meta name="content" description={completeCompany?completeCompany[0].companyDescription:''} />
+                <meta name="content" description={metaDescription()} />
 
-                <title> {completeCompany?completeCompany[0].companyName:''} | Builders Guide Kenya </title>
+                <title> {title()}</title>
 
             </Head>
             <Header title="Manufacturer and Supplier"/>
@@ -353,12 +376,13 @@ export default function index(props) {
                 <div ref={loading}>
                     <Loading />
                 </div>
-                {
+                
+            </main>
+            {
                     completeCompany?
                         <Footer />
                     :undefined
                 }
-            </main>
         </div>
     )
 }

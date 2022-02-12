@@ -1,0 +1,33 @@
+.menu{
+    display:inline-block;
+    width:max-content;
+    margin: 0rem 0.8rem;
+    padding:0.2rem 0.3rem;
+    border-bottom:2px solid transparent;
+    border-radius:5px;
+}
+
+.menuImg{
+    width:28px;
+    height:28px;
+    display:inline-block;
+}
+
+.menuImg img{
+    width:100%;
+    height:100%;
+}
+
+.menu:hover{
+    cursor:pointer;
+    box-shadow: 1px 1px 3px rgb(120, 120, 120);
+}
+
+@media (max-width:768px){
+    .menu{
+        margin:0rem 0.4rem;
+    }
+    .menu span{
+        display:none;
+    }
+}

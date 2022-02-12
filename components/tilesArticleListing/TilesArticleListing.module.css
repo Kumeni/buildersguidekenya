@@ -46,7 +46,8 @@
         position:relative;
     }
     .article{
-        width:231px;
+        width:229px;
+        margin:0px 0.3rem;
     }
     .articleTitle{
         width:230px;
@@ -61,8 +62,8 @@
         position:relative;
     }
     .article{
-        width:251px;
-        margin:0px 1rem;
+        width:249px;
+        margin:0px 0.3rem;
     }
     .articleTitle{
         width:250px;
@@ -77,8 +78,8 @@
         position:relative;
     }
     .article{
-        width:251px;
-        margin: 0px 1rem;
+        width:249px;
+        margin: 0px 0.3rem;
     }
     .articleTitle{
         width:240px;
@@ -93,8 +94,8 @@
         position:relative;
     }
     .article{
-        width:251px;
-        margin:0px 1rem;
+        width:249px;
+        margin:0px 0.4rem;
     }
     .articleTitle{
         width:250px;

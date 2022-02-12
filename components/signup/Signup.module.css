@@ -1,4 +1,24 @@
+.container{
+    background-color:rgb(245, 245, 245);
+}
+
 .signupContainer{
-    max-width:300px;
+    width:400px;
     margin:0rem auto;
+}
+
+.container, .signupContainer{
+    display:grid;
+    display:-ms-grid;
+    display:-moz-grid;
+    grid-template-columns:auto;
+    grid-template-rows:auto;
+    justify-content:center;
+    align-items:center;
+}
+
+@media (max-width:400px){
+    .signupContainer{
+        width:100%;
+    }
 }

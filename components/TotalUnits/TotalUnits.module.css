@@ -1,0 +1,36 @@
+.container{
+    border:1px solid rgba(233, 116, 21, 0.5);
+    transition: border-color 0.5s;
+}
+.container > span{
+    display:inline-block;
+    transition:border-color 0.5s;
+    transition:background-color 0.2s;
+}
+.container > span:not(:nth-of-type(2)){
+    font-size:2rem;
+}
+.container > span:not(:nth-of-type(2)):hover{
+    background-color:rgba(233, 116, 21, 0.521);
+    cursor:pointer;
+}
+.container > span:first-of-type{
+    padding:0rem 0.9rem 0.3rem 0.9rem;
+    border-right:1px solid rgba(233, 116, 21, 0.5);
+}
+.container > span:last-of-type{
+    padding:0rem 0.7rem 0.3rem 0.7rem;
+    border-left:1px solid rgba(233, 116, 21, 0.5);
+}
+.container:hover{
+    border-color:rgba(233, 116, 21, 1);
+}
+.container:hover span:last-of-type{
+    border-color:rgba(233, 116, 21, 1);
+}
+.container:hover span:first-of-type{
+    border-color:rgba(233, 116, 21, 1);
+}
+.container > span:nth-of-type(2){
+    padding:0rem 0.8rem;
+}

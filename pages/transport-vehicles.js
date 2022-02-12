@@ -19,9 +19,63 @@ export default function constructionMachinery(props) {
     const [previousActiveSuppliers, setPreviousActiveSuppliers] = useState(0);
     const [activeSuppliers, setActiveSuppliers] = useState(0);
     const [vehiclesInfo, setVehiclesInfo] = useState([]);
+    const [storedSelectedMenu, setStoredSelectedMenu] = useState("All");
+    const [lastScrollPos, setLastScrollPos] = useState();
 
     const router = useRouter();
     const loading = useRef(null);
+
+    useEffect(()=>{
+        if(router && lastScrollPos == undefined)
+            if(sessionStorage.getItem(router.pathname+'InitialScrollPos'))
+                setLastScrollPos(Number(sessionStorage.getItem(router.pathname+'InitialScrollPos')));
+    }, [router])
+
+    //This block is supposed to be responsible for remembering initial selectedMenu
+    useEffect(()=>{
+        if (sessionStorage.getItem(router.pathname+'InitialMenu'))
+			setStoredSelectedMenu(sessionStorage.getItem(router.pathname+'InitialMenu'));
+		else if(props.pagesData.transportVehicles && props.pagesData.transportVehicles.storedSelectedMenu)
+			setStoredSelectedMenu(props.pagesData.transportVehicles.storedSelectedMenu);
+        else if(router.query.category!=undefined)
+			setStoredSelectedMenu(router.query.categrory);
+		//console.log(sessionStorage.getItem(router.pathname+'InitialMenu'));
+    }, [props.pagesData, router.pathname])
+
+    
+	//This block stores selected menu in memory and in browsers storage
+    useEffect(()=>{
+        console.log(menuSelected);
+        if(menuSelected){
+            /*if(router.query.category && menuSelected.name != router.query.category){
+                router.replace('/transport-vehicles');
+            }*/
+            let holder = props.pagesData;
+            if(holder.transportVehicles)
+            holder.transportVehicles.storedSelectedMenu = menuSelected.name;
+            props.setPagesData(holder);
+            sessionStorage.setItem( router.pathname+'InitialMenu' , menuSelected.name);
+        }
+    }, [menuSelected])
+
+	//This block is responsible for restoring initial scroll position
+	useEffect(()=>{
+		if(menuSelected!= undefined)
+			if(lastScrollPos && vehiclesInfo.length > 0 && menuSelected.name == sessionStorage.getItem(router.pathname+'InitialMenu')){
+                window.scroll({
+                    top:lastScrollPos,
+                    left:0,
+                    behavior:'smooth'
+                });
+                setLastScrollPos();
+            }
+	}, [menuSelected, vehiclesInfo, lastScrollPos])
+
+	useEffect(()=>{
+		window.addEventListener('scroll', ()=>{
+			sessionStorage.setItem(router.pathname+'InitialScrollPos', window.scrollY)
+		});
+	}, [])
 
     //This function is responsible for fetching initial page data
     const getData = async()=>{
@@ -137,7 +191,30 @@ export default function constructionMachinery(props) {
     }, [props.baseURL])
 
     //const [menuSelected, setMenuSelected] = useState("All");
-    
+    function keywords(){
+        let keywords = "transport, vehicles, kenya";
+        if(data && data.availableVehicleTypes)
+            data.availableVehicleTypes.map((element, index)=>{
+                keywords += ", "+element.name;
+            })
+        keywords = ",lorry, kanta, lori"
+            return keywords;
+    }
+    function metaDescription(){
+        let description = "Find transport vehicles for hire or sale in Kenya";
+        if(data && data.availableVehicleTypes){
+            let vehicleTypes = " such as ";
+            data.availableVehicleTypes.map((element, index)=>{
+                if(index == data.availableVehicleTypes.length-1){
+                    vehicleTypes +=element.name;
+                } else {
+                    vehicleTypes +=", "+element.name;
+                }
+            })
+            description = "Find transport vehicles"+ vehicleTypes +" for hire or sale in Kenya";
+        }
+        return description;
+    }
     return (
         <div>
             <Head>
@@ -152,7 +229,11 @@ export default function constructionMachinery(props) {
                 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                 crossOrigin="anonymous" />
 
-                <title>Transport vehicles</title>
+                <meta name="description" content={metaDescription()} />
+
+                <meta name="keywords" content={keywords()} />
+
+                <title>Find transport vehicles for hire or sale in Kenya</title>
             </Head>
             
             <Header title='Transport vehicles' />
@@ -164,6 +245,7 @@ export default function constructionMachinery(props) {
                                 subCategories={data.availableVehicleTypes}
                                 setMenuSelected = {(menu)=>setMenuSelected(menu)}
                                 menuSelected={menuSelected} 
+                                storedSelectedMenu={storedSelectedMenu}
                             />
                         :undefined
                     }

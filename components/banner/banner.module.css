@@ -22,6 +22,11 @@
     z-index:0;
     position:relative;
 }
+.bannerContainer > div:first-of-type{
+    /* margin:1rem 0.5rem; */
+    box-shadow:0px 0px 15px 2px rgb(210, 210, 210);
+    /* border-radius:20px; */
+}
 .bannerContainer > div:last-of-type{
     margin-left:0.5rem;
 }
@@ -36,6 +41,9 @@
 }
 .slide{
     object-position: center;
+}
+.slide, .banner, .signup, .signup > a > img{
+    /* border-radius:20px; */
 }
 @media (min-width:1245px) and (max-width:1290px){
     .banner, .signup{

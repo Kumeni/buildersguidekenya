@@ -1,0 +1,38 @@
+.content{
+    width:85%;
+    margin:2rem auto;
+}
+
+.content h1, .content p, .content h2, .content strong{
+    font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, "Noto Sans", sans-serif
+}
+
+.content > section > div{
+    margin:1rem 0rem 1rem 2rem;
+}
+.content h1{
+    font-size:2rem;
+}
+.content strong{
+    font-weight:600;
+}
+@media (max-width:568px){
+    .content > section > div {
+        margin:1rem 0rem 1rem 0rem;
+    }
+}
+@media (max-width:768px){
+    .content h1{
+        font-size:1.75rem;
+    }
+}
+@media (min-width:375px) and (max-width:768px){
+    .content{
+        margin:1rem auto;
+    }
+}
+@media (max-width:375px){
+    .content{
+        margin:0rem auto;
+    }
+}

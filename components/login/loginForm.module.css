@@ -1,30 +1,11 @@
-.bgkLogo{
-    display:block;
-    height:120px;
-    margin:auto;
-}
-
-.loginForm{
-    max-width:300px;
-    margin:0rem auto;
-    padding:1rem;
-}
-
-@media(min-width:426px){
-    .loginForm{
-        margin:4rem auto;
-    }
-}
-
-.loginForm h5{
-    margin-bottom:1rem;
-}
 .signUp{
     font-size:0.9rem;
-    margin:.5rem;
+    margin:1rem 0rem .8rem 0rem;
 }
+
 .fPassword{
     display:inline-block;
+    margin:1rem 0px;
     font-size:.9rem;
     text-align:right;
 }
@@ -33,13 +14,59 @@
     color:red;
 }
 
-.input{
-    display:inline-block;
-    width:100%;
-    padding:.3rem .3rem;
-    border:1px solid rgb(193, 140, 42);
+.inputContainer{
+    margin-bottom:.5rem;
 }
 
-.input:focus{
+.inputContainer input{
+    padding:.1rem .3rem;
+    border:none;
+    border-bottom:1px solid rgb(193, 140, 42);
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size:15px;
+    width:100%;
+}
+
+.inputContainer label{
+    font-weight:600;
+    font-size:16px;
+    margin:4px 0px 2px 0px;
+}
+
+.inputContainer input:focus{
     outline:none;
+}
+
+.inputContainer span{
+    font-size:14px;
+}
+
+.loginError{
+    font-size:14px;
+}
+
+.input{
+    border-bottom:1px solid rgb(193, 140, 42);
+}
+.input span{
+    font-size:1.1rem;
+    padding:0rem .5rem;
+}
+.input input{
+    padding:.1rem .3rem;
+    border:none;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size:15px;
+}
+.submit{
+    position:relative;
+}
+.submit > div{
+    position:absolute;
+    top:0;
+    right:0;
+    left:0;
+    border:1px solid white;
+    z-index:-1;
+    transition:z-index .5s;
 }

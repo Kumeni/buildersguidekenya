@@ -1,59 +1,74 @@
 import style from './component_navigation.module.css'
 import Link from 'next/link'
+import Category from './Category'
 
 export default function ComponentNavigation(){
+
     return <div className={style.categories}>
         <h4 className={style.categoryNavigationTitle}>What we offer</h4>
         <div className={style.cateNav}>
-            <Link href='/products-and-services'>
-                    <div className={style.category}>
-                        <img className={style.cateIcon} src='/icons/icons8-product-64.png' alt='icons8-hammer-and-anvil-100' />
-                        <p className={style.cateName}> Products and<br /> Services</p>
-                    </div>
-            </Link>
-            <Link href='/manufacturersandsuppliers'>
-                    <div className={style.category}>
-                        <img className={style.cateIcon} src='/categoryIcons/icons8-hammer-and-anvil-100.png' alt='icons8-hammer-and-anvil-100' />
-                        <p className={style.cateName}> Manufacturers<br /> and Suppliers</p>
-                    </div>
-            </Link>
-            <Link href='/plants-and-machineries'>
-                <div className={style.category}>
-                    <img className={style.cateIcon} src='/categoryIcons/icons8-bulldozer-96.png' alt='icons8-bulldozer-96' />
-                    <p className={style.cateName}>Plants and <br /> Machineries</p>
-                </div>
-            </Link>
-            <Link href='/transport-vehicles'>
-                <div className={style.category}>
-                    <img className={style.cateIcon} src='/categoryIcons/icons8-truck-80.png' alt='icons8-truck-80' />
-                    <p className={style.cateName}>Transporters</p>
-                </div>
-            </Link>
-            <Link href='/tips-and-advices'>
-                <div className={style.category}>
-                    <img className={style.cateIcon} src='/categoryIcons/icons8-education-80.png' alt='icons8-truck-80' />
-                    <p className={style.cateName}>Tips and<br/>advices</p>
-                </div>
-            </Link>
-            <Link href='/hardwaresAndStores'>
-                <div className={style.category}>
-                    <img className={style.cateIcon} src='/categoryIcons/icons8-warehouse-200.png' alt='icons8-warehouse-200' />
-                    <p className={style.cateName}>Hardwares <br /> and Stores</p>
-                </div>
-            </Link>
-            <Link href='/artisansAndProfessionals' >
-                <div className={style.category}>
-                    <img className={style.cateIcon} src='/categoryIcons/icons8-engineer-40.png' alt='icons8-engineer-40' />
-                    <p className={style.cateName}>Artisans and Professionals</p>
-                </div>
-            </Link>
-            <Link href='Contractors'>
-                <div className={style.category}>
-                    <img className={style.cateIcon} src='/categoryIcons/icons8-businesswoman-96.png' alt='icons8-businesswoman-96' />
-                    <p className={style.cateName}>Contractors</p>
-                </div>
-            </Link>
-            {/*
+            <Category 
+                link={"/products-and-services"}
+                icon={'/icons/icons8-product-64.png'}
+                iconAlt={'icons8-hammer-and-anvil-100'}
+                categoryTitle={<> Products and<br /> Services </>}
+            />
+            <Category
+                link={"/manufacturersandsuppliers"}
+                icon={"/categoryIcons/icons8-hammer-and-anvil-100.png"}
+                iconAlt={"icons8-hammer-and-anvil-100"}
+                categoryTitle={<>Manufacturers<br /> and Suppliers</>}
+            />
+            <Category
+                link={"/plants-and-machineries"}
+                icon={"/categoryIcons/icons8-bulldozer-96.png"}
+                iconAlt={"icons8-bulldozer-96"}
+                categoryTitle={<>Plants and <br /> Machineries</>}
+            />
+            <Category
+                link={"/transport-vehicles"}
+                icon={"/categoryIcons/icons8-truck-80.png"}
+                iconAlt={"icons8-truck-80"}
+                categoryTitle={<>Transporters</>}
+            />
+            <Category
+                link={"/tips-and-advices"}
+                icon={"/categoryIcons/icons8-education-80.png"}
+                iconAlt={"icons8-truck-80"}
+                categoryTitle={<>Tips and<br/>advices</>}
+            />
+            <Category
+                link={"/hardwares-and-yards"}
+                icon={"/categoryIcons/icons8-warehouse-200.png"}
+                iconAlt={"icons8-warehouse-200"}
+                categoryTitle={<>Hardwares <br /> and Yards</>}
+            />
+            <Category
+                link={"/products-and-services/Landscaping and gardening"}
+                icon={"/icons/icons8-grass-48.png"}
+                iconAlt={"icon8-grass-48.png"}
+                categoryTitle={<>Landscaping <br />& gardening</>}
+            />
+            <Category 
+                link={"/products-and-services/Furniture and furnishings"}
+                icon={"/icons/icons8-wardrobe-48.png"}
+                iconAlt={"icons8-wardrobe-48.png"}
+                categoryTitle={<>Furniture & Furnishings</>}
+            />
+
+            {/* <Category
+                link={"/artisans-and-professionals"}
+                icon={"/categoryIcons/icons8-engineer-40.png"}
+                iconAlt={"icons8-engineer-40"}
+                categoryTitle={<>Artisans and Professionals</>}
+            />
+            <Category
+                link={"/contractors"}
+                icon={"/categoryIcons/icons8-businesswoman-96.png"}
+                iconAlt={"icons8-businesswoman-96"}
+                categoryTitle={<>Contractors</>}
+            />
+            
             <Link href='/Building Instituions'>
                 <div className={style.category}>
                     <img className={style.cateIcon} src='/categoryIcons/icons8-shield-64.png' alt='icons8-shield-64' />

@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
 import style from './CategorySection.module.css'
 import SectionTitle from '../categorySections/sectionTitle'
 import CategorySectionSlider from '../categorySectionSlider/CategorySectionSlider'
@@ -9,12 +9,14 @@ import getProducts from '../../utilities/productData'
 import getConstructionMachineries from '../../utilities/constructionMachineryData'
 import completeCompanyInfo from '../../utilities/CompanyInfoComplete'
 import {useRouter} from 'next/router'
+import constructionMachinery from '../../pages/plants-and-machineries';
 
 function CategorySection(props) {
     const [menuSelected, setMenuSelected] = useState();
 
     const [previousActiveSuppliers, setPreviousActiveSuppliers] = useState(0);
     const [activeSuppliers, setActiveSuppliers] = useState(0);
+    const [referencePoint, setReferencePoint] = useState();
 
     const [companyInfo, setCompanyInfo] = useState([{
         menu:0,
@@ -34,6 +36,7 @@ function CategorySection(props) {
     }])
 
     const [newLink, setNewLink] = useState("#All");
+    
 
     //This checks the kind of data in the section
     // 1 - Products
@@ -43,6 +46,129 @@ function CategorySection(props) {
     const [dataType, setDataType] = useState();
 
     const router = useRouter();
+    const scrollContainer = useRef();
+    const [storedSelectedMenu, setStoredSelectedMenu] = useState("All");
+    const [lastScrollPosition, setLastScrollPosition] = useState();
+
+    //this block is supposed to store last scroll position in memory;
+    useEffect(()=>{
+        if(router && lastScrollPosition == undefined && sessionStorage.getItem("s_"+router.pathname+props.title+"InitialScrollPos")){
+            setLastScrollPosition(sessionStorage.getItem("s_"+router.pathname+props.title+"InitialScrollPos"));
+        }
+    }, [lastScrollPosition, router])
+
+    //This block is supposed to be responsible for remembering initial selectedMenu
+    useEffect(()=>{
+		if (router.pathname && sessionStorage.getItem("s_"+router.pathname+props.title+'InitialMenu'))
+			setStoredSelectedMenu(sessionStorage.getItem("s_"+router.pathname+props.title+'InitialMenu'));
+		//console.log(sessionStorage.getItem(router.pathname+'InitialMenu'));
+    }, [router.pathname])
+
+    //This block stores selected menu in memory and in browsers storage
+    useEffect(()=>{
+        if(menuSelected){
+            /*let holder = props.pagesData;
+            holder.plantsAndMachineries.storedSelectedMenu = menuSelected.subCategory;
+            props.setPagesData(holder);*/
+            let menuDataExists = false;
+
+            function selectedMenu(menuSelected){
+                if(menuSelected.subCategory)
+                    return menuSelected.subCategory;
+                else if(menuSelected.speCatName)
+                    return menuSelected.speCatName;
+                else if(menuSelected.name)
+                    return menuSelected.name;
+            }
+
+            function menuDataExistsCheck(array){
+                array.map((element, index)=>{
+                    if(element.menu == menuSelected.id)
+                        menuDataExists = true;
+                })
+            }
+
+            function whatExists(){
+                if(props.companyInfo)
+                    return companyInfo;
+                if(props.productInfo)
+                    return productInfo;
+                if(props.constructionMachineryInfo)
+                    return constructionMachineryInfo;
+                if(props.vehiclesInfo)
+                    return vehiclesInfo;
+            }
+
+            menuDataExistsCheck(whatExists());
+            console.log(menuDataExists);
+            if(menuDataExists){
+                if(sessionStorage.getItem("s_"+router.pathname+props.title+'InitialMenu') == selectedMenu(menuSelected)){
+                    //console.log("This is an existing menu");
+                    console.log(lastScrollPosition);
+                    if(lastScrollPosition)
+                        scrollContainer.current.scrollTo({
+                            top:0,
+                            left:Number(sessionStorage.getItem("s_"+router.pathname+props.title+"InitialScrollPos")),
+                            behaviour:"smooth"
+                        })
+                    //scrollContainer.current.scrollTo(lastScrollPosition, 0);
+                } else {
+                    //console.log("This is a new menu");
+                    scrollContainer.current.scrollTo(0,0);
+                }
+            }
+            
+            sessionStorage.setItem("s_"+router.pathname+props.title+'InitialMenu', selectedMenu(menuSelected));
+        }
+    }, [menuSelected, productInfo, companyInfo, constructionMachineryInfo, vehiclesInfo, lastScrollPosition])
+
+    //This block is responsible for saving the last scroll Position
+    useEffect(()=>{
+        if(referencePoint){
+            if(scrollContainer.current)
+                scrollContainer.current.addEventListener("scroll", event=>{
+                    sessionStorage.setItem("s_"+router.pathname+props.title+"InitialScrollPos", (-(scrollContainer.current.querySelector("span").getBoundingClientRect().x-referencePoint)));
+                    console.log(menuSelected);
+                })
+        }
+        
+    }, [referencePoint])
+
+    //This is a unique pathname for section
+    useEffect(()=>{
+        if(router){
+            sessionStorage.setItem("s_"+router.pathname+props.title, "s_"+router.pathname+props.title);
+        }
+    }, [router])
+    //This block updates the reference point
+    useEffect(()=>{
+        if(router)
+            if(companyInfo && companyInfo.length > 0){
+                if(scrollContainer.current.querySelector('span')){
+                    scrollContainer.current.querySelector('span').scrollTo(0,0);
+                    setReferencePoint(scrollContainer.current.querySelector('span').getBoundingClientRect().left);
+                    sessionStorage.setItem("s_"+router.pathname+props.title+"ReferencePoint", scrollContainer.current.querySelector('span').getBoundingClientRect().left);
+                }
+            } else if(productInfo && productInfo.length > 0){
+                if(scrollContainer.current.querySelector('span')){
+                    scrollContainer.current.querySelector('span').scrollTo(0,0);
+                    setReferencePoint(scrollContainer.current.querySelector('span').getBoundingClientRect().left);
+                    sessionStorage.setItem("s_"+router.pathname+props.title+"ReferencePoint", scrollContainer.current.querySelector('span').getBoundingClientRect().left);
+                }
+            } else if(constructionMachineryInfo && constructionMachineryInfo.length > 0){
+                if(scrollContainer.current.querySelector('span')){
+                    scrollContainer.current.querySelector('span').scrollTo(0,0);
+                    setReferencePoint(scrollContainer.current.querySelector('span').getBoundingClientRect().left);
+                    sessionStorage.setItem("s_"+router.pathname+props.title+"ReferencePoint", scrollContainer.current.querySelector('span').getBoundingClientRect().left);
+                }
+            } else if(vehiclesInfo && vehiclesInfo.length > 0){
+                if(scrollContainer.current.querySelector('span')){
+                    scrollContainer.current.querySelector('span').scrollTo(0,0);
+                    setReferencePoint(scrollContainer.current.querySelector('span').getBoundingClientRect().left);
+                    sessionStorage.setItem("s_"+router.pathname+props.title+"ReferencePoint", scrollContainer.current.querySelector('span').getBoundingClientRect().left);
+                }
+            }
+    }, [companyInfo, productInfo, constructionMachineryInfo, vehiclesInfo, router, scrollContainer.current])
 
     //This function checks whether the menu already exists
     function checkAvailablility(array, value){
@@ -152,7 +278,7 @@ function CategorySection(props) {
                         //This method is for getting products in a subCategory
                         getCategorizedData("/product-specializations","productSubCategory", menuSelected.id)
                         .then(res=>{
-                            //console.log(res);
+                            console.log(res);
                             getProducts(res, props.baseURL)
                             .then(res=>{
                                 //console.log(res);
@@ -342,10 +468,21 @@ function CategorySection(props) {
                             name="manufacturersandsuppliers"
                             setMenuSelected = {(menu)=>setMenuSelected(menu)}
                             menuSelected={menuSelected}
+                            storedSelectedMenu={storedSelectedMenu}
                         />
                     :undefined
                 }
-                    <div className={style.categorySectionProducts + ' componentScroll'}>
+                    <div className={style.categorySectionProducts + ' componentScroll'}
+                        onScroll={event=>{
+                            let boundingClientRect = event.target.querySelector('span').getBoundingClientRect();
+                            if(sessionStorage.getItem("referencePoint"))
+                                sessionStorage.setItem("s_"+router.pathname+props.title+"InitialScrollPos" ,Number(sessionStorage.getItem("s_"+router.pathname+props.title+"ReferencePoint")) - boundingClientRect.left);
+                            
+                                //console.log(Number(sessionStorage.getItem("s_"+router.pathname+props.title+"ReferencePoint")) - boundingClientRect.left);
+                                //Set item in storage
+                        }}
+                        ref={scrollContainer}
+                    >
                         {
                             props.companyInfo?
                                 <ManufacturerAndSupplierComponent

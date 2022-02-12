@@ -1,13 +1,32 @@
 import style from './ProductDetails.module.css'
-import {useEffect, useState} from 'react'
+import {useEffect, useRef} from 'react'
 import {useRouter} from 'next/router'
 function ProductDetails(props) {
+    const variations = useRef(null);
+    const handleVariationSelect = index =>{
+        //change the border color of all divs except the active one
+        props.setActivePricing(index);
+        if(variations.current){
+            let variationsArray = variations.current.getElementsByTagName("div"), i;
+            for( i = 0; i< variationsArray.length; i++){
+                if( i == index)
+                    variationsArray[i].style.border="1px solid rgb(233, 116, 21)";
+                else
+                    variationsArray[i].style.border="1px solid rgb(210, 210, 210)";
+            }
+        }
+    }
 
     const router = useRouter();
 
     function handleSupplierClick(){
         router.push("/manufacturersandsuppliers/manufacturerandsupplier?companyName="+props.supplierInformation.companyName);
     }
+
+
+    useEffect(()=>{
+        console.log(props.productPricings);
+    })
 
     return (
         <div className={style.detailsContainer}>
@@ -17,7 +36,34 @@ function ProductDetails(props) {
                         {/* <p><i className={'fas fa-star ' + style.rating}></i> 4.6 | 1,249 ratings</p> */}
                         <h5><span><i className={'fas fa-archive'}></i></span> {props.productDetails.productName}</h5>
                         <p><span><i className={'fas fa-map-marker-alt'}></i></span>  {props.productDetails.county+'/'+ props.productDetails.constituency}</p>
-                        {/* <p><strong>Manufacturer</strong>: JUMBO CHEM KENYA LTD</p> */}
+                        {
+                            props.price !== ""|| props.price !== undefined?
+                                <p><span><i className={'fas fa-price-tag-alt'}></i></span> <strong>Ksh. {props.price}</strong></p>
+                            :<p><span><i className={'fas fa-price-tag-alt'}></i></span> <strong>Contact seller</strong></p>
+                        }
+                        
+                        {
+                            props.initialPrice?
+                                <p><span className={style.initialPrice}>{props.initialPrice}</span></p>
+                            :undefined
+                        }
+                        <p><strong>Variations</strong></p>
+                        <div ref={variations} className={style.variations}>
+                            {
+                                props.activePricing !== undefined && props.productPricings !== undefined && props.productPricings.length > 0? 
+                                    props.productPricings.map( (element, index) => (
+                                        <div 
+                                            className={index == props.activePricing? style.active: style.notActive} 
+                                            key = {element.id}
+                                            onClick = {event =>{
+                                                props.handleVariation(index);
+                                                handleVariationSelect(index);
+                                            }}
+                                        >{element.unitCapacity}</div>
+                                    ))
+                                :undefined
+                            }
+                        </div>
                     </div>
                 :undefined
             }
@@ -55,7 +101,7 @@ function ProductDetails(props) {
                     :undefined
                 :undefined
             }
-            {
+            {/*
                 props.productDetails?
                     props.productDetails.availableColors != '' && props.productDetails.availableColors != undefined?
                         <div className={style.productDescription}>
@@ -64,29 +110,7 @@ function ProductDetails(props) {
                         </div>
                     :undefined
                 :undefined
-            }
-            {/* <div className={style.sizeSelect}>
-                <label for='size'>Size : </label>
-                <select name='size' id='size' className={style.size}>
-                    <option value='null'>select</option>
-                    <option value='size1'>size 1</option>
-                    <option value='size2'>size 2</option>
-                    <option value='size3'>size 3</option>
-                    <option value='size4'>size 4</option>
-                </select>
-            </div> */}
-            {/* <div className={style.colorSelect}>
-                <h5 className={'d-flex justify-content-between align-items-center'}>Available colors <span><button className={'btn'}>See all</button></span></h5>
-                <div className={"componentScroll " + style.availableColors}>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div> */}
+            */}
         </div>
     )
 }

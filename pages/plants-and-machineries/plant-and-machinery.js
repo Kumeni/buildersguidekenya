@@ -163,6 +163,47 @@ export default function index(props) {
         gtag('config', 'G-8VYK6XCD9G');
     }, [props.baseURL])
 
+    function title(){
+        let title = "";
+        if(plantAndMachineryDetails && plantAndMachineryDetails[0]){
+            title = plantAndMachineryDetails[0].name;
+        }
+
+        if(plantAndMachineryLease && plantAndMachinerySale == undefined){
+            title += " for lease";
+        } else if(plantAndMachinerySale && plantAndMachineryLease == undefined){
+            title += " for sale";
+        } else {
+            title += " for hire and sale"
+        }
+
+        if(plantAndMachineryDetails && plantAndMachineryDetails[0]){
+            title += " in Kenya -> "+plantAndMachineryDetails[0].county+" -> "+plantAndMachineryDetails[0].consituency;
+        }
+        return title;
+
+    }
+    function metaDescription(){
+        let description = "";
+        if(plantAndMachineryDetails && plantAndMachineryDetails[0]){
+            description = plantAndMachineryDetails[0].description;
+        }
+        return description;
+    }
+    function keywords(){
+        let keywords = "";
+        if(plantAndMachineryDetails && plantAndMachineryDetails[0]){
+            keywords += plantAndMachineryDetails[0].name;
+        }
+        if(plantAndMachineryDetails && plantAndMachineryDetails[0]){
+            keywords += ", "+plantAndMachineryDetails[0].county+", "+plantAndMachineryDetails[0].constituency;
+        }
+        if(supplierInformation){
+            keywords += ", "+supplierInformation.keywords;
+        }
+        return keywords;
+    }
+    console.log(plantAndMachinerySale);
     return (
         <div>
             <Head>
@@ -181,9 +222,11 @@ export default function index(props) {
                 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                 crossOrigin="anonymous" />
 
-                <meta rel="icon" src="/images/buildersguidekenyalogo.png" type='image/png'/>
+                <meta name="keywords" content={keywords()} />
 
-                <title>Nothing</title>
+                <meta name="description" content={metaDescription()} />
+
+                <title>{title()}</title>
             </Head>
             <Header title="Plant and Machinery"/>
             <main className={style.body}>
@@ -209,7 +252,7 @@ export default function index(props) {
                                         <div key={element.id} className={style.companyImages}>
                                             <img 
                                                 src={element?element.image.formats.medium?props.baseURL+element.image.formats.medium.url:props.baseURL+element.image.url:'/icons/bgkNoImage.jpg'}
-                                                alt={plantAndMachineryDetails?plantAndMachineryDetails.description:undefined}
+                                                alt={plantAndMachineryDetails?plantAndMachineryDetails.name:undefined}
                                             />
                                         </div>
                                     </SwiperSlide>
@@ -258,13 +301,13 @@ export default function index(props) {
                 
                 {
                     plantAndMachinerySale?
-                        plantAndMachinerySale.additionalSellingInfo?
+                        plantAndMachinerySale.AdditionalSellingInfo?
                             <div className={style.companyDescriptionCopy}>
                                 <h6><span><i className={'fas fa-tag'}></i></span> Additional selling information</h6>
                                 {
                                     plantAndMachinerySale.AdditionalSellingInfo?
                                         <p>
-                                            {plantAndMachinerySale.additionalSellingInfo}
+                                            {plantAndMachinerySale.AdditionalSellingInfo}
                                         </p>
                                     :undefined
                                 }

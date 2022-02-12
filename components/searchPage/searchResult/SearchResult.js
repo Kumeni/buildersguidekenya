@@ -245,24 +245,26 @@ function SearchResult(props) {
                         </div>
                     :props.result.productName?
                         <div className={style.productDetails}>
-                            <Link href={{
-                                pathname:"/products-and-services/product-and-service",
-                                query:{
-                                    materialName:props.result.productName,
-                                    materialId:props.result.id
-                                }
-                            }}>
-                                <h3><span><i className={'fas fa-archive'}></i></span> {props.result.productName}</h3>
-                            </Link>
-                            <p><span><i className={'fas fa-tags'}></i></span> {productPricing}</p>
+                            <h3>
+                                <Link href={{
+                                    pathname:"/products-and-services/product-and-service",
+                                    query:{
+                                        v:props.result.id.toString(32),
+                                    }
+                                }}>
+                                    <span><span><i className={'fas fa-archive'}></i></span> {props.result.productName}</span>
+                                </Link>
+                            </h3>
+                            
+                            <p><span><i className={'fas fa-tags'}></i></span> {productPricing !== "" ? productPricing : " Contact seller for prices"}</p>
                             {
                                 product?
-                                    <p><span><i className={'fas fa-map-marker-alt'}></i></span>  {product!=undefined?product.county+' >> '+ product.constituency:''}</p>
+                                    <p><span><i className={'fas fa-map-marker-alt'}></i></span>  {product!=undefined?product.county+'/'+ product.constituency:''}</p>
                                 :"..."
                             }
                             {
                                 props.result.productDescription?
-                                    <p>{props.result.productDescription}</p>
+                                    <p className = {style.productDescription}>{props.result.productDescription}</p>
                                 :"..."
                             }
                             {
@@ -307,7 +309,7 @@ function SearchResult(props) {
                             }
                             {
                                 props.result.additionalDescription?
-                                    <p>{props.result.additionalDescription}</p>
+                                    <p className = {style.productDescription}>{props.result.additionalDescription}</p>
                                 :undefined
                             }
                             
@@ -352,7 +354,7 @@ function SearchResult(props) {
                                     <p><span><i className={'fas fa-map-marker-alt'}></i></span> {product.county+" >> "+product.constituency}</p>
                                 :undefined
                             }
-                            <p>{props.result.additionalDescription}</p>
+                            <p className = {style.productDescription}>{props.result.additionalDescription}</p>
                             {
                                 supplierInformation!=undefined?
                                     <h5>Dealer</h5>

@@ -10,7 +10,7 @@
 }
 .sectionHeader h3{
     margin:0px;
-    width:100%;
+    width:max-content;
     white-space:nowrap;
     overflow:hidden;
     text-overflow: ellipsis;

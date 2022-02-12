@@ -24,6 +24,7 @@
 @media (max-width:768px){
     .componentScroll::-webkit-scrollbar{
         height:4px;
+        display:none;
     }
     .componentScroll::-webkit-scrollbar-track{
         margin:0rem;
@@ -37,7 +38,7 @@
 
 /* This is the code for header sized body */
 .body{
-    margin:0rem auto;
+    margin:0rem auto 3rem auto;
 }
 @media (max-width:769px){
     .body{

@@ -1,8 +1,10 @@
 import style from './header.module.css'
 import {useState, useEffect} from 'react'
 import {useRouter} from 'next/router'
+import Link from 'next/link'
+import Signupsignin from './Signupsignin';
 
-function Header(){
+function Header(props){
 
     const [searchInput, setSearchInput] = useState("");
     const router = useRouter();
@@ -37,13 +39,17 @@ function Header(){
             <header className={style.header}>
                     <div className={style.div + ' ' +style.bgkLogo} tabIndex='1'>
                         <img className={style.bgkIcon} src='/icons/builders guide logo-01.png' alt='buildersguidekenyalogo'/>
+                        {/* <img className={style.bgkIcon} src='/icons/buildersguidekenyalogo.png' alt='builders guide kenya logo'/> */}
+                        {/* <h1>BUILDERS GUIDE KENYA</h1> */}
                     </div>
                     <div className={style.div}>
                         <img className={style.searchIcon} src='/icons/icons8-search-50.png' alt='icons8-search-50.png' />
                         <input className={style.searchBar} type='search' tabIndex='3' onChange={(event)=> handleSearchInput(event)}  onKeyUp={(event)=>handleEnter(event)}/>
                     </div>
                     <div className={style.myAccountContainer} tabIndex='5'>
-                        <img className={style.icon} src="/icons/icons8-person-64.png" alt="icons8-search-50.png"/><span className={style.myAccount}>My Account</span>
+                        <Signupsignin 
+                            loginData={props.loginData}
+                        />
                     </div>
             </header>
         </div>

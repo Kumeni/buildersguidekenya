@@ -10,6 +10,7 @@ import axios from 'axios'
 import {useState, useEffect, useRef} from 'react'
 import completeCompanyInfo from '../utilities/CompanyInfoComplete'
 import Loading from '../components/loading/Loading'
+import {useRouter} from 'next/router'
 
 export default function manufacturersandsuppliers(props) {
 
@@ -19,8 +20,26 @@ export default function manufacturersandsuppliers(props) {
 	const [sectionsCopy, setSectionsCopy] = useState()
 	const [counties,setCounties] = useState();
 	const [constituencies, setConstituencies] = useState();
+	const [lastScrollPosition, setLastScrollPosition] = useState();
 
 	const loading = useRef(null);
+	const router = useRouter();
+
+	//This block restores last scroll position
+	useEffect(()=>{
+		if(lastScrollPosition == undefined)
+			setLastScrollPosition(Number(sessionStorage.getItem(router.pathname+'InitialScrollPos')));
+		
+		if(lastScrollPosition && window.scrollY <= lastScrollPosition-20){
+			window.scrollTo(0, lastScrollPosition);
+		}
+	}, [sections, lastScrollPosition])
+
+	useEffect(()=>{
+		window.addEventListener('scroll', ()=>{
+			sessionStorage.setItem(router.pathname+'InitialScrollPos', window.scrollY);
+		});
+	}, [])
 	
 
 	const getArticles = async () =>{
@@ -42,6 +61,13 @@ export default function manufacturersandsuppliers(props) {
   
 		const constituencies = await axios.get(props.baseURL+"/constituencies?_limit=-1");
 		setConstituencies(constituencies.data);
+
+		let holder = props.pagesData;
+		holder.home.data = {};
+		holder.home.data.articles=articles.data;
+		holder.home.data.counties=counties.data;
+		holder.home.data.constituencies=constituencies.data;
+		props.setPagesData(holder);
 	}
 
 	const getAvailableSubCategories = async () =>{
@@ -49,16 +75,37 @@ export default function manufacturersandsuppliers(props) {
 		setAvailableSubCategories(availableSubCategories.data);
 		console.log(availableSubCategories.data);
 
+		let holder = props.pagesData;
+		holder.productsAndServices.availableSubCategories = availableSubCategories.data;
+		props.setPagesData(holder);
 		return availableSubCategories.data;
 	}
 
 	//creating Section Objects
 	useEffect(()=>{
 		if(availableSubCategories === undefined){
-			getArticles()
+			/*getArticles()
 			.then(()=>{
 				getAvailableSubCategories()
-			})
+			})*/
+			if(props.pagesData.home.data == undefined){
+				getArticles()
+				.then(()=>{
+					if(props.pagesData.manufacturersAndSuppliers.availableSubCategories == undefined)
+						getAvailableSubCategories()
+					else 
+						setAvailableSubCategories(props.pagesData.manufacturersAndSuppliers.availableSubCategories);
+				})
+			} else {
+				setArticles(props.pagesData.home.data.articles);
+				setCounties(props.pagesData.home.data.counties);
+				setConstituencies(props.pagesData.home.data.constituencies);
+
+				if(props.pagesData.manufacturersAndSuppliers.availableSubCategories == undefined)
+					getAvailableSubCategories()
+				else 
+					setAvailableSubCategories(props.pagesData.manufacturersAndSuppliers.availableSubCategories);
+			}
 		}
 	},[])
 
@@ -78,29 +125,33 @@ export default function manufacturersandsuppliers(props) {
 					index===0?query=query+"userId="+element.userId:query=query+"&userId="+element.userId;
 				})
 				//console.log(query);
+				let suppliers;
+				if(query=="")
+					suppliers= {data:[]};
+				else
+					suppliers = await axios.get(props.baseURL+"/suppliers?"+query+'&_limit=11&Approved=true', {
+						transformResponse:[function(data){
+							let newData = [];
+							let originalData = JSON.parse(data);
 			
-				const suppliers = await axios.get(props.baseURL+"/suppliers?"+query+'&_limit=11', {
-					transformResponse:[function(data){
-						let newData = [];
-						let originalData = JSON.parse(data);
-		
-						originalData.map(element=>{
-							let object = {};
-		
-							object.id = element.id;
-							object.companyName = element.companyName;
-							object.services = element.services;
-							object.county = element.county;
-							object.constituency = element.constituency;
-							object.buildingOrEstate = element.buildingOrEstate;
-							object.userId=element.userId;
-		
-							newData = newData.concat(object);
-						})
-		
-						return newData;
-					}]
-				});
+							originalData.map(element=>{
+								let object = {};
+			
+								object.id = element.id;
+								object.companyName = element.companyName;
+								object.services = element.services;
+								object.county = element.county;
+								object.constituency = element.constituency;
+								object.buildingOrEstate = element.buildingOrEstate;
+								object.userId=element.userId;
+								object.supplierCategoryId = element.supplierCategoryId;
+			
+								newData = newData.concat(object);
+							})
+			
+							return newData;
+						}]
+					});
 				//console.log(suppliers.data);
 
 				//Actual creating of section objects
@@ -109,35 +160,76 @@ export default function manufacturersandsuppliers(props) {
 				object.specificCategories = availableSpecificCategories.data;
 				object.suppliers = completeCompanyInfo(suppliers.data, counties, constituencies);
 
-				setSectionsCopy(object);
+				if(object.suppliers.length > 0)
+					setSectionsCopy(object);
 			}
 
-			availableSubCategories.map((element, index)=>{
-				getSectionObjects(availableSubCategories, index);
-			})
+			if(props.pagesData.manufacturersAndSuppliers.sections==undefined)
+				availableSubCategories.map((element, index)=>{
+					getSectionObjects(availableSubCategories, index);
+				})
+			else 
+				setSections(props.pagesData.manufacturersAndSuppliers.sections);
 
-			setSections(holder.slice());
+			//setSections(holder.slice());
 			loading.current.style.display='none';
 		}
 	}, [availableSubCategories])
 
 	useEffect(()=>{
 		if(sectionsCopy !== undefined){
-			let holder = sections;
+			let holder = sections, alreadySorted=true;
+			holder = holder.concat(sectionsCopy);
 
-			//Sorting the menu according to the number of available suppliers
-			/*for(let i=0; i<holder.length-1; i++){
-				if(holder[i].suppliers.length < holder[i+1].suppliers.length){
-					let holder1 = holder[i];
-					holder1[i] = holder1[i+1];
-					holder1[i+1] = holder1;
+			//Sorting the sections in alphabetical order
+			let i, j;
+			//if(holder.length == availableSubCategories.length)
+			for(j=0; j<= holder.length-1; j++){
+				for(i=0; i<holder.length-1; i++){
+					if(holder[i].subCategory.subCategory > holder[i+1].subCategory.subCategory){
+						let holder1 = holder[i];
+						holder[i] = holder[i+1];
+						holder[i+1] = holder1;
+					}
 				}
-			}*/
+			}
 
-			setSections(holder.concat(sectionsCopy));
+			for(j=0; j<= holder.length-1; j++){
+				for(i=0; i<holder.length-1; i++){
+					if(holder[i].subCategory.subCategory > holder[i+1].subCategory.subCategory){
+						alreadySorted = false;
+					}
+				}
+			}
+
+			if(alreadySorted){
+				let holder = props.pagesData;
+				holder.manufacturersAndSuppliers.sections = [];
+				holder.manufacturersAndSuppliers.sections = sections.concat(sectionsCopy);
+				props.setPagesData(holder);
+				console.log(holder);
+			}
+
+			setSections(holder.slice());
 		}
 		
 	}, [sectionsCopy])
+
+	function listAvailableSubCategories(){
+		if(availableSubCategories){
+			let theMenus= "";
+			availableSubCategories.map((element, index) => {
+				if(index == 0)
+                    theMenus+=element.subCategory;
+                else if(index == availableSubCategories.length-1)
+                    theMenus+="and "+element.subCategory;
+                else 
+                    theMenus+=", "+element.subCategory;
+			})
+			return " such as "+theMenus;
+		}
+		return "";
+	}
 
 	useEffect(()=>{
         window.dataLayer = window.dataLayer || [];
@@ -165,12 +257,11 @@ export default function manufacturersandsuppliers(props) {
                 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                 crossOrigin="anonymous" />
 
-				<meta name="keywords" description="construction suppliers manufacturers" />
+				<meta name="keywords"  description="construction, products, manufacturers, suppliers, kenya, materials, builders, guide"/>
 
-				<meta name="content" description="Find manufacturers and suppliers providing construction
-				materials at a location of your preference in Kenya." />
+				<meta name="content" description={"Find manufacturers and suppliers providing construction materials, products, and services"+ listAvailableSubCategories() +" anywhere in Kenya and in the East African Community (EAC)"} />
 
-                <title>Builders Guide Kenya | Manufacturers and Suppliers</title>
+                <title>Manufacturers and suppliers of construction materials, products and services in Kenya and East African Community (EAC) | Builders Guide Kenya</title>
 
             </Head>
             <Header />

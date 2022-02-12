@@ -2,7 +2,7 @@ import style from './CategorySectionSlider.module.css'
 import {useRef, useState, useEffect} from 'react'
 import {useRouter} from 'next/router'
 
-function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelected}) {
+function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelected, storedSelectedMenu}) {
 
     const [availableMenu, setAvailableMenu] = useState([]);
     const [activeMenu, setActiveMenu] = useState();
@@ -79,6 +79,7 @@ function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelect
         }
     }, [activeMenu])
 
+    //This method is responsible for clicking the desired menu
     useEffect(()=>{
         if(router.query.category!==undefined&&menu.current!=null){
             //trigger a click event on link element that innerHTML=router.query.category
@@ -90,7 +91,16 @@ function CategorySectionSlider({subCategories, name, setMenuSelected, menuSelect
                 }
             }
         }
-    }, [router.query.category, menu.current])
+        if(storedSelectedMenu != undefined){
+            let i=0;
+            for(i; i<menu.current.children.length; i++){
+                if(menu.current.children[i].innerHTML === storedSelectedMenu){
+                    menu.current.children[i].click();
+                    break;
+                }
+            }
+        }
+    }, [router.query.category, menu.current, storedSelectedMenu])
 
     return (
         <>

@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import {useRouter} from 'next/router'
 import {useEffect, useState, useRef} from 'react'
-import Header from '../components/header/header'
+//import Header from '../components/header/header'
+import Header from '../components/manufacturersandsuppliers/Header/Header'
 import Footer from '../components/footerComponent/Footer'
 import Banner from '../components/banner/banner'
 import Section from '../components/categorySections/section'
@@ -27,6 +28,9 @@ export default function HomePage(props){
 	const [data2, setData2] = useState();
 	const [data3, setData3] = useState();
 	const [data4, setData4] = useState();
+	const [data5, setData5] = useState();
+	const [lastScrollPosition, setLastScrollPosition] = useState();
+
 	const router = useRouter();
 	const loading = useRef(null);
 
@@ -91,7 +95,7 @@ export default function HomePage(props){
 		
 		setData2(data2);
 
-
+		
 		const suppliers = await axios.get(props.baseURL+"/suppliers?_limit=10&Approved=true&confirmed=true", {
 			transformResponse:[function(data){
 				let newData = [];
@@ -107,6 +111,7 @@ export default function HomePage(props){
 					object.constituency = element.constituency;
 					object.buildingOrEstate = element.buildingOrEstate;
 					object.userId=element.userId;
+					object.supplierCategoryId = element.supplierCategoryId;
 
 					newData = newData.concat(object);
 				})
@@ -169,6 +174,7 @@ export default function HomePage(props){
 		
 		setData3(data3);
 
+		
 		const availableVehicleTypes = await axios.get(props.baseURL+"/transporter-vehicle-types?vehiclesAvailable=true");
 
 		const transportVehicles = await axios.get(props.baseURL+"/transport-vehicles?deleted=false&approved=true&blocked=false&_limit=10");
@@ -179,10 +185,28 @@ export default function HomePage(props){
 		}
 
 		setData4(data4);
+		
+		//Fetching hardware and yards.
+		const availableHardwareAndYards = await axios.get(props.baseURL+"/suppliers?supplierCategoryId=2&_limit=10&Approved=true&confirmed=true")
+		console.log(availableHardwareAndYards.data);
+		let data5 = {
+			availableHardwareAndYards:availableHardwareAndYards.data,
+		}
+
+		setData5(data5);
+		console.log(data5);
+
+		let holder = props.pagesData;
+		holder.home.data = data;
+		holder.home.data2 = data2;
+		holder.home.data3 = data3;
+		holder.home.data4 = data4;
+		holder.home.data5 = data5;
+		props.setPagesData(holder);
   	}
 
 	useEffect(()=>{
-		if(data === undefined && props.pagesData.home.data==undefined){
+		if(data === undefined && props.pagesData.home.data2==undefined){
 			getData()
 			.then(()=>{
 				loading.current.style.display='none';
@@ -192,6 +216,8 @@ export default function HomePage(props){
 			setData2(props.pagesData.home.data2);
 			setData3(props.pagesData.home.data3);
 			setData4(props.pagesData.home.data4);
+			setData5(props.pagesData.home.data5);
+			loading.current.style.display='none';
 		}
 	}, [router.pathname, props.pagesData])
 
@@ -201,6 +227,21 @@ export default function HomePage(props){
 			console.log(completeCompanyInfo(data2.products, data.counties, data.constituencies));
 		}
 	}, [data2])*/
+
+	useEffect(()=>{
+		if(lastScrollPosition == undefined)
+			setLastScrollPosition(Number(sessionStorage.getItem(router.pathname+'InitialScrollPos')));
+		
+		if(lastScrollPosition && window.scrollY <= lastScrollPosition-20){
+			window.scrollTo(0, lastScrollPosition);
+		}
+	}, [data, data2, data3, data4, data5, lastScrollPosition])
+
+	useEffect(()=>{
+		window.addEventListener('scroll', ()=>{
+			sessionStorage.setItem(router.pathname+'InitialScrollPos', window.scrollY);
+		});
+	}, [])
 
 	useEffect(()=>{
         window.dataLayer = window.dataLayer || [];
@@ -226,18 +267,17 @@ export default function HomePage(props){
 				integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
 				crossOrigin="anonymous" />
 
-				<meta name="keywords" content="construction, builders, kenya" />		
+				<meta name="keywords" content="construction, builders, guide, kenya, buildersguidekenya" />		
 
-				<meta name="description" content="Find what you want for your construction project; 
-				manufacturers, suppliers, construction materials, services, artisans and professionals anywhere in kenya" />
-				 
-				<title>Builders Guide Kenya - Find construction products and services, plants and machineries, hardwares and stores, artisans and professionals anywhere in Kenya</title>
+				<meta name="description" content="Find what you need for your consruction project, ie manufacturers, suppliers 
+				products, services , hardwares, transportation services, furniture, tips, advices, plants and  machineries, anywhere in the country."/>
 
-				<meta type="shortcut icon" src="/images/buildersguidekenyalogo.png" />
-
+				<title>Builders Guide Kenya - Comprehensive construction directory</title>
 			</Head>
 
-			<Header />
+			<Header 
+				// loginData = { props.loginData }
+			/>
 			<Banner />
 			<ComponentNavigation />
 
@@ -253,73 +293,72 @@ export default function HomePage(props){
 			{/* <SmallAds productInfo={productInfo} title={'related.Sponsored Products'}/> */}
 			{/* <SmallAds productInfo={productInfo} title={'New/Upgraded Products'}/> */}
 			{
-				data?
-					data2?
-						data2.products.length>0?
-							<CategorySection 
-								title={'Products and Services'}
-								subCategories={data2.availableProductSubCategories}
-								link={"/products-and-services"}
-								productInfo={completeCompanyInfo(data2.products, data.counties, data.constituencies)}
-								products={data2.products} 
-								counties={data.counties}
-								constituencies={data.constituencies}
-								baseURL={props.baseURL}
-							/>
-						:undefined
-					:undefined
+				data && data2 && data2.products.length>0?
+					<CategorySection 
+						title={'Products and Services'}
+						subCategories={data2.availableProductSubCategories}
+						link={"/products-and-services"}
+						productInfo={completeCompanyInfo(data2.products, data.counties, data.constituencies)}
+						products={data2.products} 
+						counties={data.counties}
+						constituencies={data.constituencies}
+						baseURL={props.baseURL}
+					/>
 				:undefined
 			}
 			{
-				data?
-					data.suppliers.length>0?
-						<CategorySection 
-							title={'Manufacturers and Suppliers'}
-							subCategories={data.availableSubCategories}
-							link={"/manufacturersandsuppliers"}
-							companyInfo={completeCompanyInfo(data.suppliers, data.counties, data.constituencies)}
-							suppliers={data.suppliers} 
-							counties={data.counties}
-							constituencies={data.constituencies}
-							baseURL={props.baseURL} 
-						/>
-					:undefined
+				data && data.suppliers.length>0?
+					<CategorySection 
+						title={'Manufacturers and Suppliers'}
+						subCategories={data.availableSubCategories}
+						link={"/manufacturersandsuppliers"}
+						companyInfo={completeCompanyInfo(data.suppliers, data.counties, data.constituencies)}
+						suppliers={data.suppliers} 
+						counties={data.counties}
+						constituencies={data.constituencies}
+						baseURL={props.baseURL} 
+					/>
 				:undefined
 			}
 			{
-				data?
-					data3?
-						data3.constructionMachinery.length>0?
-							<CategorySection 
-								title={'Plants and Machineries'} 
-								subCategories={data3.availableConstructionMachinerySubCategories} 
-								link={"/plants-and-machineries"}
-								constructionMachineryInfo={completeCompanyInfo(data3.constructionMachinery, data.counties, data.constituencies)} 
-								constructionMachinery={data3.constructionMachinery}
-								counties={data.counties}
-								constituencies={data.constituencies}
-								baseURL={props.baseURL}
-							/>
-						:undefined
-					:undefined
+				data && data3 && data3.constructionMachinery.length>0?
+					<CategorySection 
+						title={'Plants and Machineries'} 
+						subCategories={data3.availableConstructionMachinerySubCategories} 
+						link={"/plants-and-machineries"}
+						constructionMachineryInfo={completeCompanyInfo(data3.constructionMachinery, data.counties, data.constituencies)} 
+						constructionMachinery={data3.constructionMachinery}
+						counties={data.counties}
+						constituencies={data.constituencies}
+						baseURL={props.baseURL}
+					/>
 				:undefined
 			}
 			{
-				data?
-					data4?
-						data4.transportVehicles.length>0?
-							<CategorySection 
-								title={'Transport Vehicles'} 
-								subCategories={data4.availableVehicleTypes} 
-								link={"/transport-vehicles"}
-								vehiclesInfo={completeCompanyInfo(data4.transportVehicles, data.counties, data.constituencies)} 
-								vehicles={data4.transportVehicles}
-								counties={data.counties}
-								constituencies={data.constituencies}
-								baseURL={props.baseURL}
-							/>
-						:undefined
-					:undefined
+				data && data4 && data4.transportVehicles.length>0?
+					<CategorySection 
+						title={'Transport Vehicles'} 
+						subCategories={data4.availableVehicleTypes} 
+						link={"/transport-vehicles"}
+						vehiclesInfo={completeCompanyInfo(data4.transportVehicles, data.counties, data.constituencies)} 
+						vehicles={data4.transportVehicles}
+						counties={data.counties}
+						constituencies={data.constituencies}
+						baseURL={props.baseURL}
+					/>
+				:undefined
+			}
+			{
+				data != undefined && data5 != undefined && data5.availableHardwareAndYards.length>0?
+					<CategorySection
+						title={'Hardwares and Yards'}
+						link={'/hardwares-and-yards'}
+						companyInfo={completeCompanyInfo(data5.availableHardwareAndYards, data.counties, data.constituencies)}
+						suppliers={data4.availableHardwareAndYards}
+						counties={data.counties}
+						constituencies={data.constituencies}
+						baseURL={props.baseURL}
+					/>
 				:undefined
 			}
 			{/* <ArticleComponent subCategories={MaterialsAndServicesCategories} link={"/articles"} /> */}
@@ -331,9 +370,9 @@ export default function HomePage(props){
 			</div>
 
 			{
-				data?
+				data5?
 				<Footer />
-				:""
+				:undefined
 			}
 		</Layout>
 	</div>

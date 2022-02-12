@@ -20,21 +20,157 @@ export default function subCategory(props) {
     const [companyInfo, setCompanyInfo] = useState([]);
     const [counties,setCounties] = useState();
 	const [constituencies, setConstituencies] = useState();
+    const [pathname, setPathname] = useState();
+    const [storedSelectedMenu, setStoredSelectedMenu] = useState();
+    const [lastScrollPos, setLastScrollPos] = useState();
 
     const router = useRouter();
-    //console.log(router.query);
-
     const loading = useRef(null);
+
+    function categoryExists(){
+        let position = -1;
+        props.pagesData.manufacturersAndSuppliers.categories.map((element, index)=>{
+            if(element.name == router.query.subCategory){
+                position = index;
+            }
+        })
+        return position;
+    }
+
+    //This block creates a pathname page specific
+    useEffect(()=>{
+        if(pathname == undefined && router.query.subCategory){
+            setPathname(router.pathname+'/'+router.query.subCategory);
+            sessionStorage.setItem('pathname', router.pathname+'/'+router.query.subCategory);
+        }
+    }, [router])
+
+    //This block stores page data in memory
+    useEffect(()=>{
+        let holder = props.pagesData;
+        if(holder.manufacturersAndSuppliers.categories == undefined && router.query.subCategory){
+            let object = {};
+            object.name = router.query.subCategory;
+
+            holder.manufacturersAndSuppliers.categories = [];
+            holder.manufacturersAndSuppliers.categories.push(object);
+
+            props.setPagesData(holder);
+        }
+
+        //console.log(props.pagesData);
+    }, [props.pagesData, router])
+
+    //This block is supposed to be responsible for remembering initial selectedMenu
+    useEffect(()=>{
+        /*console.log(storedSelectedMenu);
+        console.log(companyInfo);
+        console.log(pathname);
+        console.log(props.pagesData.manufacturersAndSuppliers.categories)
+        console.log(sessionStorage.getItem(pathname+'InitialMenu'));*/
+        if(storedSelectedMenu == undefined && companyInfo.length > 0 && pathname != undefined){
+            if(props.pagesData.manufacturersAndSuppliers.categories && storedSelectedMenu == undefined)
+                if(router.query.category!=undefined)
+                    setStoredSelectedMenu(router.query.categrory);
+                else if(props.pagesData.manufacturersAndSuppliers.categories[categoryExists()].storedSelectedMenu)
+                    setStoredSelectedMenu(props.pagesData.manufacturersAndSuppliers.categories[categoryExists()].storedSelectedMenu);
+                else if (sessionStorage.getItem(pathname+'InitialMenu'))
+                    setStoredSelectedMenu(sessionStorage.getItem(pathname+'InitialMenu'));
+                
+        }
+    }, [pathname, companyInfo])
+
+    //This block is responsible for remembering the initial scroll position
+	useEffect(()=>{
+        window.addEventListener("scroll", ()=>{
+            //console.log(sessionStorage.getItem('pathname')+'InitialScrollPos');
+            if(window.scrollY > 0)
+                sessionStorage.setItem(sessionStorage.getItem('pathname')+'InitialScrollPos', window.scrollY);
+        })
+	}, [])
+
+    useEffect(()=>{
+        if(pathname && lastScrollPos == undefined){
+            //console.log(sessionStorage.getItem(pathname+'InitialScrollPos'));
+            setLastScrollPos(sessionStorage.getItem(pathname+'InitialScrollPos'));
+        }
+    }, [pathname])
+
+    //This block scrolls the page to the last scroll location
+    useEffect(()=>{
+        if(lastScrollPos && pathname){
+            if(sessionStorage.getItem(pathname+'InitialMenu') == null && menuSelected == undefined){
+                if(companyInfo && companyInfo.length > 0 ){
+                    window.scroll({
+                        top:lastScrollPos,
+                        left:0,
+                        behavior:'smooth'
+                    });
+                    setLastScrollPos();
+                }
+            } else if (menuSelected && menuSelected.speCatName == sessionStorage.getItem(pathname+'InitialMenu')){
+                //check productInfo for the menu first then scroll
+                if(companyInfo && companyInfo.length > 0){
+                    console.log("Wow");
+                    let scroll = false;
+                    companyInfo.map((element, index)=>{
+                        if(element.menu == menuSelected.id)
+                            scroll = true;
+                    })
+
+                    if(scroll){
+                        window.scroll({
+                            top:lastScrollPos,
+                            left:0,
+                            behavior:'smooth'
+                        })
+                        setLastScrollPos();
+                    }
+                }
+            }
+        }
+    }, [lastScrollPos, menuSelected, companyInfo, pathname])
+
+    //This block stores selected menu in memory and in browsers storage
+    useEffect(()=>{
+        if(menuSelected){
+            /*if(menuSelected.speCatName != router.query.category){
+                router.replace('/products-and-services/'+router.query.subCategory);
+            }*/
+            //console.log(menuSelected);
+            //console.log(props.pagesData.productsAndServices.categories);
+            
+            let holder = props.pagesData, categoryIndex = categoryExists();
+            holder.manufacturersAndSuppliers.updateTime = Date.now();
+            
+            if(categoryIndex == -1){
+                let object = {};
+                object.name = router.query.subCategory;
+                object.storedSelectedMenu = menuSelected.speCatName;
+                
+                holder.manufacturersAndSuppliers.categories.push(object);
+
+                props.setPagesData(holder);
+            } else {
+                holder.manufacturersAndSuppliers.categories[categoryIndex].storedselectedMenu = menuSelected.speCatName;
+            }
+
+            props.setPagesData(holder);
+
+            sessionStorage.setItem( pathname+'InitialMenu' , menuSelected.speCatName);
+            //console.log(sessionStorage.getItem(pathname+'InitialMenu'));
+        }
+    }, [menuSelected])
 
     async function getSpecificCategories(){
         if(router.query.subCategory){
             loading.current.style.display = 'block';
             const subCategory = await axios.get(props.baseURL+"/sub-categories?subCategory="+router.query.subCategory);
-            console.log(subCategory.data);
+            //console.log(subCategory.data);
             setSubCategory(subCategory.data[0]);
 
             const availableSpecificCategories = await axios.get(props.baseURL+"/specific-categories?suppliersAvailable=true&subCategory="+subCategory.data[0].id);
-            console.log(availableSpecificCategories.data);
+            //console.log(availableSpecificCategories.data);
             setAvailableMenus(availableSpecificCategories.data);
 
             const counties = await axios.get(props.baseURL+"/counties?_limit=-1");
@@ -54,30 +190,35 @@ export default function subCategory(props) {
             //console.log(query);
         
             //Getting the first 30 suppliers in this category
-            const suppliers = await axios.get(props.baseURL+"/suppliers?"+query, {
-                transformResponse:[function(data){
-                    let newData = [];
-                    let originalData = JSON.parse(data);
-    
-                    originalData.map(element=>{
-                        let object = {};
-    
-                        object.id = element.id;
-                        object.companyName = element.companyName;
-                        object.services = element.services;
-                        object.county = element.county;
-                        object.constituency = element.constituency;
-                        object.buildingOrEstate = element.buildingOrEstate;
-                        object.userId=element.userId;
-                        object.companyLogo=element.companyLogo;
-    
-                        newData = newData.concat(object);
-                    })
-    
-                    return newData;
-                }]
-            });
-            console.log(suppliers.data);
+            let suppliers;
+            if(query=="")
+                suppliers = {data:[]};
+            else 
+                suppliers = await axios.get(props.baseURL+"/suppliers?supplierCategoryId=1&"+query, {
+                    transformResponse:[function(data){
+                        let newData = [];
+                        let originalData = JSON.parse(data);
+        
+                        originalData.map(element=>{
+                            let object = {};
+        
+                            object.id = element.id;
+                            object.companyName = element.companyName;
+                            object.services = element.services;
+                            object.county = element.county;
+                            object.constituency = element.constituency;
+                            object.buildingOrEstate = element.buildingOrEstate;
+                            object.userId=element.userId;
+                            object.companyLogo=element.companyLogo;
+                            object.supplierCategoryId = element.supplierCategoryId;
+        
+                            newData = newData.concat(object);
+                        })
+        
+                        return newData;
+                    }]
+                });
+            //console.log(suppliers.data);
             setCompanyInfo(companyInfo.concat({
                 menu:0,
                 suppliers:completeCompanyInfo(suppliers.data, counties.data, constituencies.data)
@@ -112,11 +253,12 @@ export default function subCategory(props) {
 
     useEffect(()=>{
         if(menuSelected){
-            console.log(menuSelected.speCatName);
+            //console.log(menuSelected.speCatName);
             //moreLink(menuSelected);
             //console.log(checkAvailablility(companyInfo, menuSelected.id));
             if(checkAvailablility(companyInfo, menuSelected.id) !== -1){
                 //console.log(menuSelected);
+                //console.log('menu already existed')
                 //console.log(checkAvailablility(companyInfo, menuSelected.id));
                 setActiveSuppliers(checkAvailablility(companyInfo, menuSelected.id));
             } else {
@@ -161,21 +303,21 @@ export default function subCategory(props) {
         }
     }, [companyInfo, activeSuppliers])
 
-    useEffect(()=>{
-        //console.log(companyInfo[activeSuppliers]);
-    }, [companyInfo])
-
-    useEffect(()=>{
-        console.log("***activeSuppliers***");
-        console.log(activeSuppliers);
-        console.log(companyInfo[activeSuppliers]);
-    },[activeSuppliers])
-
-    useEffect(()=>{
-        console.log("***previousActiveSuppliers***");
-        console.log(previousActiveSuppliers);
-        console.log(companyInfo[previousActiveSuppliers])
-    }, [previousActiveSuppliers])
+    function listAvailableMenus(){
+        if(availableMenus){
+            let theMenus = "";
+            availableMenus.map((element, index)=>{
+                if(index == 0)
+                    theMenus+=element.speCatName;
+                else if(index == availableMenus.length-1)
+                    theMenus+="and "+element.speCatName;
+                else 
+                    theMenus+=", "+element.speCatName;
+            })
+            return "such as "+theMenus;
+        }
+        return "";
+    }
 
     useEffect(()=>{
         window.dataLayer = window.dataLayer || [];
@@ -201,12 +343,11 @@ export default function subCategory(props) {
                 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                 crossOrigin="anonymous" />
 
-                <meta name="keywords" description={router.query.subCategory?router.query.subCategory:'construction materials'} />
+                <meta name='keywords' description={router.query.subCategory?router.query.subCategory.replace(/and/, '').replace(/\s/, ', ')+" kenya, manufacturers, suppliers, services":""} />
 
-                <meta name="content" description={`Find manufacturers and suppliers providing ${router.query.subCategory?router.query.subCategory:''} 
-                your construction project in kenya.`} />
-
-                <title>Manufacturers and Suppliers ~ {router.query.subCategory?router.query.subCategory:''} | Builders Guide Kenya</title>
+                <meta name="content" description= {router.query.subCategory? "Find "+ router.query.subCategory+" products manufacturers and suppliers and related services for your construction project"+ listAvailableMenus() +" anywhere in Kenya":""} />
+                
+                <title>{router.query.subCategory?router.query.subCategory+" manufacturers and suppliers in Kenya and East African Community | Builders Guide Kenya":''}</title>
             </Head>
             {
                 router.query.subCategory?
@@ -221,6 +362,7 @@ export default function subCategory(props) {
                             subCategories={availableMenus} 
                             setMenuSelected = {(menu)=>setMenuSelected(menu)}
                             menuSelected={menuSelected}
+                            storedSelectedMenu={storedSelectedMenu}
                         />
                     </div>
                     :''

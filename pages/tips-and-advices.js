@@ -56,7 +56,11 @@ export default function Articles(props) {
                 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
                 crossorigin="anonymous" />
 
-                <title>Builders Guide Kenya | Tips and Advices</title>
+                <meta name="keywords" content="tips, advices, tips and advices, builders, guide, kenya" />
+
+                <meta name="description" content="Good to know tips and advices for construction professionals and anyone who is about to get involved in a construction activity" />
+
+                <title> Construction related Tips and Advices | Builders Guide Kenya</title>
             </Head>
             <Header title='Tips and Advices' />
             {

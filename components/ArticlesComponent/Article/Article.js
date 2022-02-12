@@ -24,17 +24,17 @@ export default function Article(props) {
             {
                 props.article?
                 <div className={style.container}>
-                <div className={style.articleContent}>
-                    <div>
-                        <h4>{props.article?props.article.title:''}</h4>
+                    <div className={style.articleContent}>
+                        <div>
+                            <h4>{props.article?props.article.title:''}</h4>
+                        </div>
+                        <p>{props.article?props.article.metaDescription:''}</p>
+                        <span>by {props.article?props.article.admin_user.firstname + ' ' +props.article.admin_user.lastname:''}</span>
+                        <span>{published_at?published_at.toLocaleString():''}</span>
                     </div>
-                    <p>{props.article?props.article.metaDescription:''}</p>
-                    <span>by {props.article?props.article.admin_user.firstname + ' ' +props.article.admin_user.lastname:''}</span>
-                    <span>{published_at?published_at.toLocaleString():''}</span>
-                </div>
-                <div className={style.articleImage}>
-                    <img src={props.article?props.baseURL+props.article.featuredImages.formats.small.url:''} alt={props.article?props.article.featuredImages.alternativeText:''} />
-                </div>
+                    <div className={style.articleImage}>
+                        <img src={props.article?props.baseURL+props.article.featuredImages.formats.small.url:''} alt={props.article?props.article.featuredImages.alternativeText:''} />
+                    </div>
                 </div>:''
             }
             

@@ -15,6 +15,7 @@
     "react-dom": "16.13.1",
     "react-sidebar": "^3.0.2",
     "showdown": "^1.9.1",
-    "swiper": "^6.5.9"
+    "swiper": "^6.5.9",
+    "validatorjs": "^3.22.1"
   }
 }

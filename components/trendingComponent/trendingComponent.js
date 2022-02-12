@@ -3,7 +3,7 @@ import SectionTitle from '../categorySections/sectionTitle'
 import TilesArticleListing from '../tilesArticleListing/TilesArticleListing'
 import {useState, useEffect} from 'react'
 
-function TrendingComponent({title='Featured articles', isNotWide=true, articles, baseURL}){
+function TrendingComponent({title='Featured tips and advices', isNotWide=true, articles, baseURL}){
 
     const [updatedArticles, setUpdatedArticles] = useState('');
     

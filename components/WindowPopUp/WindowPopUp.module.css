@@ -1,0 +1,41 @@
+.cover{
+    /*position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;*/
+    z-index:2;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    min-height:100vh;
+    background-color: rgba(255, 255, 255, 0.5);
+    /*display:grid;
+    display:-ms-grid;
+    display:-moz-grid;
+    grid-template-columns:auto;
+    grid-template-rows:auto;
+    justify-content:center;
+    align-content:center;*/
+}
+.cover > div{
+    border:1px solid rgb(210, 210, 210);
+    background-color: rgba(255, 255, 255, 0.95);
+    width:max-content;
+    margin:2rem auto;
+}
+.cover > div > div:first-of-type{
+    text-align:right;
+}
+.cover > div > div:first-of-type > span:first-of-type{
+    font-size:2rem;
+    border:1px solid transparent;
+    border-radius:3rem;
+    padding:0rem 0.9rem 0.5rem 0.9rem;
+    transition: border-color 0.5s;
+}
+.cover > div > div:first-of-type > span:first-of-type:hover{
+    border-color:rgb(60, 60, 60);
+    cursor:pointer;
+}

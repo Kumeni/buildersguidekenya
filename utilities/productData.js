@@ -1,12 +1,15 @@
 import axios from 'axios'
 
 const getProducts = async (specialization, baseURL)=>{
-
     let query = '';
 
     specialization.map((element,index)=>{
         index===0?query=query+"id="+element.productId:query=query+"&id="+element.productId;
     })
+
+    if(query=="")
+        return [];
+        
     const products = await axios.get(baseURL+"/products?"+query+'&blocked=false&approved=true&deleted=false', {
         transformResponse:[function(data){
             let newData = [];

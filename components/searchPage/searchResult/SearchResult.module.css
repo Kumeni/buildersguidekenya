@@ -4,10 +4,30 @@
     grid-template-rows:auto;
     margin:1rem;
 }
+@media (max-width:499px){
+    .searchResult{
+        border:none;
+        box-shadow: none;
+    }
+}
+@media (min-width:499px){
+    .searchResult{
+        border:1px solid #d2d2d2;
+        box-shadow:1px 1px 4px rgb(220, 220, 220);
+        max-width:900px;
+    }
+}
+@media (min-width:1024px){
+    .searchResult{
+        margin-top:1.5rem;
+        margin-bottom:2rem;
+        margin-left:3rem;
+    }
+}
 .searchResult>div:last-of-type{
-    border-bottom:1px solid rgb(210, 210, 210);
+    /*border-bottom:1px solid rgb(210, 210, 210);
     border-top:1px solid rgb(210, 210, 210);
-    border-right:1px solid rgb(210, 210, 210);
+    border-right:1px solid rgb(210, 210, 210);*/
     padding:1rem 0rem;
 }
 .searchResult > div:last-of-type ul, .details, .productDetails{
@@ -66,6 +86,11 @@
     .searchResult > div:last-of-type ul, .details, .productDetails{
         padding:0rem 1rem 1rem 1rem;
         margin:0rem;
+    }
+}
+@media (min-width:681px){
+    .imageContainer{
+        border-right:1px solid rgb(210, 210, 210);
     }
 }
 @media (max-width:498px){
@@ -135,12 +160,21 @@
     overflow-y: hidden;
 }
 .details p, .productDetails p{
-    font-size:1.1rem;
+    font-size:1rem;
 }
 .details h3, .productDetails h3{
-    font-size:1.4rem;
+    font-size:1.1rem;
     max-height:2rem;
     overflow-y:hidden;
+    font-weight:500;
+}
+.productDetails h5{
+    font-size: 1.1rem;
+    font-weight:500;
+    margin-top:1.5rem;
+}
+.productDescription{
+    margin:1.5rem 0rem;
 }
 .details h3:hover, .productDetails h3:hover{
     cursor:pointer;
@@ -149,7 +183,7 @@
 }
 .details > span:first-of-type, .productDetails b{
     text-transform: capitalize;
-    font-weight:600;
+    font-weight:normal;
 }
 .productDetails p{
     margin-bottom:0.6rem;
@@ -205,29 +239,29 @@
 }
 @media (min-width:768px) and (max-width:1024px){
     .details h3, .productDetails h3{
-        font-size:1.4rem;
+        font-size:1.1rem;
         max-height:3.6rem;
     }
     .productDetails h5{
-        font-size:1.2rem;
+        font-size:1.1rem;
     }
 }
 @media (min-width:426px) and (max-width:768px){
     .details h3, .productDetails h3{
-        font-size:1.3rem;
+        font-size:1rem;
         max-height:3.6rem;
     }
     .productDetails h5{
-        font-size:1.2rem;
+        font-size:1rem;
     }
 }
 @media (min-width:320px) and (max-width:426px){
     .details h3, .productDetails h3{
-        font-size:1.2rem;
+        font-size:1rem;
         max-height:3.4rem;
     }
     .productDetails h5{
-        font-size:1.1rem;
+        font-size:1rem;
     }
 }
 @media (max-width:320px){

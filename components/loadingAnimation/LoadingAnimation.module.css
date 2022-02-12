@@ -1,0 +1,25 @@
+.animationContainer{
+    height:100%;
+    border-radius:3px;
+}
+.animationContainer div{
+    border:1px solid white;
+    background-color:rgb(245, 245, 245);
+    width:12px;
+    height:12px;
+    margin:2px;
+    display:inline-block;
+    position:relative;
+    
+}
+.animationContainer div:first-of-type{
+    animation:action .8s alternate-reverse infinite;
+}
+.animationContainer div:nth-of-type(2){
+    animation:action .8s .3s alternate-reverse infinite;
+}
+
+@keyframes action{
+    from{top:3px;}
+    to{top:-3px;}
+}

@@ -77,30 +77,43 @@ function SingleManufacturer(props) {
             })
         }
     }, [])
-    // useEffect(()=>{
-    //     console.log(companyLogo);
-    // }, [companyLogo])
-
-    // useEffect(()=>{
-    //     console.log(productImage);
-    // }, [productImage])
-
-    // useEffect(()=>{
-    //     console.log(productPricing);
-    // }, [productPricing])
     
+    useEffect(()=>{
+        if(props.manufacturer);
+            console.log(props.manufacturer);
+    }, [props.manufacturer])
+    
+    function hrefObject(manufacturer){
+        let obj = {};
+        if(manufacturer.supplierCategoryId == 1){
+            obj.pathname = "/manufacturersandsuppliers/manufacturerandsupplier";
+            obj.query = {
+                companyName:manufacturer.companyName
+            }
+        } else if(manufacturer.supplierCategoryId == 2) {
+            obj.pathname = `/hardwares-and-yards/${manufacturer.companyName}`
+        }
+        console.log(manufacturer.id);
+        console.log(manufacturer);
+        console.log(manufacturer.supplierCategoryId);
+        console.log(obj);
+        return obj;
+    }
+    /*{
+        pathname:props.manufacturer.supplierCategoryId==1?
+         "/manufacturersandsuppliers/manufacturerandsupplier":
+         `/hardwares-and-yards/${props.manufacturer.companyName}`,
+        query:props.manufacturer.supplierCategoryId==1?{
+            companyName:props.manufacturer.companyName,
+        }:undefined
+    }*/
     return (
         <>
             {
                 props.manufacturer?
                     <Link
                         key={props.manufacturer.id}
-                        href={{
-                            pathname:"/manufacturersandsuppliers/manufacturerandsupplier",
-                            query:{
-                                companyName:props.manufacturer.companyName,
-                            }
-                        }}
+                        href={hrefObject(props.manufacturer)}
                     >
                         <div className={props.fullWidth? style.container_FullWidth : style.container}>
                             <div className={props.fullWidth? style.imageContainer_FullWidth:style.imageContainer}>
@@ -126,8 +139,7 @@ function SingleManufacturer(props) {
                         href={{
                             pathname:"/products-and-services/product-and-service",
                             query:{
-                                materialName:props.product.productName,
-                                materialId:props.product.id
+                                v:props.product.id.toString(32)
                             }
                         }}
                     >

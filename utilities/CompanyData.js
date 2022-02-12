@@ -8,6 +8,9 @@ const getSuppliers = async (specialization, baseURL)=>{
         index===0?query=query+"userId="+element.userId:query=query+"&userId="+element.userId;
     })
 
+    if(query == "")
+        return [];
+
     const suppliers = await axios.get(baseURL+"/suppliers?"+query, {
         transformResponse:[function(data){
             let newData = [];
@@ -22,6 +25,7 @@ const getSuppliers = async (specialization, baseURL)=>{
                 object.buildingOrEstate = element.buildingOrEstate;
                 object.userId=element.userId;
                 object.companyLogo=element.companyLogo;
+                object.supplierCategoryId = element.supplierCategoryId;
                 
                 newData = newData.concat(object);
             })
