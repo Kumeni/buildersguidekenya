@@ -43,6 +43,8 @@ function MaterialProductPage(props){
     const [orderResponse, setOrderResponse] = useState();
     const [showNotification, setShowNotification] = useState();
     const [position, setPosition] = useState();
+    const [units, setUnits] = useState(1);
+    const [cartItem, setCartItem] = useState();
 
     const body = useRef(null);
     const userAction = useRef(null);
@@ -65,6 +67,18 @@ function MaterialProductPage(props){
             } else 
                 setInitialPrice(pricingArray[index].initialUnitPrice);
             setProductPricings(pricingArray.concat([]));
+
+            if(pricingArray[index].id && parseInt(router.query.v, 32) && units){
+
+                let data = {};
+
+                data.pricingId = pricingArray[index].id;
+                data.productId = parseInt(router.query.v, 32);
+                data.units = units;
+                data.deleted = false;
+                data.checkedOut = false;
+                setCartItem(data);
+            }
         }
     }
     
@@ -359,6 +373,9 @@ function MaterialProductPage(props){
                     <CallToAction 
                         handleShowCover={data=>handleShowCover(data)}
                         loginData = {props.loginData}
+                        productDetails = {productDetails?productDetails[0]:undefined}
+                        cartItem={cartItem}
+                        baseURL = {props.baseURL}
                     />
                 </div>
             </div>

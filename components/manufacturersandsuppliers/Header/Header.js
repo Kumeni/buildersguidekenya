@@ -92,7 +92,7 @@ export default function Header({title = 'Manufacturers and Suppliers', router=""
                     
                 </a>
                 <div className={'d-flex flex-row align-items-center ' + style.search} tabIndex = {3}>
-                    <input className={'flex-shrink-0'} type='search' placeholder='i.e search' value={inputValue} onChange={(event)=>{handleInputChange(event)}} onKeyUp={(event)=>submitInputValue(event)}/>
+                    <input title = {"Input to search"} className={'flex-shrink-0'} type='search' placeholder='i.e search' value={inputValue} onChange={(event)=>{handleInputChange(event)}} onKeyUp={(event)=>submitInputValue(event)}/>
                     <span onClick={()=>handleSearchClick(3)}>
                         {/* <i className={'fas fa-search' }></i> */}
                         <img onClick={()=>handleSearchClick(3)} title = "Click to search" className = {style.searchIcon} src="/icons/search.png" />
@@ -103,20 +103,24 @@ export default function Header({title = 'Manufacturers and Suppliers', router=""
                         src = {"/icons/cart.png"}
                         menu = {"cart"}
                         title = {"Shopping cart"}
+                        link = {"/cart"}
                     />
                     <Menu
                         src = {"/icons/832921-200.png"}
                         menu = {"orders"}
                         title = {"My orders"}
+                        link = {"/orders"}
                     />
                     <Menu
                         src = {"/icons/saved.png"}
                         menu = {"saved"}
                         title = {"Saved"}
+                        link = {"/saved"}
                     />
                     <Menu
                         src = {"/icons/user.png"}
                         menu = {"user"}
+                        title = {"user"}
                     />
                 </div>
             </div>

@@ -1,9 +1,15 @@
+.container{
+    margin:1rem;
+    background-color:rgb(254, 254, 254);
+    border:1px solid rgb(210, 210, 210);
+    max-width:900px;
+}
 .order{
     display:grid;
     grid-template-columns: max-content auto;
     grid-template-rows:auto;
-    margin:1rem;
-    background-color:rgb(254, 254, 254);
+    /* margin:1rem; */
+    /* background-color:rgb(254, 254, 254); */
 }
 @media (max-width:499px){
     .order{
@@ -19,7 +25,7 @@
     }
 }
 @media (min-width:1024px){
-    .order{
+    /* .order */.container{
         margin-top:1.5rem;
         margin-bottom:2rem;
         margin-left:3rem;
@@ -29,20 +35,34 @@
     /*border-bottom:1px solid rgb(210, 210, 210);
     border-top:1px solid rgb(210, 210, 210);
     border-right:1px solid rgb(210, 210, 210);*/
-    padding:1rem 0rem;
+    padding:0.5rem 0.5rem;
 }
-.order > div:last-of-type ul, .details, .productDetails{
+.order > div:last-of-type ul, .productDetails{
     list-style:none;
     padding:0rem 1rem 0rem 0rem;
     margin:0rem 0rem 1rem 1rem;
 }
+.close{
+    text-align: right;
+}
+.close span{
+    font-size:1.7rem;
+    border:1px solid transparent;
+    padding:0rem 0.8rem 0.5rem 0.8rem;
+    border-radius:50%;
+}
+
+.close span:hover{
+    cursor:pointer;
+    border-color:rgb(180, 180, 180);
+}
 @media (min-width:680px) and (max-width:840px){
-    .details, .productDetails{
+    .productDetails{
         margin:0rem 0rem 0rem 1rem;
     }
 }
 @media (max-width:498px){
-    .details, .productDetails{
+    .productDetails{
         padding:0rem 0.5rem;
     }
 }
@@ -55,48 +75,83 @@
     height:100%;
     object-fit:cover;
 }
-@media (max-width:840px){
+.productInfoS{
+    display:none;
+    /* border:1px solid black; */
+    padding:1rem;
+}
+@media (max-width:375px){
+    .productInfoS{
+        padding:0rem 1rem 1rem 1rem;
+    }
+}
+@media (max-width:1225px){
+    .order{
+        border:none;
+    }
     .imageContainer{
+        width:130px;
+        height:130px;
+    }
+    .productInfoL{
+        display:none;
+    }
+    .productInfoS{
+        display:block;
+        margin:auto;
+        width:max-content;
+    }
+}
+@media (max-width:450px){
+    .imageContainer{
+        width:100px;
+        height:100px;
+    }
+    .container{
+        margin:1rem 0.5rem;
+    }
+}
+@media (max-width:840px){
+    /*.imageContainer{
         width:300px;
         height:250px;
-    }
+    }*/
     .order{
         margin:1rem 0.5rem;
     }
 }
 /* This code is for responsiveness */
-@media (max-width:680px){
+/*@media (max-width:680px){
     .order{
         display:block;
         background-color:rgb(253, 253, 253);
     }
-}
+}*/
 @media (min-width:498px) and (max-width:680px){
+    .imageContainer{
+        border-right:1px solid rgb(210, 210, 210);
+    }
     .order{
         padding:0rem 0.3rem 0.3rem 0rem;
     }
     .order > div:last-of-type{
         /* border:1px solid rgb(210, 210, 210); */
         border:none;
-        width:474px;
-        margin-top:-1rem;
-        margin-left:auto;
-        padding:1.5rem 0rem 0rem 0rem;
+        /* width:474px; */
+        /* margin-top:-1rem; */
+        /* margin-left:auto; */
+        margin:0rem 0rem 0rem 1rem;
+        /* padding:1.5rem 0rem 0rem 0rem; */
         background-color:white;
     }
-    .order > div:last-of-type ul, .details, .productDetails{
+    .order > div:last-of-type ul, .productDetails{
         padding:0rem 1rem 1rem 1rem;
         margin:0rem;
     }
 }
-@media (min-width:681px){
-    .imageContainer{
-        border-right:1px solid rgb(210, 210, 210);
-    }
-}
 @media (max-width:498px){
     .imageContainer{
-        width:100%;
+        border-right:1px solid rgb(210, 210, 210);
     }
     .order{
         padding:0rem;
@@ -104,17 +159,27 @@
     .order > div:last-of-type{
         /* border:1px solid rgb(210, 210, 210); */
         border:none;
-        width:100%;
+        /* width:100%; */
         /* margin-top:-1rem; */
         /* margin-left:auto; */
+        margin:0rem 0rem 0rem 1rem;
         /* padding:1.5rem 0rem 0rem 0rem; */
         background-color:white;
     }
-    .order > div:last-of-type ul, .details, .productDetails{
+    .order > div:last-of-type ul, .productDetails{
         margin:0rem;
     }
+    .order > div:last-of-type{
+        padding:0rem;
+    }
 }
-@media (min-width:464px) and (max-width:498px){
+@media (min-width:681px){
+    .imageContainer{
+        border-right:1px solid rgb(210, 210, 210);
+    }
+}
+
+/*@media (min-width:464px) and (max-width:498px){
     .imageContainer{
         height:400px;
     }
@@ -153,27 +218,14 @@
     .imageContainer{
         height:250px;
     }
-}
+}*/
 /* Style for article content */
-.details p{
-    height:6.6rem;
-    /* border:1px solid black; */
-    overflow-y: hidden;
-}
-.details p, .productDetails p{
-    font-size:1rem;
-}
-.details h3, .productDetails h3{
-    font-size:1.1rem;
-    max-height:2rem;
-    overflow-y:hidden;
-}
-.details > span:first-of-type, .productDetails b{
-    text-transform: capitalize;
-    font-weight:600;
-}
+
 .productDetails p{
     margin-bottom:0.6rem;
+}
+.productDetails h3{
+    font-size:1.1rem;
 }
 .productDetails > p:nth-of-type(3){
     display:block;
@@ -194,38 +246,19 @@
         margin-bottom:0.5rem;
     }
 }
-@media (min-width:840px) and (max-width:1024px){
-    .details p{
-        height:6.1rem;
-        overflow-y: hidden;
-    }
-    .details p, .productDetails p{
-        font-size:1rem;
-    }
-}
+
 @media (max-width:840px){
-    .details p{
-        height:4.7rem;
-    }
-    .details p, .productDetails p{
-        font-size:1rem;
-    }
     .productDetails > p:nth-of-type(3){
         display:none;
     }
 }
 @media (min-width:680px) and  (max-width:840px){
-    .details span:last-of-type{
-        display:block;
-        height:1.6rem;
-        overflow-y:hidden;
-    }
     .productDetails > div > p:nth-of-type(1){
         max-height:6.2rem;
     }
 }
 @media (min-width:768px) and (max-width:1024px){
-    .details h3, .productDetails h3{
+    .productDetails h3{
         font-size:1.1rem;
         max-height:3.6rem;
     }
@@ -234,7 +267,7 @@
     }
 }
 @media (min-width:426px) and (max-width:768px){
-    .details h3, .productDetails h3{
+    .productDetails h3{
         font-size:1rem;
         max-height:3.6rem;
     }
@@ -243,7 +276,7 @@
     }
 }
 @media (min-width:320px) and (max-width:426px){
-    .details h3, .productDetails h3{
+    .productDetails h3{
         font-size:1rem;
         max-height:3.4rem;
     }
@@ -252,7 +285,7 @@
     }
 }
 @media (max-width:320px){
-    .details h3, .productDetails h3{
+    .productDetails h3{
         font-size:1.1rem;
         max-height:3.4rem;
     }
@@ -274,6 +307,11 @@
 .moreInformation section{
     width:max-content;
     padding:2rem;
+}
+@media (max-width:425px){
+    .moreInformation section{
+        padding:1rem;
+    }
 }
 .moreInformation section:not(:first-of-type){
     border-left:1px solid rgb(210, 210, 210);
@@ -326,15 +364,34 @@
     grid-template-columns:auto auto;
     justify-content:space-between;
 }
+@media (min-width:340px) and (max-width:385px){
+    .progress > ul > li{
+        width:270px;
+    }
+}
+@media (min-width:320px) and (max-width:340px){
+    .progress > ul > li{
+        width:260px;
+    }
+}
+@media (max-width:320px){
+    .progress > ul > li{
+        width:80vw;
+    }
+}
 .progress > ul > li > span{
     display:inline-block;
-    width:130px;
-    /* border:1px solid rgb(210, 210, 210); */
+    max-width:130px;
+    border:1px solid rgb(210, 210, 210);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
-
+@media (max-width:340px){
+    .progress > ul > li > span{
+        max-width:120px;
+    }
+}
 .delivery, .payment{
     width:max-content;
 }
@@ -347,4 +404,18 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display:inline-block;
+}
+@media (min-width:371px) and (max-width:440px){
+    .delivery td, .payment td, .delivery th, .payment th{
+        width:150px;
+    }
+}
+@media (max-width:371px){
+    .delivery th, .payment th{
+        width:100px;
+    }
+    .delivery td, .payment td{
+        width:145px;
+    }
 }

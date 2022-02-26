@@ -1,0 +1,24 @@
+.cartPage{
+    background-color:rgb(250, 250, 250);
+    min-height:100vh;
+}
+.content{
+    display:grid;
+    display:-ms-grid;
+    display:-moz-grid;
+    grid-template-columns:auto max-content;
+    grid-template-rows:auto;
+    /* width:95%; */
+    margin:auto;
+}
+
+@media (max-width:1024px){
+    .content{
+        grid-template-columns:auto;
+    }
+}
+
+.content > section:last-of-type > div{
+    position:sticky;
+    top:90px;
+}

@@ -20,9 +20,15 @@
 
 .menu:hover{
     cursor:pointer;
-    box-shadow: 1px 1px 3px rgb(120, 120, 120);
+    /* box-shadow: 1px 1px 3px rgb(120, 120, 120); */
 }
 
+.menu a{
+    color:black;
+}
+.menu a:hover{
+    text-decoration:none;
+}
 @media (max-width:768px){
     .menu{
         margin:0rem 0.4rem;

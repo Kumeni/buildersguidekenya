@@ -37,7 +37,7 @@ useEffect(() => {
 			sessionStorage.setItem("pagesData",JSON.stringify(pagesData));
 }, [pagesData])*/
 return (
-		<body>
+		<div>
 			<Head>
 				<link rel="shortcut icon" href="/icons/bgk_icon.png"/>
 			</Head>
@@ -48,7 +48,7 @@ return (
 				loginData = {loginData}
 				setLoginData = { data => setLoginData(data)}
 			/>
-		</body>
+		</div>
 	)
 }
 

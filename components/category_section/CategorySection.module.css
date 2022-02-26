@@ -8,6 +8,11 @@
 .categorySectionContent{
     /* border:1px solid rgb(210, 210, 210); */
 }
+@media (max-width:767px){
+    .categorySection{
+        background-color:transparent;
+    }
+}
 
 @media (max-width:768px){
     .categorySection{

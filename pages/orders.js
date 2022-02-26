@@ -2,8 +2,8 @@ import React, {useEffect, useState, useRef} from 'react';
 import Head from 'next/head';
 import Header from '../components/manufacturersandsuppliers/Header/Header';
 import {useRouter} from 'next/router';
-import Order from '../components/order/Order';
 import style from '../components/order/orderPage.module.css';
+import Product from '../components/cart/Product';
 
 function orders() {
 
@@ -31,7 +31,10 @@ function orders() {
                 <section>
                     <h1>Ready for pickup</h1>
                     <div>
-                        <Order />
+                        {/* <Order /> */}
+                        <Product
+                            type = {"ORDER"}
+                        />
                     </div>
                 </section>
                 <section>

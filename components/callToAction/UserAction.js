@@ -6,7 +6,6 @@ import axios from 'axios'
 
 function UserAction(props) {
 
-    const [units, setUnits ] = useState(1);
     const [cost, setCost] = useState();
     const [counties, setCounties] = useState(props.pickupCounties);
     const [constituencies, setConstituencies] = useState(props.pickupConstituencies);
@@ -37,7 +36,7 @@ function UserAction(props) {
 
     useEffect(()=>{
         productCost();
-    }, [props.productPricings, units])
+    }, [props.productPricings, props.units])
 
     const unitCapacity = (productPricings, activePricing) => {
         if(productPricings !== undefined && activePricing !== undefined){
@@ -48,8 +47,8 @@ function UserAction(props) {
     }
 
     const productCost = () => {
-        if ( props.productPricings !== undefined && units !== undefined ){
-            setCost(props.productPricings[props.activePricing].unitPrice * units);
+        if ( props.productPricings !== undefined && props.units !== undefined ){
+            setCost(props.productPricings[props.activePricing].unitPrice * props.units);
         } else {
             setCost(props.productPricings[props.activePricing].unitPrice);
         }
@@ -303,7 +302,7 @@ function UserAction(props) {
                 data:{
                     productId:props.productDetails.id,
                     productPricingId:props.activePricing,
-                    units:units,
+                    units:props.units,
                     pickupLocationId:selectedPickupLocation.id,
                     customerPhoneNo: communicationPhoneNumber,
                     customerEmail:communicationEmail,
@@ -350,8 +349,8 @@ function UserAction(props) {
                     <div>
                         <h2>
                             <TotalUnits 
-                                units={units}
-                                setUnits={data=>setUnits(data)}
+                                units={props.units}
+                                setUnits={data=>props.setUnits(data)}
                             />
                         </h2>
                         <h2>{cost !== undefined? "Ksh. " + cost: undefined}</h2>
