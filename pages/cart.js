@@ -13,12 +13,29 @@ function cart(props) {
     const [cart, setCart] = useState();
     const [products, setProducts] = useState();
     const [pricings, setPricings] = useState();
+    const [images, setImages] = useState();
     const [counties, setCounties] = useState();
     const [constituencies, setConstituencies] = useState();
 
     useEffect(()=>{
+        if(cart != undefined){
+            //save cart updates in the session storage.
+            
+        }
+    }, [cart])
+
+    const subTotal = () => {
+        if(cart != undefined && cart[0] != undefined && cart[0].pricing != undefined){
+            let sum = 0
+            cart.map((element, index) => {
+                sum += (element.units*element.pricing.unitPrice);
+            })
+            return sum;
+        }
+    }
+    useEffect(()=>{
         //This block is responsible for filling the cart fully;
-        if(cart !== undefined && pricings !== undefined && products !== undefined){
+        if(cart !== undefined && pricings !== undefined && products !== undefined && images !== undefined){
             let i, j, holder = cart;
             for (i = 0; i < holder.length; i++){
                 for (j = 0; j < pricings.length; j++){
@@ -34,12 +51,19 @@ function cart(props) {
                         break;
                     }
                 }
+
+                holder[i].images = [];
+                for(j= 0; j < images.length; j++){
+                    if(images[j].productId == holder[i].productId){
+                        holder[i].images.push(images[j]);
+                    }
+                }
             }
 
             console.log(holder);
             setCart(holder.slice());
         }
-    },[pricings, products])
+    },[pricings, products, images])
 
     useEffect(()=>{
         setTimeout(()=>{
@@ -47,16 +71,18 @@ function cart(props) {
                 //This method fills gets all the cart dependencies from the database
                 let products = "";
                 let pricings = "";
+                let images = "";
     
                 //console.log(cart);
                 cart.map((element, index) => {
                     if(index == cart.length-1){
                         products += "id="+element.productId;
                         pricings += "id="+element.pricingId;
-                    }
-                    else {
+                        images += "productId="+element.productId;
+                    } else {
                         products += "id="+element.productId+"&";
                         pricings += "id="+element.pricingId+"&";
+                        images += "productId="+element.productId+"&";
                     }
                 })
                 
@@ -85,6 +111,7 @@ function cart(props) {
                 
                 getDataFromDB("/products?", products, "deleted=false&", setProducts);
                 getDataFromDB("/product-pricings?", pricings, "Deleted=false&", setPricings);
+                getDataFromDB("/product-images?", images, "deleted=false&approved=true&blocked=false&", setImages);
             }
         }, 500)
     }, [cart, props.loginData])
@@ -93,7 +120,7 @@ function cart(props) {
         if(props.loginData !== undefined && props.loginData !== null){
             //get cart from the database
             axios({
-                url:props.baseURL+"/carts?userId="+props.loginData.user.id,
+                url:props.baseURL+"/carts?deleted=false&userId="+props.loginData.user.id,
                 method:"get",
                 headers:{
                     "Authorization":"Bearer "+props.loginData.jwt,
@@ -235,13 +262,21 @@ function cart(props) {
                                     product = {element.product}
                                     pricing = {element.pricing}
                                     key={index}
+                                    images = {element.images}
+                                    baseURL = {props.baseURL}
+                                    cartComplete = {cart}
+                                    setCart = {data => setCart(data)}
+                                    index = {index}
+                                    loginData = {props.loginData}
                                 />
                             ))
                         :undefined
                     }
                 </section>
                 <section>
-                    <CartAmount />
+                    <CartAmount
+                        subTotal = {subTotal()}
+                    />
                 </section>
             </div>
         </div>

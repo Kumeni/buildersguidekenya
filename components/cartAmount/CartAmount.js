@@ -1,14 +1,14 @@
 import React from 'react';
 import style from './CartAmount.module.css';
 
-function CartAmount() {
+function CartAmount(props) {
   return (
     <div className = {style.container}>
         <table className = {style.table}>
             <tbody>
                 <tr>
                     <th>Sub total</th>
-                    <td>Ksh. 3000</td>
+                    <td>Ksh. {props.subTotal}</td>
                 </tr>
                 <tr>
                     <th>VAT</th>
