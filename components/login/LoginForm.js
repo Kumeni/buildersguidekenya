@@ -89,15 +89,17 @@ function LoginForm(props) {
                     props.setLoginData(res.data);
                     let initialPathname = sessionStorage.getItem("initialPathname");
                     let initialQuery = sessionStorage.getItem("initialQuery");
-                    if(initialPathname === undefined){
-                        router.push("/")
+                    console.log(initialPathname);
+                    console.log(initialQuery);
+                    if(initialPathname == null || initialPathname == undefined){
+                        router.push("/");
                     } else {
                         sessionStorage.removeItem("initialPathname");
-                        if(initialQuery == undefined){
+                        if(initialQuery == undefined || initialQuery == null){
                             router.replace(initialPathname);
                         } else {
                             sessionStorage.removeItem("initialQuery");
-                            router.replace(initialPathname +"?v=" + initialQuery);
+                            router.replace(initialPathname +"?" + initialQuery);
                         }
                     }
                 }

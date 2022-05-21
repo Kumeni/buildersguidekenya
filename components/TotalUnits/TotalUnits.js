@@ -5,19 +5,23 @@ function TotalUnits(props) {
 
     const unitsAdjustment = (action, initialUnits) => {
         let initialValue = initialUnits;
-        if(action == "INCREMENT"){
-            props.setUnits(initialValue + 1);
-            return null;
-        } else if(action == "DECREMENT"){
-            if(props.units == 1)
+        if(initialValue != undefined)
+            if(action == "INCREMENT"){
+                props.setUnits(initialValue + 1);
                 return null;
-            props.setUnits(initialValue - 1);
-            return null;
-        }
+            } else if(action == "DECREMENT"){
+                if(props.units == 1)
+                    return null;
+                props.setUnits(initialValue - 1);
+                return null;
+            }
+        else 
+            props.setUnits(1);
         
     }
 
     const unitsDisplay = () =>{
+//        console.log(props.units);
         if(props.units == 1)
             return "1 unit"
         else 

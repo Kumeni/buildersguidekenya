@@ -85,7 +85,7 @@ function HardwaresAndYards(props) {
                 <title>Find Hardwares and Yards anywhere in Kenya | Builders Guide Kenya</title>
             </Head>
             
-            <Header title={"Hardwares and Yards"} />
+            <Header title={"Hardwares and Yards"} loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
 
             <div className={"body"}>
                 <div ref={loading}>

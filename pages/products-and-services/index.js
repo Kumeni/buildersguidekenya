@@ -25,7 +25,6 @@ export default function manufacturersandsuppliers(props) {
 	const loading = useRef(null);
 	const router = useRouter();
 	
-
 	useEffect(()=>{
 		console.log(lastScrollPosition);
 		if(lastScrollPosition == undefined)
@@ -255,7 +254,7 @@ export default function manufacturersandsuppliers(props) {
                 <title>Construction Materials, Products and Services in Kenya and East African Community (EAC) | Builders Guide Kenya</title>
 
             </Head>
-            <Header title='Products and Services' />
+            <Header title='Products and Services' loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
 			{
 				articles?
 					<TrendingComponent baseURL={props.baseURL} articles={articles}/>

@@ -176,7 +176,7 @@ export default function index(props) {
 
                 <title>{title()}</title>
             </Head>
-            <Header title="Transport vehicle"/>
+            <Header title="Transport vehicle" loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
             <main className={style.body}>
                 <div className={style.company}>
                     <div>

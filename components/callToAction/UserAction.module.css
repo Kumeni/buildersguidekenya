@@ -31,7 +31,7 @@
     height:100%;
 }
 
-.preview h1, .cost > div > div > h2, .contact > h2, .payment > h2, .pickup h2{
+.preview h1, .cost > div > div > h2{
     font-size: large;
 }
 .preview > div:last-of-type{
@@ -47,7 +47,7 @@
         padding:0rem;
     }
 }
-.cost > div:first-of-type, .pickup > div:last-of-type{
+.cost > div:first-of-type{
     display:grid;
     display:-ms-grid;
     display:-moz-grid;
@@ -58,10 +58,10 @@
 .cost > div:first-of-type > div{
     width:max-content;
 }
-.cost > div:first-of-type > div:first-of-type, .pickup > div:last-of-type > div:first-of-type {
+.cost > div:first-of-type > div:first-of-type{
     padding-right:1rem;
 }
-.cost > div:first-of-type > div > h2:not(:nth-of-type(4)), .pickup > div:last-of-type > div > h2, .pickup > div:last-of-type > div > p{
+.cost > div:first-of-type > div > h2:not(:nth-of-type(4)){
     height:45px;
     display:grid;
     grid-template-columns: 100%;
@@ -72,117 +72,9 @@
     font-size:17px;
 }
 
-.contact > div {
-    display:grid;
-    display:-ms-grid;
-    display:-moz-grid;
-    grid-template-columns: max-content max-content;
-    grid-template-rows:auto;
-    padding:1rem;
-}
-.contact > div > div > label, .contact > div > div > input, .mpesa label, .mpesa p{
-    display:grid;
-    display: -moz-grid;
-    display:-ms-grid;
-    grid-template-columns: max-content;
-    grid-template-rows:auto;
-    align-content: center;
-    margin: 0.5rem 0rem;
-}
-.contact > div > div > label, .mpesa label, .mpesa p{
-    min-width:90px;
-    height:42px;
-}
-.contact > div > div > input, .mpesa input{
-    width:300px;
-    padding:0.5rem 1rem;
-    border:1px solid rgba(233, 116, 21, 0.5);
-    transition:border-color 0.2s;
-}
-@media (max-width:375px){
-    .contact > div > div > input, .mpesa input{
-        width:100%;
-        display:block;
-    }
-}
-.contact > div > div > input:focus, .mpesa input:focus{
-    outline:none;
-    border-color:rgba(233, 116, 21, 1);
-}
-.commPhoneNumberSm, .commEmailSm{
-    display:none !important;
-}
-@media (max-width:518px){
-    .contact > div{
-        grid-template-columns:auto;
-    }
-    .contact > div:nth-of-type(1) > div:nth-of-type(2){
-        display:none !important;
-    }
-    .commPhoneNumberSm, .commEmailSm{
-        display:grid !important;
-    }
-    
-}
-.mpesaPhoneNumberL{
-    display:grid;
-    display: -moz-grid;
-    display:-ms-grid;
-    grid-template-columns: max-content;
-    grid-template-rows:auto;
-    align-content: center;
-    margin: 0.5rem 0rem;
-}
-.totalCostLg{
-    display:block;
-}
-.mpesaPhoneNumberS, .totalCostSm{
-    display:none;
-}
-
-.payment > div{
-    padding:1rem;
-}
-@media (max-width:600px){
-    .payment > div{
-        padding:1rem 0rem;
-    }
-}
-.payment > div > div:first-of-type > span{
-    padding: 0.5rem 1rem;
-    display:inline-block;
-}
-.mpesa{
-    display:grid;
-    display:-ms-grid;
-    display:-moz-grid;
-    grid-template-columns:max-content auto;
-    grid-template-rows:auto;
-    padding:1rem;
-}
-.mpesa > div > label{
-    min-width:200px;
-}
-.mpesa strong{
-    font-weight:600;
-}
-
-@media (max-width:566px){
-    .mpesaPhoneNumberS{
-        display:grid;
-    }
-    .totalCostSm{
-        display:inline-block;
-    }
-    .mpesa > div:nth-of-type(2){
-        display:none;
-    }
-    .mpesa{
-        grid-template-columns:auto;
-    }
-    /* .mpesaPhoneNumberL, .totalCostLg{
-        display:none;
-    } */
+.cost > div:last-of-type{
+    border:1px solid black;
+    width:100%;
 }
 
 .finish{
@@ -207,120 +99,6 @@
     box-shadow:0px 0px 3px 2px rgba(233, 116, 21, 0.5);
 }
 
-/*styling the location*/
-.pickupLocation{
-    padding:0rem 1rem;
-}
-.pickupLocation > div:first-of-type{
-    display:grid;
-    display:-ms-grid;
-    display:-moz-grid;
-    grid-template-columns: max-content max-content max-content;
-    grid-template-rows:auto;
-    margin-top:1rem;
-}
-@media (min-width:552px) and (max-width:750px){
-    .pickupLocation > div:first-of-type{
-        grid-template-columns:max-content max-content;
-        grid-template-rows: auto auto;
-    }
-}
-@media (max-width:552px){
-    .pickupLocation > div:first-of-type{
-        grid-template-columns: auto;
-        grid-template-rows:auto auto auto;
-    }
-}
-.pickupLocation > div > div{
-    width:max-content;
-    margin-right:1rem;
-}
-.pickupLocation > div > div > label{
-    display:block;
-    /* font-size:large; */
-    /* font-weight:600; */
-}
-.pickupLocation > div > div > select{
-    padding:0.5rem 1.5rem;
-    border:1px solid rgba(233, 116, 21, 0.5);
-    transition:border-color 0.5s;
-}
-@media (max-width:750px){
-    .pickupLocation > div > div:last-of-type{
-        margin-top:1rem;
-    }
-}
-@media (max-width:552px){
-    .pickupLocation > div > div:nth-of-type(2){
-        margin-top:1rem;
-    }
-}
-
-.pickupLocation > div > div > select{
-    display:block;
-    width:60vw;
-}
-@media (min-width:553px){
-    .pickupLocation > div > div > select{
-        width:200px;
-    }
-}
-.pickupLocation > div > div > select:focus{
-    border-color: rgba(233, 116, 21, 0.5);
-    outline:none;
-}
-.pickupLocation > div > div > option{
-    border:1px solid green;
-}
-.pickupLocation > div:last-of-type{
-    display:grid;
-    display:-ms-grid;
-    display:-moz-grid;
-    grid-template-columns: max-content max-content;
-    grid-template-rows:auto;
-    align-content:center;
-    /* border:1px solid green; */
-    margin:1rem;
-}
-.pickupLocation > div:last-of-type > div:first-of-type{
-    height:max-content;
-}
-@media (max-width:425px){
-    .pickupLocation > div:last-of-type{
-        margin:1rem 0rem;
-    }
-    .pickupLocation > div:last-of-type > p{
-        margin-bottom:0rem !important;
-    }
-}
-.pickupLocation > div:last-of-type > div:first-of-type{
-    width:100px;
-    height:auto;
-}
-.pickupLocation > div:last-of-type > div:first-of-type > img{
-    width:100%;
-}
-.pickupLocation > div:last-of-type > div:last-of-type > p{
-    width:60vw;
-}
-@media (min-width:550px) and (max-width:768px){
-    .pickupLocation > div:last-of-type > div:last-of-type > p{
-        border:1px solid black;
-        width:50vw;
-    }
-}
-@media (max-width:550px){
-    .pickupLocation > div:last-of-type > div:last-of-type > p{
-        width:40vw;
-        border:1px solid black;
-    }
-}
-@media (max-width:425px){
-    .pickupLocation > div:last-of-type > div:last-of-type > p{
-        /* border:1px solid red; */
-        width:40vw;
-    }
-}
 .error {
     font-size:0.9rem;
 }

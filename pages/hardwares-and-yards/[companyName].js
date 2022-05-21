@@ -192,7 +192,7 @@ function HardwareAndYard(props) {
                 <title> {title()}</title>
 
             </Head>
-            <Header title="Hardware and/or yard"/>
+            <Header title="Hardware and/or yard" loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
             <main className={style.body}>
                 {
                     completeCompany?

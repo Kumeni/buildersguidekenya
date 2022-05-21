@@ -62,7 +62,7 @@ export default function Articles(props) {
 
                 <title> Construction related Tips and Advices | Builders Guide Kenya</title>
             </Head>
-            <Header title='Tips and Advices' />
+            <Header title='Tips and Advices' loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
             {
 				articles?
 					articles.map((element, index)=>(

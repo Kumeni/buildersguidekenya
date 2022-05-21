@@ -351,7 +351,7 @@ export default function subCategory(props) {
             </Head>
             {
                 router.query.subCategory?
-                    <Header title={router.query.subCategory} />
+                    <Header title={router.query.subCategory} loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
                 :''
             }
             <div className={"body"}>

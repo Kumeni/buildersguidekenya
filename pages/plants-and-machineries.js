@@ -320,7 +320,7 @@ export default function constructionMachinery(props) {
                 <title>Plants and Machineries for hire or sale in Kenya | Builders Guide Kenya</title>
             </Head>
             
-            <Header title='Plants and Machineries' />
+            <Header title='Plants and Machineries' loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
             <main className={"body"}>
                 <div className={"categoryNavigation"}>
                     {

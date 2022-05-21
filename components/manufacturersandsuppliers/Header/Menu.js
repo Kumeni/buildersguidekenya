@@ -18,12 +18,12 @@ function Menu(props) {
 						</a>
 					</Link>
 				:	<>
-					<div className = {style.menuImg}>
+					<div className = {style.menuImg + " " + style.user}>
 						<img src={props.src}/>
 					</div>
-					<span>
+					{/* <span>
 						{props.menu}
-					</span>
+					</span> */}
 				</>
 			}
 			

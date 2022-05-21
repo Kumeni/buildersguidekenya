@@ -264,7 +264,7 @@ export default function manufacturersandsuppliers(props) {
                 <title>Manufacturers and suppliers of construction materials, products and services in Kenya and East African Community (EAC) | Builders Guide Kenya</title>
 
             </Head>
-            <Header />
+            <Header loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
 			{
 				articles?
 					<TrendingComponent baseURL={props.baseURL} articles={articles}/>

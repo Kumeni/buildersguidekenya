@@ -3,6 +3,7 @@
     background-color:rgb(254, 254, 254);
     border:1px solid rgb(210, 210, 210);
     max-width:900px;
+    background-color:white;
 }
 .order{
     display:grid;
@@ -19,7 +20,7 @@
 }
 @media (min-width:499px){
     .order{
-        border:1px solid #d2d2d2;
+        /* border:1px solid #d2d2d2; */
         /* box-shadow:1px 1px 4px rgb(220, 220, 220); */
         max-width:900px;
     }

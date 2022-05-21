@@ -5,7 +5,7 @@ import {useRouter} from 'next/router';
 import style from '../components/order/orderPage.module.css';
 import Product from '../components/cart/Product';
 
-function orders() {
+function orders(props) {
 
     const router = useRouter();
 
@@ -26,7 +26,7 @@ function orders() {
                 <title> My orders | Builders Guide Kenya</title>
 
             </Head>
-            <Header title="My orders" router={router} />
+            <Header title="My orders" router={router} loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
             <div className = {style.myOrders}>
                 <section>
                     <h1>Ready for pickup</h1>

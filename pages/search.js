@@ -141,7 +141,7 @@ export default function Search(props) {
 
             </Head>
 
-            <Header title="Builders Guide Kenya" router={router} />
+            <Header title="Builders Guide Kenya" router={router} loginData={props.loginData} setLoginData = { data => props.setLoginData(data)}/>
             <main className={style.body}>
                 <div className={style.searching}>
                     <h1>Searching for {router.query.q}...</h1>
@@ -174,7 +174,6 @@ export default function Search(props) {
                                         counties={counties}
                                         constituencies={constituencies}
                                         baseURL={props.baseURL}
-                                        index={index}
                                     />
                                 ))
                             :searching?

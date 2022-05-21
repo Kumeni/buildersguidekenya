@@ -46,6 +46,9 @@ function MaterialProductPage(props){
     const [units, setUnits] = useState(1);
     const [cartItem, setCartItem] = useState();
 
+    useEffect(()=>{
+        console.log(units);
+    }, [units])
     const body = useRef(null);
     const userAction = useRef(null);
     /*useEffect(()=>{
@@ -329,7 +332,7 @@ function MaterialProductPage(props){
                 <title> {title()}</title>
 
             </Head>
-            <Header title='Material and/or service' />
+            <Header title='Material and/or service' loginData={props.loginData} setLoginData = { data => props.setLoginData(data)}/>
             
             <div className={style.container}>
                 <div className={style.ProductImage}>
@@ -442,6 +445,8 @@ function MaterialProductPage(props){
                     baseURL = {props.baseURL}
                     loginData = {props.loginData}
                     productImages = {productImages}
+                    units = {units}
+                    setUnits = {data => setUnits(data)}
                     transportationCosts = {transportationCosts}
                     supplierInformation={supplierInformation}
                     setShowNotification = { data => setShowNotification(data)}

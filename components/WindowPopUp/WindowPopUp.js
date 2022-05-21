@@ -16,7 +16,7 @@ function WindowPopUp(props) {
     }, [props.position, cover])
 
     useEffect(()=>{
-        if( props.showNotification === true && cover.current !== null){
+        if( props.showPickupLocation === true || props.showNotification === true || props.showPayment === true && cover.current !== null){
             cover.current.style.position = "fixed";
             cover.current.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
             cover.current.style.display = "grid";
@@ -24,7 +24,7 @@ function WindowPopUp(props) {
         }
     }, [props.showNotification, cover])
 
-    if (props.showCover === true || props.showNotification === true)
+    if (props.showCover === true || props.showNotification === true || props.showPickupLocation === true || props.showPayment)
         return (
             <div ref = {cover} className={style.cover}>
                 <div>

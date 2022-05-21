@@ -204,7 +204,7 @@ export default function index(props) {
                 <title> {title()}</title>
 
             </Head>
-            <Header title="Manufacturer and Supplier"/>
+            <Header title="Manufacturer and Supplier" loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
             <main className={style.body}>
                 {
                     completeCompany?

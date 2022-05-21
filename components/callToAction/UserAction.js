@@ -3,6 +3,8 @@ import TotalUnits from '../TotalUnits/TotalUnits';
 import style from './UserAction.module.css';
 import Validator from 'validatorjs'
 import axios from 'axios'
+import PickupLocation from '../pickupLocation/PickupLocation';
+import Payment from '../payment/Payment';
 
 function UserAction(props) {
 
@@ -20,10 +22,18 @@ function UserAction(props) {
 
     const [communicationPhoneNumber, setCommunicationPhoneNumber] = useState("");
     const [communicationEmail, setCommunicationEmail] = useState("");
+    const [communicationContactError, setCommunicationContactError] = useState();
     const [mpesaPhoneNumber, setMpesaPhoneNumber] = useState();
 
-    const[pickupLocationError, setPickupLocationError] = useState("");
-    const [communicationContactError, setCommunicationContactError] = useState("");
+    const [mapsLink, setMapsLink] = useState();
+    const [directions, setDirections] = useState();
+
+    const [pickupLocationError, setPickupLocationError] = useState("");
+
+    const [pickupLocationMapsLink, setPickupLocationMapsLink] = useState();
+    const [pickupLocationDirection, setPickupLocationDirection] = useState();
+    const [advancedPickupLocationError, setAdvancedPickupLocationError] = useState();
+
     const [mpesaError, setMpesaError] = useState("");
     const [formError, setFormError] = useState("");
 
@@ -34,9 +44,49 @@ function UserAction(props) {
         return "";
     }
 
+    console.log(props.units);
     useEffect(()=>{
         productCost();
     }, [props.productPricings, props.units])
+
+    const handleOrder = () => {
+        //Check if phone number format is valid.
+        let validation = true, order;
+
+
+        if(validation == true){
+            //handle placing an order
+            order = {
+                userId:props.loginData.user.id,//required
+
+                units:props.units,//required
+                unitCapacity:unitCapacity(props.productPricings, props.activePricing),//required
+                productPricingId:props.productPricings[activePricing].id,//required
+
+                supplierName:props.supplierInformation.companyName,//required
+                supplierConstituency:props.supplierInformation.constituency,//required
+                supplierCounty:props.supplierInformation.county,//required
+                supplierEstate:props.supplierInformation.buildingOrEstate,//required
+                supplierId:props.supplierInformation.id,//required
+
+                productName:props.productDetails.productName,//required
+                productId:props.productDetails.id,//required
+                productEstate:props.productDetails.estate,//required
+                productCounty:props.productDetails.county,//required
+                productConstituency:props.productDetails.constituency,//required
+                pricePerUnit:props.productPricings[activePricing].unitPrice,//required
+
+                pickupLocationId:selectedPickupLocation.id,//required
+                dropLocationId:"",//required
+                direction:directions,//optional
+                mapsLink:mapsLink,//optional
+                communicationPhoneNo:communicationPhoneNumber,//required
+                communicationEmail:communicationEmail,//required
+
+                mpesaPhoneNo:mpesaPhoneNumber,//required
+            }
+        }
+    }
 
     const unitCapacity = (productPricings, activePricing) => {
         if(productPricings !== undefined && activePricing !== undefined){
@@ -52,6 +102,16 @@ function UserAction(props) {
         } else {
             setCost(props.productPricings[props.activePricing].unitPrice);
         }
+    }
+
+    const handlePickupLocationMapsLink = event => {
+        setPickupLocationMapsLink(event.target.value);
+        setAdvancedPickupLocationError("");
+    }
+
+    const handlePickupLocationDirection = event => {
+        setPickupLocationDirection(event.target.value);
+        setAdvancedPickupLocationError("");
     }
 
     const handleCountyChange = event => {
@@ -298,19 +358,37 @@ function UserAction(props) {
                 method:'post',
                 headers:{
                     "Authorization":"Bearer "+props.loginData.jwt,
-                },
-                data:{
-                    productId:props.productDetails.id,
-                    productPricingId:props.activePricing,
-                    units:props.units,
-                    pickupLocationId:selectedPickupLocation.id,
-                    customerPhoneNo: communicationPhoneNumber,
-                    customerEmail:communicationEmail,
-                    mpesaPhoneNo:mpesaPhoneNumber,
-                    dropLocationId:props.productDetails.countyId,
-                    userId:props.loginData.user.id,
-                    supplierId:props.productDetails.supplierId
-                }
+                },//this is the required data
+                data:[{
+                    userId:props.loginData.user.id,//required
+
+                    units:props.units,//required
+                    unitCapacity:unitCapacity(props.productPricings, props.activePricing),//required
+                    productPricingId:props.productPricings[props.activePricing].id,//required
+
+                    supplierName:props.supplierInformation.companyName,//required
+                    supplierConstituency:props.supplierInformation.constituency,//required
+                    supplierCounty:props.supplierInformation.county,//required
+                    supplierEstate:props.supplierInformation.buildingOrEstate,//required
+                    supplierId:props.supplierInformation.id,//required
+                    dropLocationId:props.supplierInformation.dropLocationId,//required
+
+
+                    productName:props.productDetails.productName,//required
+                    productId:props.productDetails.id,//required
+                    productEstate:props.productDetails.estate,//required
+                    productCounty:props.productDetails.county,//required
+                    productConstituency:props.productDetails.constituency,//required
+                    pricePerUnit:props.productPricings[props.activePricing].unitPrice,//required
+
+                    pickupLocationId:selectedPickupLocation.id,//required
+                    direction:directions,//optional
+                    mapsLink:mapsLink,//optional
+                    communicationPhoneNo:communicationPhoneNumber,//required
+                    communicationEmail:communicationEmail,//required
+
+                    mpesaPhoneNo:mpesaPhoneNumber,//required
+                }]
             })
             .then ( res => {
                 console.log(res);
@@ -326,7 +404,6 @@ function UserAction(props) {
         } else {
             setFormError("Something went wrong, please check the form");
         }
-
     }
 
     return (
@@ -356,126 +433,40 @@ function UserAction(props) {
                         <h2>{cost !== undefined? "Ksh. " + cost: undefined}</h2>
                     </div>
                 </div>
-                <div className={style.pickup}>
-                    <h2>Pick-up location </h2>
-                    <div className={style.pickupLocation}>
-                        <div >
-                            <div>
-                                <label>County</label>
-                                <select onChange={event => handleCountyChange(event)}>
-                                    {
-                                        counties !== undefined?
-                                            <option value={0}>All</option>
-                                        :undefined
-                                    }
-                                    {
-                                        counties !== undefined?
-                                            counties.map((element, index) => (
-                                                <option  value={element.id} key={index}>{element.countyName}</option>
-                                            ))
-                                        :
-                                        <option> -- </option>
-                                    }
-                                </select>
-                            </div>
-                            <div>
-                                <label>Constituency</label>
-                                <select onChange={event => handleConstituencyChange(event)}>
-                                    {
-                                        constituencies !== undefined?
-                                            <option value={0}>All</option>
-                                        :undefined
-                                    }
-                                    {
-                                        constituencies !== undefined?
-                                            constituencies.map((element, index) => (
-                                                <option value={element.id} key={index}>{element.constituency}</option>
-                                            ))
-                                        :
-                                        <option> -- </option>
-                                    }
-                                </select>
-                            </div>
-                            <div>
-                                <label>Location</label>
-                                <select onChange={ event=> handlePickupLocationChange(event)}>
-                                    {
-                                        pickupLocations !== undefined &&
-                                            <option value={0}> Select </option>
-                                    }
-                                    {
-                                        pickupLocations !== undefined?
-                                            pickupLocations.map((element, index) => (
-                                                <option value={element.id} key={index}>{element.name}</option>
-                                            ))
-                                        :
-                                        <option> -- </option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <div className = {style.pickupLocationDetails}> 
-                            <div>
-                                <img src={pickupLocationImage("IMAGE")} alt={pickupLocationImage("ALT-TEXT")} />
-                            </div>
-                            <div>
-                                <p>{pickupLocationName()}</p>
-                                <a href={pickupLocationLink()} target="_blank">{selectedPickupLocation? "Maps" : "..."}</a>
-                            </div>
-                        </div>
-                        <p className={"text-danger " + style.error}>{pickupLocationError}</p>
-                    </div>
-                    <div>
-                        <div>
-                            <h2>Transport cost</h2>
-                            <h2>Total cost</h2>
-                        </div> 
-                        <div>
-                            <p>{transportationCost? "Ksh. " + transportationCost : "..." }</p>
-                            <p>{totalCost? "Ksh. " + totalCost : "Ksh. ..." }</p>
-                        </div>
-                    </div>
-                </div>
+                <PickupLocation 
+                    handleCountyChange = { data => handleCountyChange(data) }
+                    counties = { counties }
+                    handleConstituencyChange = { data => handleConstituencyChange(data) }
+                    constituencies = { constituencies }
+                    handlePickupLocationChange = { data => handlePickupLocationChange(data) }
+                    pickupLocations = { pickupLocations }
+                    pickupLocationImage = {data => pickupLocationImage(data) }
+                    pickupLocationName = { data => pickupLocationName(data) }
+                    pickupLocationLink = { data => pickupLocationLink(data) }
+                    selectedPickupLocation = { selectedPickupLocation }
+                    pickupLocationError = { pickupLocationError }
+                    transportationCost = { transportationCost }
+                    totalCost = { totalCost }
+                    communicationPhoneNumber = {communicationPhoneNumber}
+                    handleCommunicationPhoneNumber = { data => handleCommunicationPhoneNumber(data)}
+                    communicationEmail = {communicationEmail}
+                    communicationContactError = {communicationContactError}
+                    handleCommunicationEmail = { data => handleCommunicationEmail(data) }
+                    pickupLocationMapsLink = {pickupLocationMapsLink}
+                    pickupLocationDirection = {pickupLocationDirection}
+                    advancedPickupLocationError = {advancedPickupLocationError}
+                    handlePickupLocationMapsLink = {data => handlePickupLocationMapsLink(data)}
+                    handlePickupLocationDirection = {data => handlePickupLocationDirection(data)}
+                />
+                    
             </div>
-            <div className={style.contact}>
-                <h2>For communication during delivery</h2>
-                <div>
-                    <div>
-                        <label htmlFor="phone_number">Phone no</label>
-                        <input className = {style.commPhoneNumberSm} placeholder =  {"254700000000"} value = {communicationPhoneNumber} onChange = {event => handleCommunicationPhoneNumber(event)} type="number" name="phone_number" />
-                        <label htmlFor="email">Email</label>
-                        <input className = {style.commEmailSm} placeholder = {"user@domain.com"} value = {communicationEmail} onChange = {event => handleCommunicationEmail(event)} type="email" name="email" />
-                    </div>
-                    <div>
-                        <input placeholder =  {"254700000000"} value = {communicationPhoneNumber} onChange = {event => handleCommunicationPhoneNumber(event)} type="number" name="phone_number" />
-                        <input placeholder = {"user@domain.com"} value = {communicationEmail} onChange = {event => handleCommunicationEmail(event)} type="email" name="email" />
-                    </div>
-                </div>
-                <p className={"text-danger " + style.error}>{communicationContactError}</p>
-            </div>
-            <div className={style.payment}>
-                <h2>Payment</h2>
-                <div>
-                    <div>
-                        <span>M-Pesa</span>
-                        <span>VISA</span>
-                        <span>MasterCard</span>
-                    </div>
-                    <div className={style.mpesa}>
-                        <div>
-                            <label>Total cost</label>
-                            <span className={style.totalCostSm}><strong>{totalCost? "Ksh. " + totalCost : "..." }</strong></span>
-                            <label htmlFor="phone_number">Phone number(Mpesa)</label>
-                            <input placeholder =  {"254700000000"} className = {style.mpesaPhoneNumberS} value = {mpesaPhoneNumber} onChange = {event => handleMpesaPhoneNumber(event)} type="number" name="phone_number" />
-                        </div>
-                        <div>
-                            <p className = {style.totalCostLg}><strong>{totalCost? "Ksh. " + totalCost : "..." }</strong></p>
-                            <input placeholder =  {"254700000000"} className = {style.mpesaPhoneNumberL} value = {mpesaPhoneNumber} onChange = {event => handleMpesaPhoneNumber(event)} type="number" name="phone_number" />
-                        </div>
-                    </div>
-                    <p className={"text-danger " + style.error}>{mpesaError}</p>
-                </div>
-            </div>
+            <Payment 
+                totalCost = {totalCost}
+                mpesaPhoneNumber = {mpesaPhoneNumber}
+                handleMpesaPhoneNumber = {data => handleMpesaPhoneNumber(data)}
+                mpesaError = {mpesaError}
+            />
+            
             <div className={style.finish}>
                 <button onClick = { event => handlePurchase(event)}>Buy now</button>
                 <p className={"text-danger " + style.error}>{formError}</p>

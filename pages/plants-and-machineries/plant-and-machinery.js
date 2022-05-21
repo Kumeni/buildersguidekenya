@@ -228,7 +228,7 @@ export default function index(props) {
 
                 <title>{title()}</title>
             </Head>
-            <Header title="Plant and Machinery"/>
+            <Header title="Plant and Machinery" loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
             <main className={style.body}>
                 <div className={style.company}>
                     <div>

@@ -130,7 +130,7 @@ export default function Article(props) {
 
                 <title>{title()}</title>
             </Head>
-            <Header title={'Tip and Advice'} />
+            <Header title={'Tip and Advice'} loginData = {props.loginData} setLoginData = { data => props.setLoginData(data)}/>
             <div className={style.container}>
                 {
                     articleContent?

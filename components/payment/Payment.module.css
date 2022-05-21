@@ -1,0 +1,93 @@
+.payment > h2{
+    font-size: large;
+}
+.payment > div{
+    padding:1rem;
+}
+@media (max-width:600px){
+    .payment > div{
+        padding:1rem 0rem;
+    }
+}
+.payment > div > div:first-of-type > span{
+    padding: 0.5rem 1rem;
+    display:inline-block;
+}
+
+.mpesa label, .mpesa p{
+    display:grid;
+    display: -moz-grid;
+    display:-ms-grid;
+    grid-template-columns: max-content;
+    grid-template-rows:auto;
+    align-content: center;
+    margin: 0.5rem 0rem;
+}
+.mpesa label, .mpesa p{
+    min-width:90px;
+    height:42px;
+}
+.mpesa input{
+    width:300px;
+    padding:0.5rem 1rem;
+    border:1px solid rgba(233, 116, 21, 0.5);
+    transition:border-color 0.2s;
+}
+@media (max-width:375px){
+    .mpesa input{
+        width:100%;
+        display:block;
+    }
+}
+.mpesa input:focus{
+    outline:none;
+    border-color:rgba(233, 116, 21, 1);
+}
+.mpesaPhoneNumberL{
+    display:grid;
+    display: -moz-grid;
+    display:-ms-grid;
+    grid-template-columns: max-content;
+    grid-template-rows:auto;
+    align-content: center;
+    margin: 0.5rem 0rem;
+}
+.totalCostLg{
+    display:block;
+}
+.mpesaPhoneNumberS, .totalCostSm{
+    display:none;
+}
+
+.mpesa{
+    display:grid;
+    display:-ms-grid;
+    display:-moz-grid;
+    grid-template-columns:max-content auto;
+    grid-template-rows:auto;
+    padding:1rem;
+}
+.mpesa > div > label{
+    min-width:200px;
+}
+.mpesa strong{
+    font-weight:600;
+}
+
+@media (max-width:566px){
+    .mpesaPhoneNumberS{
+        display:grid;
+    }
+    .totalCostSm{
+        display:inline-block;
+    }
+    .mpesa > div:nth-of-type(2){
+        display:none;
+    }
+    .mpesa{
+        grid-template-columns:auto;
+    }
+    /* .mpesaPhoneNumberL, .totalCostLg{
+        display:none;
+    } */
+}

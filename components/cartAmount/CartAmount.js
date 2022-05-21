@@ -24,7 +24,10 @@ function CartAmount(props) {
                 </tr>
             </tbody>
         </table>
-        <button className = {style.checkout + " bg-success text-white"}>Checkout</button>
+        <button 
+            className = {style.checkout + " bg-success text-white"}
+            onClick = {() => props.handleShowPayment(true)}
+        >Checkout</button>
         <p className = {style.notice}>Transport to pickup location</p>
     </div>
   )

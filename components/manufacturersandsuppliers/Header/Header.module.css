@@ -1,7 +1,7 @@
 .header, .phoneSearch{
     margin:auto; 
     background-color:rgba(255, 255, 255, 0.9);
-    box-shadow:0px 1px 2px rgb(200, 200, 200);
+    /* box-shadow:0px 1px 2px rgb(200, 200, 200); */
 }
 
 .header{
@@ -25,9 +25,99 @@
     position:sticky;
     top:0px;
     z-index:2;
-    
+    width:100%;
 }
 
+.signin{
+    position:relative;
+}
+.positionFixed{
+    position:fixed;
+    top:0px;
+    left:0px;
+    right:0px;
+    z-index:5;
+}
+.signin > div:first-of-type{
+    position:absolute;
+    right:-100vw;
+    top:0px;
+    z-index:5;
+    background-color:rgba(255, 255, 255, 0.9);
+    padding:2rem;
+    text-align:center;
+    border-left:1px solid rgb(210, 210, 210);
+    border-bottom:1px solid rgb(210, 210, 210);
+    transition:right 0.5s;
+}
+@media (min-width:425px){
+    .signin > div:first-of-type{
+        min-width:300px;
+    }
+}
+.signin > div:first-of-type > button{
+    border:1px solid rgb(210, 210, 210);
+    padding:0.3rem 1rem;
+    border-radius:5px;
+    display:block;
+    width:max-content;
+    margin:1rem auto;
+    transition:border-color 0.5s;
+}
+.signin > div:first-of-type > button:hover{
+    border-color:rgb(12, 39, 241);
+}
+.userInitial{
+    text-transform: capitalize;
+    font-size:1rem;
+    padding:0.2rem 0.7rem;
+    display:inline-block;
+    border-radius:50%;
+    align-self:center;
+    margin-right:0.5rem;
+    margin-bottom:0rem;
+}
+.userInitial:hover{
+    cursor:pointer;
+}
+.googleIconContainer{
+    width: 30px;
+    height:30px;
+    margin-right:0.5rem;
+}
+.googleIconContainer > img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+.signin > div:first-of-type > a:first-of-type{
+    display:grid;
+    display:-ms-grid;
+    display:-moz-grid;
+    grid-template-columns:max-content auto;
+    border:1px solid rgb(210, 210, 210);
+    border-radius:5px;
+    justify-content:center;
+    align-content:center;
+    width:max-content;
+    padding:0.2rem 0.5rem;
+    margin:auto;
+    transition:border-color 0.5s;
+}
+.signin > div:first-of-type > a:first-of-type:hover{
+    text-decoration:none;
+    border-color:rgb(12, 39, 241);
+}
+.signin > div:first-of-type > a:nth-of-type(2){
+    padding:0.5rem 0.8rem;
+}
+.signin > div:first-of-type > a:nth-of-type(2):hover{
+    text-decoration:none;
+}
+.signin > div:first-of-type > p{
+    margin-top:1.5rem;
+    font-size:0.9rem;
+}
 .phoneSearch{
     display:none;
     height:100%;

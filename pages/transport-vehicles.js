@@ -236,7 +236,7 @@ export default function constructionMachinery(props) {
                 <title>Find transport vehicles for hire or sale in Kenya</title>
             </Head>
             
-            <Header title='Transport vehicles' />
+            <Header title='Transport vehicles' loginData ={props.loginData} setLoginData = { data => props.setLoginData(data)}/>
             <main className={"body"}>
                 <div className={"categoryNavigation"}>
                     {

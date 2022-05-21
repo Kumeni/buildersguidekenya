@@ -1,5 +1,4 @@
 .container{
-    border:1px solid rgb(210, 210, 210);
     padding:2rem;
     background-color:white;
     display:grid;
@@ -8,7 +7,7 @@
     grid-template-columns:auto;
     grid-template-rows: auto auto auto;
     justify-content: center;
-    margin-right:3rem;
+    /* margin-right:3rem; */
 }
 
 .table{
@@ -31,11 +30,11 @@
     margin:2rem auto;
 }
 
-@media (max-width:1225px){
+/* @media (max-width:1225px){
     .container{
         margin-right:0rem;
     }
-}
+} */
 @media (max-width:365px){
     .container{
         padding:2rem 0.5rem;

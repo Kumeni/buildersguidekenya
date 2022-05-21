@@ -10,6 +10,7 @@ import Head from 'next/head'
 //import "swiper/components/navigation/navigation.min.css"
 function MyApp({ Component, pageProps }) {
 const [baseURL, setBaseURL] = useState("http://localhost:1337");
+// const [baseURL, setBaseURL] = useState("http://192.168.88.200:1337");
 const [loginData, setLoginData] = useState();
 const [pagesData, setPagesData] = useState({
 	home:{},
@@ -20,7 +21,8 @@ const [pagesData, setPagesData] = useState({
 });
 
 useEffect(() => {
-	if(loginData !== undefined){
+	if(loginData !== undefined && loginData !== null){
+		//If login data is present save it in the sessionStorage temporarily;
 		sessionStorage.setItem("loginData", JSON.stringify(loginData))
 	} else {
 		let storedLoginData = sessionStorage.getItem("loginData");
@@ -28,6 +30,12 @@ useEffect(() => {
 			setLoginData(JSON.parse(storedLoginData));
 	}
 }, [loginData])
+
+//on logout
+/**
+ * 1. The data stored in the sessionStorage should be deleted
+ * 2. The data stored in the program memory should also be deleted.
+ */
 
 /*useEffect(()=>{
 	if(pagesData)

@@ -276,7 +276,8 @@ export default function HomePage(props){
 			</Head>
 
 			<Header 
-				// loginData = { props.loginData }
+				loginData = { props.loginData }
+				setLoginData = { data => props.setLoginData(data)}
 			/>
 			<Banner />
 			<ComponentNavigation />

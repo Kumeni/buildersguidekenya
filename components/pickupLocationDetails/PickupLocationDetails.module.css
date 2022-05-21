@@ -1,0 +1,55 @@
+.pickupLocationDetails{
+    display:grid;
+    display:-ms-grid;
+    display:-moz-grid;
+    grid-template-columns: max-content max-content;
+    grid-template-rows:auto;
+    align-content:center;
+    /* border:1px solid green; */
+    margin:1rem;
+}
+.pickupLocationDetails > div:first-of-type{
+    height:max-content;
+}
+@media (max-width:425px){
+    .pickupLocationDetails{
+        margin:1rem 0rem;
+    }
+    .pickupLocationDetails > p{
+        margin-bottom:0rem !important;
+    }
+}
+.pickupLocationDetails > div:first-of-type{
+    width:100px;
+    height:auto;
+}
+.pickupLocationDetails > div:first-of-type > img{
+    width:100%;
+}
+.pickupLocationDetails > div:last-of-type > p, .pickupLocationDetails > div:last-of-type > a{
+    display:block;
+    width:200px;
+    font-size:1rem;
+    padding-left:0.5rem;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    margin-bottom:0rem;
+}
+/*@media (min-width:550px) and (max-width:768px){
+    .pickupLocationDetails > div:last-of-type > p, .pickupLocationDetails > div:last-of-type > a{
+        border:1px solid black;
+        width:50vw;
+    }
+}
+@media (max-width:550px){
+    .pickupLocationDetails > div:last-of-type > p{
+        width:40vw;
+        border:1px solid black;
+    }
+}
+@media (max-width:425px){
+    .pickupLocationDetails > div:last-of-type > p{
+        width:40vw;
+    }
+}*/
